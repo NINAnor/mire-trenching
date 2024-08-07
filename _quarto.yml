@@ -3,22 +3,19 @@ project:
   output-dir: _book
   
 book:
-  title: "This is the title"
-  author: "Kari Nordmann"
+  title: "Mire trenching indicator"
+  author: "Anders Kolstad"
+  date: last-modified
   description: | 
-    Add some description here if you like.
-  repo-url: https://github.com/NINAnor/NINA-ebook-template
+    An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.
+  repo-url: https://github.com/NINAnor/mire-trenching
   repo-branch: main
   repo-actions: [edit]
   sharing: [twitter, facebook, linkedin]
   chapters:
     - index.qmd
-    - part: my-first-book.qmd
-      chapters: 
-        - hello-world.qmd
-  appendices:
-    - appendix-notes.qmd
-    
+    - study-area.qmd
+
 format:
   html: 
     theme: 

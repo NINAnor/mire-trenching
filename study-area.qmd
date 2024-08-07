@@ -1,0 +1,107 @@
+# Study area and trenching data {#sec-area}
+
+In this project we will use data from Levanger in central Norway.
+This are was part of the pilot study to identify mire trenched in Norway based
+on LiDAR. The area is xxxx km2 big
+
+```{r setup}
+#| warning: false
+#| error: false
+#| include: false
+library(sf)
+library(tidyverse)
+library(basemaps)
+```
+
+
+```{r data}
+#| code-fold: true
+#| code-summary: "Read data" 
+
+path <- "P:/41201785_okologisk_tilstand_2022_2023/data/grofter/Kolstad"
+lev <- sf::read_sf(paste0(path, "/LevangerGroftPolygon.shp")) |>
+  sf::st_make_valid()
+
+```
+
+
+
+```{r stats}
+#| code-fold: true
+#| code-summary: "Calculate study extent"
+
+lev_bb <- sf::st_bbox(lev)
+myx <- unname(round(lev_bb["xmax"] - lev_bb["xmin"]))
+myy <- unname(round(lev_bb["ymax"] - lev_bb["ymin"]))
+```
+The study area is `r myx` x `r myy` meters,
+or `r round(myx*myy/10^6)` km2.
+
+
+```{r basemapSetup}
+#| code-fold: true
+#| code-summary: "Set up basemap"
+
+basemaps::set_defaults(map_service = "osm", map_type = "topographic")
+lev2 <- lev |>
+  st_transform(3857)
+```
+
+```{r fig-map1}
+#| code-fold: true
+#| code-summary: "Make map"
+#| fig-cap: |
+#|   "Map of study area in Levanger, central Norway, showing trenched mires i purple. 
+#|   Note that the colored polygon borders exagerrate the area of the trenches."
+#| cashe: true
+#| message: false
+
+ggplot() + 
+  basemap_gglayer(sf::st_bbox(lev2)) +
+  scale_fill_identity() + 
+  coord_sf() +
+  geom_sf(data = lev2,
+          fill = "purple",
+          color = "purple") +
+  theme_bw()
+```
+
+
+```{r zoombbox}
+#| code-fold: true
+#| code-summary: "Creat new bbox"
+#| warning: false
+
+bbox_new <- st_bbox(lev2) # current bounding box
+
+xrange <- bbox_new$xmax - bbox_new$xmin # range of x values
+yrange <- bbox_new$ymax - bbox_new$ymin # range of y values
+
+bbox_new[1] <- bbox_new[1] + (0.3 * xrange) # xmin - left
+bbox_new[3] <- bbox_new[3] - (0.5 * xrange) # xmax - right
+bbox_new[2] <- bbox_new[2] + (0.4 * yrange) # ymin - bottom
+bbox_new[4] <- bbox_new[4] - (0.5 * yrange) # ymax - top
+
+lev2_crop <- lev2 |>
+  sf::st_crop(bbox_new)
+
+#bbox_new <- bbox_new[c(1,3,2,4)]
+```
+
+```{r fig-map2}
+#| code-fold: true
+#| code-summary: "Create map"
+#| fig-cap: |
+#|   "Zoomed in version of the previsous map showing systematic trenching,
+#|   but also more sporadic trenches that might be errors in the model."
+
+ggplot() + 
+  basemap_gglayer(bbox_new) +
+  scale_fill_identity() + 
+  geom_sf(data = lev2_crop,
+          fill = "purple",
+          color = "purple") +
+  theme_bw()+
+  coord_sf()
+```
+
