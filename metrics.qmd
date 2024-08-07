@@ -1,0 +1,87 @@
+# Possible metrics {#sec-metrics}
+
+From the map of trenches (@fig-map1) we want to extract some numerical value 
+that we can assign to an area in order to describe the severity of trenching.
+This metric, or variable, need to be
+
+- simple
+- interpretable
+- updatable
+- area explicit
+
+It can be based on for example on some variation using the the length or 
+frequency of trenches. 
+The area of trenches is less suitable, as trenches are in reality linear 
+elements even though we represent them here as polygons. 
+The polygons could be turned into line elements, for example by finding 
+the central lines using ET Geowizards. 
+However, this is computationally heavy, and we think that the length of the 
+trenches can be reasonably approximated using half the circumference, 
+minus a small penalty. 
+The density of trenches is also less suitable as the individual polygons are
+somewhat arbitrarily separated.
+
+## The importance of the ecosystem accounting area
+We presented a study area of `r round(myx*myy/10^6)` km^2^. 
+However, for the purpose of an ecosystem condition account or assessment, 
+this area needs to be partitioned into unique and non-overlapping ecosystems,
+and our indicator needs to address the ecosystem condition the target ecosystem explicitly.
+The ecosystem that this indicator is aimed at is wetlands, or _våtmark_ in Norwegian.
+We therefore need to mask our spatial data at some stage in order to exclude 
+trenches identified in other ecosystems. 
+However, this is problematic for several reasons.
+First, we do not have an official ecosystem delineation map,
+and it is not yet clear if the ecosystem should be defined as all types of wetlands,
+or just open wetlands. 
+In the case of the latter, we have a quite good ecosystem map that we can use. 
+But in doing so, we automatically exclude wetlands, or previous wetlands, that 
+have become forested due to the lowered water table that comes from trenching.
+In other words, we exclude the areas that are in the worst condition.
+
+This is a well known issue in ecosystem accounting (ref Jacobson).
+In the following we decide to strictly follow the UN standard for ecosystem accounting
+and only focus on the open mires.
+However, in the future, if the target ecosystem becomes defined as to include 
+forested mires, then it is not a problem to update this indicator to include such 
+areas as well.
+
+## Frequency-based metrics {#sec-fbm}
+The frequency of trenches can be measured in many ways and at amny different scales.
+One way is to use the NiN variable called `7TK` and the measurement scale `A4b` (ref).
+This approach consists of gridding the entire study region into 10𝖷10 m cells,
+and then categorizing the cells as having or not having trenches. 
+The frequency of grid cells with trenches determines the variable value.
+
+The upper and lower reference values for the variable is probably best defined 
+using the natural value of 0% and 100%, respectively. 
+However, the rescaling of the variable into an indicator should probably follow
+some non-linear function, potentially aided by a threshold value representing the
+value of the variable that defines the separation distinction good and bad ecosystem 
+condition (ref).
+Expert opinion, possibly aided by real word data or visual aids such as areal 
+photos of areas with different variable value, could be used to set this threshold value.
+
+A different option for a frequency-based metric include counting the proportion of mire 
+units (e.g. hydrological units) that are affected by trenching. 
+This approach require that we know the population of mire units, or that
+we have a good, balanced sample of such units, to base our metric on.
+We do not have this currently. 
+Secondly, the metric, as is it described here, becomes quite sensible to errors
+in the trenching model, and would probably require setting some (arbitrary) threshold
+value for the _severity_ of trenching on each mire unit.
+
+## Length based metrics
+As describes earlier, the length of trenches, and therefore also the accumulated 
+length for any given area, may be approximated by using half the circumference 
+of the trenching polygons (minus some small penalty).
+This metric is very simple and easily interpretable. 
+The metric is also ecologically relevant, as the length of trenches is 
+probably among the metrices that best explain the impact of trenching on the 
+landscape (in combination with the depth of the trenches, but this is not 
+something we have data on currently).
+
+The upper reference value must be defined as 0 m of trenches.
+The lower reference value is not obvious, nor the threshold value. 
+These cold be defined using expert opinion, as described for @sec-fbm.
+
+

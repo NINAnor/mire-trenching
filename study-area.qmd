@@ -1,8 +1,6 @@
 # Study area and trenching data {#sec-area}
 
-In this project we will use data from Levanger in central Norway.
-This are was part of the pilot study to identify mire trenched in Norway based
-on LiDAR. The area is xxxx km2 big
+In this project we will use data from Levanger in central Norway. This area was part of the pilot study to identify mire trenches in Norway based on LiDAR (see @sec-background).
 
 ```{r setup}
 #| warning: false
@@ -11,8 +9,8 @@ on LiDAR. The area is xxxx km2 big
 library(sf)
 library(tidyverse)
 library(basemaps)
+options(scipen = 999)
 ```
-
 
 ```{r data}
 #| code-fold: true
@@ -24,8 +22,6 @@ lev <- sf::read_sf(paste0(path, "/LevangerGroftPolygon.shp")) |>
 
 ```
 
-
-
 ```{r stats}
 #| code-fold: true
 #| code-summary: "Calculate study extent"
@@ -34,9 +30,8 @@ lev_bb <- sf::st_bbox(lev)
 myx <- unname(round(lev_bb["xmax"] - lev_bb["xmin"]))
 myy <- unname(round(lev_bb["ymax"] - lev_bb["ymin"]))
 ```
-The study area is `r myx` x `r myy` meters,
-or `r round(myx*myy/10^6)` km2.
 
+The study area is `r myx` 𝖷 `r myy` meters, or `r round(myx*myy/10^6)` km^2^.
 
 ```{r basemapSetup}
 #| code-fold: true
@@ -53,7 +48,7 @@ lev2 <- lev |>
 #| fig-cap: |
 #|   "Map of study area in Levanger, central Norway, showing trenched mires i purple. 
 #|   Note that the colored polygon borders exagerrate the area of the trenches."
-#| cashe: true
+#| cache: true
 #| message: false
 
 ggplot() + 
@@ -65,7 +60,6 @@ ggplot() +
           color = "purple") +
   theme_bw()
 ```
-
 
 ```{r zoombbox}
 #| code-fold: true
@@ -91,6 +85,7 @@ lev2_crop <- lev2 |>
 ```{r fig-map2}
 #| code-fold: true
 #| code-summary: "Create map"
+#| cache: true
 #| fig-cap: |
 #|   "Zoomed in version of the previsous map showing systematic trenching,
 #|   but also more sporadic trenches that might be errors in the model."
@@ -105,3 +100,6 @@ ggplot() +
   coord_sf()
 ```
 
+The trenches model originally results in a raster with a continuous probability value for the occurence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) is a version of this data where a threshold value for the probabilities turn it into presence-absence data in the shape of polygons.
+
+## Mire data
