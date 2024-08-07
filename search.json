@@ -20,16 +20,6 @@
     ]
   },
   {
-    "objectID": "my-first-book.html",
-    "href": "my-first-book.html",
-    "title": "Part 1: Write the book",
-    "section": "",
-    "text": "Sample additional page",
-    "crumbs": [
-      "Part 1: Write the book"
-    ]
-  },
-  {
     "objectID": "hello-world.html",
     "href": "hello-world.html",
     "title": "1  The Hello World Example",
@@ -60,6 +50,16 @@
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>A</span>  <span class='chapter-title'>Additional Notes</span>"
+    ]
+  },
+  {
+    "objectID": "my-first-book.html",
+    "href": "my-first-book.html",
+    "title": "Part 1: Write the book",
+    "section": "",
+    "text": "Sample additional page",
+    "crumbs": [
+      "Part 1: Write the book"
     ]
   }
 ]
