@@ -1,6 +1,7 @@
 project:
   type: book
   output-dir: _book
+  pre-render: global.R
   
 book:
   title: "Mire trenching indicator"
@@ -15,6 +16,7 @@ book:
   chapters:
     - index.qmd
     - study-area.qmd
+    - delineation.qmd
     - metrics.qmd
     - how-to-update.qmd
 

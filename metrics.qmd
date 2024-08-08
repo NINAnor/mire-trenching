@@ -21,29 +21,6 @@ minus a small penalty.
 The density of trenches is also less suitable as the individual polygons are
 somewhat arbitrarily separated.
 
-## The importance of the ecosystem accounting area
-We presented a study area of `r round(myx*myy/10^6)` km^2^. 
-However, for the purpose of an ecosystem condition account or assessment, 
-this area needs to be partitioned into unique and non-overlapping ecosystems,
-and our indicator needs to address the ecosystem condition the target ecosystem explicitly.
-The ecosystem that this indicator is aimed at is wetlands, or _våtmark_ in Norwegian.
-We therefore need to mask our spatial data at some stage in order to exclude 
-trenches identified in other ecosystems. 
-However, this is problematic for several reasons.
-First, we do not have an official ecosystem delineation map,
-and it is not yet clear if the ecosystem should be defined as all types of wetlands,
-or just open wetlands. 
-In the case of the latter, we have a quite good ecosystem map that we can use. 
-But in doing so, we automatically exclude wetlands, or previous wetlands, that 
-have become forested due to the lowered water table that comes from trenching.
-In other words, we exclude the areas that are in the worst condition.
-
-This is a well known issue in ecosystem accounting (ref Jacobson).
-In the following we decide to strictly follow the UN standard for ecosystem accounting
-and only focus on the open mires.
-However, in the future, if the target ecosystem becomes defined as to include 
-forested mires, then it is not a problem to update this indicator to include such 
-areas as well.
 
 ## Frequency-based metrics {#sec-fbm}
 The frequency of trenches can be measured in many ways and at amny different scales.

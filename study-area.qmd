@@ -23,6 +23,7 @@ lev <- sf::read_sf(paste0(path, "/LevangerGroftPolygon.shp")) |>
   sf::st_make_valid()
 lev |> sf::st_write("data/lev.gpkg")
 ```
+
 ```{r data2}
 #| code-fold: true
 #| code-summary: "Read data"
@@ -39,7 +40,6 @@ myy <- unname(round(lev_bb["ymax"] - lev_bb["ymin"]))
 ```
 
 The study area is `r myx` 𝖷 `r myy` meters, or `r round(myx*myy/10^6)` km^2^.
-
 
 ```{r basemapSetup}
 #| code-fold: true
@@ -69,8 +69,7 @@ ggplot() +
   theme_bw()
 ```
 
-Let's zoom in on an area just north of Tomtvatnet, and overlay the trenches data
-with the best map that we have on the precense of open mires.
+Let's zoom in on an area just north of Tomtvatnet, and overlay the trenches data with the best map that we have on the presence of open mires.
 
 ```{r zoombbox}
 #| code-fold: true
@@ -122,7 +121,6 @@ mire_crop <- mire |>
 
 ```
 
-
 ```{r fig-map2}
 #| code-fold: true
 #| code-summary: "Create map"
@@ -147,8 +145,4 @@ ggplot() +
 
 ```
 
-The trenches model originally results in a raster with a continuous probability 
-value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) 
-is a version of this data where a threshold value of 90% for the probabilities 
-turn it into presence-absence data in the shape of polygons.
-
+The trenches model originally results in a raster with a continuous probability value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) is a version of this data where a threshold value of 90% for the probabilities turn it into presence-absence data in the shape of polygons.
