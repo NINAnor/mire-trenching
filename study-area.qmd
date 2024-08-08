@@ -9,17 +9,24 @@ In this project we will use data from Levanger in central Norway. This area was 
 library(sf)
 library(tidyverse)
 library(basemaps)
+library(stars)
 options(scipen = 999)
 ```
 
 ```{r data}
 #| code-fold: true
-#| code-summary: "Read data" 
+#| code-summary: "Read shape file and convert to gpkg" 
+#| eval: false
 
 path <- "P:/41201785_okologisk_tilstand_2022_2023/data/grofter/Kolstad"
 lev <- sf::read_sf(paste0(path, "/LevangerGroftPolygon.shp")) |>
   sf::st_make_valid()
-
+lev |> sf::st_write("data/lev.gpkg")
+```
+```{r data2}
+#| code-fold: true
+#| code-summary: "Read data"
+lev <- sf::read_sf("data/lev.gpkg")
 ```
 
 ```{r stats}
@@ -33,12 +40,13 @@ myy <- unname(round(lev_bb["ymax"] - lev_bb["ymin"]))
 
 The study area is `r myx` 𝖷 `r myy` meters, or `r round(myx*myy/10^6)` km^2^.
 
+
 ```{r basemapSetup}
 #| code-fold: true
 #| code-summary: "Set up basemap"
 
 basemaps::set_defaults(map_service = "osm", map_type = "topographic")
-lev2 <- lev |>
+lev_t <- lev |>
   st_transform(3857)
 ```
 
@@ -52,21 +60,24 @@ lev2 <- lev |>
 #| message: false
 
 ggplot() + 
-  basemap_gglayer(sf::st_bbox(lev2)) +
+  basemap_gglayer(sf::st_bbox(lev_t)) +
   scale_fill_identity() + 
   coord_sf() +
-  geom_sf(data = lev2,
+  geom_sf(data = lev_t,
           fill = "purple",
           color = "purple") +
   theme_bw()
 ```
+
+Let's zoom in on an area just north of Tomtvatnet, and overlay the trenches data
+with the best map that we have on the precense of open mires.
 
 ```{r zoombbox}
 #| code-fold: true
 #| code-summary: "Creat new bbox"
 #| warning: false
 
-bbox_new <- st_bbox(lev2) # current bounding box
+bbox_new <- st_bbox(lev) # current bounding box
 
 xrange <- bbox_new$xmax - bbox_new$xmin # range of x values
 yrange <- bbox_new$ymax - bbox_new$ymin # range of y values
@@ -76,11 +87,41 @@ bbox_new[3] <- bbox_new[3] - (0.5 * xrange) # xmax - right
 bbox_new[2] <- bbox_new[2] + (0.4 * yrange) # ymin - bottom
 bbox_new[4] <- bbox_new[4] - (0.5 * yrange) # ymax - top
 
-lev2_crop <- lev2 |>
+lev_crop <- lev |>
   sf::st_crop(bbox_new)
-
-#bbox_new <- bbox_new[c(1,3,2,4)]
 ```
+
+```{r readMire}
+#| code-fold: true
+#| code-summary: "Read mire data"
+#| eval: false
+
+# I took the gdb file in the same folder and opened it in arcgis pro
+# and exported a section of it as geoTIFF
+# Raster GBD is not readable in R with GDAL <3.7
+path <- "P:/41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"
+mire <- stars::read_stars(path) |>
+  st_crop(lev_bb) |> 
+  setNames("prob") |>
+  mutate(prob = case_when(
+    prob > 900 ~ 1,
+    TRUE ~ NA
+  ))
+stars::write_stars(mire, "data/mire_levanger_reclassified.tif")
+saveRDS(mire, "data/mire_levanger_reclassified.rds")
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "Read mire data"
+
+mire <- readRDS("data/mire_levanger_reclassified.rds")
+mire_crop <- mire |>
+  st_crop(st_bbox(lev_crop))
+
+
+```
+
 
 ```{r fig-map2}
 #| code-fold: true
@@ -88,18 +129,26 @@ lev2_crop <- lev2 |>
 #| cache: true
 #| fig-cap: |
 #|   "Zoomed in version of the previsous map showing systematic trenching,
-#|   but also more sporadic trenches that might be errors in the model."
+#|   but also more sporadic trenches that might be errors in the model.
+#|   The red areas are open mires. Note that most of the trenches are located in 
+#|   other nature types, mosty forests."
+
 
 ggplot() + 
-  basemap_gglayer(bbox_new) +
-  scale_fill_identity() + 
-  geom_sf(data = lev2_crop,
+  geom_sf(data = lev_crop,
           fill = "purple",
           color = "purple") +
-  theme_bw()+
-  coord_sf()
+  geom_stars(data = mire_crop,
+             downsample = 0,
+             fill = "red",
+             na.action = na.omit,
+             alpha=.7)+
+  theme_bw()
+
 ```
 
-The trenches model originally results in a raster with a continuous probability value for the occurence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) is a version of this data where a threshold value for the probabilities turn it into presence-absence data in the shape of polygons.
+The trenches model originally results in a raster with a continuous probability 
+value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) 
+is a version of this data where a threshold value of 90% for the probabilities 
+turn it into presence-absence data in the shape of polygons.
 
-## Mire data
