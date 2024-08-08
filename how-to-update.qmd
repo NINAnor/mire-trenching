@@ -1,3 +1,23 @@
-# Options for updating the trenching indicator
+# Options for updating the trenching indicator {#sec-update}
 
-...
+The trenches map is based on LiDAR which is a dataset we do not assume to become updated
+in the near future.
+However, trenches can be assumed to not go away by themselves,
+so this might not be such an insurmountable issue. 
+But updating the indicator needs to rely on some
+other information with a higher turnover. We have two candidates.
+
+1. Length of trenches restored (or area affected by this restoration)
+
+1. Change in ecosystem extent
+
+The second option will need to be part of the updating procedure in any case.
+The effect of this is explained in @sec-delineation.
+
+Option 1 can be informed by an existing dataset on mire restoration in Norway,
+managed by the Norwegian Environment Agency. 
+https://services.arcgis.com/2JlC1JM9VNKvqb4F/arcgis/rest/services/Myrrestaurering_Groft_Torvtak_3_visning/FeatureServer
+There are no restored trenches in our study area, and in general, the area or 
+length  restored is minuscule compared to the areas or length that are trenched.
+However, this data might still need to go into the updating protocol.
+The data can probably be downloaded via an API from AGOL.

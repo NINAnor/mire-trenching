@@ -1,4 +1,4 @@
-# Delineation
+# Delineation {#sec-delineation}
 
 ```{r start}
 #| include: false

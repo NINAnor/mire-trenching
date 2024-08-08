@@ -8,6 +8,7 @@ This metric, or variable, need to be
 - interpretable
 - updatable
 - area explicit
+- scalable (optional)
 
 It can be based on for example on some variation using the the length or 
 frequency of trenches. 
@@ -60,5 +61,29 @@ something we have data on currently).
 The upper reference value must be defined as 0 m of trenches.
 The lower reference value is not obvious, nor the threshold value. 
 These cold be defined using expert opinion, as described for @sec-fbm.
+
+### Area-based metric
+The area affected by trenching can perhaps be estimated by adding a buffer on
+the trenching polygons. The area affected by trenching as a proportion of the 
+total mire area is a nice and simple concept for an indicator.
+The challenge is how to define the buffer. 
+10 m buffers have been used in the past. 
+However, the size of the effect from a trench decreases non-linearly from the 
+center of the ditch, 
+and the length of the effect zone will depend a lot on the local typography. 
+Ditches at the bottom of sloping mires will be more effective at draining
+water from the mire than a trench located near the top.
+Perhaps information about sloe could be included in the calculation of buffer widths?
+
+
+## Scalability
+The metric chosen to inform the indicator on trenching should idealy be scalable,
+meaning it can be calculated or interpreted at different scale.
+The indicator might be useful for regional assessment of wetland condition,
+as well as in local or project scale assessment, for example in association with
+environmental impact assessments for new building projects.
+
+I believe the three methods describe above all all scalable and could be used 
+at local scales as well as regional scale (which is the main focus here).
 
 
