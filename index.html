@@ -148,14 +148,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./delineation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./how-to-update.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
   </div>
 </li>
     </ul>
@@ -215,7 +221,8 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="1"><span class="header-section-number">1</span> Background and aims</h1>
 <p>In order to describe the ecological condition of wetland, an inclusion of hydrology is essential. Still, there are no operational ecosystem condition indicators that adequately describe the hydrological status of wetlands in Norway.<br>
 In Norway, trenching in order to lower the water table of mires has been widely conducted for centuries, and systematically conducted for about 150 years, most commonly in order to facilitate the cultivation of crops or trees. Today, the creation of new trenches is not allowed, yet the scars of old and also more recently made or maintained trenches are evident in the landscape. Many of the trenched ares have changed from open wetlands into forest or agriculture.</p>
-<p>There are no official maps of mire trenches in Norway. In order to make such a map, Vegar Bakkestuen did a pilot study to see if he could identify trenches from LiDAR. After annotation ground-trouthed data from several regions in Norway, he trained a deep-learning algorithm to estimate the probability of the occurrence of trenches. The model was applied to a number of smaller study areas in Norway. The results were promising, and efforts are underway to scale up this model and predict mire trenches across Norway.</p>
+<p>There are no official maps of mire trenches in Norway. In order to make such a map, Vegar Bakkestuen did a pilot study to see if he could identify trenches from LiDAR. After annotating ground-trouthed data from several regions in Norway, he trained a deep-learning algorithm to estimate the probability of the occurrence of trenches. The model was applied to a number of smaller study areas in Norway. The results were promising, and efforts are underway to scale up this model and predict mire trenches across Norway.</p>
+<p>The trenching map provides a probability for the occurrence of trenches in 1x1 m grid cells. Although the deep learning model is trained on trenches in mires, the map identifies trenches across whole landscapes, including trenches in forests (some thay may have been mires at some stage), agriculture, road ditches, etc.</p>
 <p>This projects goal is to develop a concept for how this national trenching map can be used in the near future to characterize the hydrological status of mires in Norway though the use of a normative indicator. Some of the requirements for such an indicator include having area-representative data (i.e.&nbsp;wall-to-wall data or balanced on key environmental variables), and the ability to regularly update the indicator values based on new information. It is also recommended that indicators are based on open data and source code.</p>
 
 

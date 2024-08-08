@@ -8,7 +8,7 @@
 
 <meta name="description" content="An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.">
 
-<title>4&nbsp; Possible metrics – Mire trenching indicator</title>
+<title>3&nbsp; Delineation – Mire trenching indicator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,8 +31,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./how-to-update.html" rel="next">
-<link href="./delineation.html" rel="prev">
+<link href="./metrics.html" rel="next">
+<link href="./study-area.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metrics.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./delineation.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -147,13 +147,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./delineation.html" class="sidebar-item-text sidebar-link">
+  <a href="./delineation.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./metrics.html" class="sidebar-item-text sidebar-link active">
+  <a href="./metrics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
   </div>
 </li>
@@ -173,17 +173,16 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-fbm" id="toc-sec-fbm" class="nav-link active" data-scroll-target="#sec-fbm"><span class="header-section-number">4.1</span> Frequency-based metrics</a></li>
-  <li><a href="#length-based-metrics" id="toc-length-based-metrics" class="nav-link" data-scroll-target="#length-based-metrics"><span class="header-section-number">4.2</span> Length based metrics</a></li>
+  <li><a href="#the-importance-of-the-ecosystem-accounting-area" id="toc-the-importance-of-the-ecosystem-accounting-area" class="nav-link active" data-scroll-target="#the-importance-of-the-ecosystem-accounting-area"><span class="header-section-number">3.1</span> The importance of the ecosystem accounting area</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/metrics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/delineation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-metrics" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></h1>
 </div>
 
 
@@ -200,24 +199,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>From the map of trenches (<a href="study-area.html#fig-map1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>) we want to extract some numerical value that we can assign to an area in order to describe the severity of trenching. This metric, or variable, need to be</p>
-<ul>
-<li>simple</li>
-<li>interpretable</li>
-<li>updatable</li>
-<li>area explicit</li>
-</ul>
-<p>It can be based on for example on some variation using the the length or frequency of trenches. The area of trenches is less suitable, as trenches are in reality linear elements even though we represent them here as polygons. The polygons could be turned into line elements, for example by finding the central lines using ET Geowizards. However, this is computationally heavy, and we think that the length of the trenches can be reasonably approximated using half the circumference, minus a small penalty. The density of trenches is also less suitable as the individual polygons are somewhat arbitrarily separated.</p>
-<section id="sec-fbm" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="sec-fbm"><span class="header-section-number">4.1</span> Frequency-based metrics</h2>
-<p>The frequency of trenches can be measured in many ways and at amny different scales. One way is to use the NiN variable called <code>7TK</code> and the measurement scale <code>A4b</code> (ref). This approach consists of gridding the entire study region into 10𝖷10 m cells, and then categorizing the cells as having or not having trenches. The frequency of grid cells with trenches determines the variable value.</p>
-<p>The upper and lower reference values for the variable is probably best defined using the natural value of 0% and 100%, respectively. However, the rescaling of the variable into an indicator should probably follow some non-linear function, potentially aided by a threshold value representing the value of the variable that defines the separation distinction good and bad ecosystem condition (ref). Expert opinion, possibly aided by real word data or visual aids such as areal photos of areas with different variable value, could be used to set this threshold value.</p>
-<p>A different option for a frequency-based metric include counting the proportion of mire units (e.g.&nbsp;hydrological units) that are affected by trenching. This approach require that we know the population of mire units, or that we have a good, balanced sample of such units, to base our metric on. We do not have this currently. Secondly, the metric, as is it described here, becomes quite sensible to errors in the trenching model, and would probably require setting some (arbitrary) threshold value for the <em>severity</em> of trenching on each mire unit.</p>
-</section>
-<section id="length-based-metrics" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="length-based-metrics"><span class="header-section-number">4.2</span> Length based metrics</h2>
-<p>As describes earlier, the length of trenches, and therefore also the accumulated length for any given area, may be approximated by using half the circumference of the trenching polygons (minus some small penalty). This metric is very simple and easily interpretable. The metric is also ecologically relevant, as the length of trenches is probably among the metrices that best explain the impact of trenching on the landscape (in combination with the depth of the trenches, but this is not something we have data on currently).</p>
-<p>The upper reference value must be defined as 0 m of trenches. The lower reference value is not obvious, nor the threshold value. These cold be defined using expert opinion, as described for <a href="#sec-fbm" class="quarto-xref"><span>Section 4.1</span></a>.</p>
+<section id="the-importance-of-the-ecosystem-accounting-area" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="the-importance-of-the-ecosystem-accounting-area"><span class="header-section-number">3.1</span> The importance of the ecosystem accounting area</h2>
+<p>We presented a study area of <code>r round(myx*myy/10^6)</code> km<sup>2</sup>. However, for the purpose of an ecosystem condition account or assessment, this area needs to be partitioned into unique and non-overlapping ecosystems, and our indicator needs to address the ecosystem condition the target ecosystem explicitly. The ecosystem that this indicator is aimed at is wetlands, or <em>våtmark</em> in Norwegian. We therefore need to mask our spatial data at some stage in order to exclude trenches identified in other ecosystems. However, this is problematic for several reasons. First, we do not have an official ecosystem delineation map, and it is not yet clear if the ecosystem should be defined as all types of wetlands, or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use. But in doing so, we automatically exclude wetlands, or previous wetlands, that have become forested due to the lowered water table that comes from trenching. In other words, we exclude the areas that are in the worst condition.</p>
+<p>This is a well known issue in ecosystem accounting (ref Jacobson). In the following we decide to strictly follow the UN standard for ecosystem accounting and only focus on the open mires. However, in the future, if the target ecosystem becomes defined as to include forested mires, then it is not a problem to update this indicator to include such areas as well.</p>
 
 
 </section>
@@ -645,13 +630,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./delineation.html" class="pagination-link" aria-label="Delineation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span>
+      <a href="./study-area.html" class="pagination-link" aria-label="Study area and trenching data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Study area and trenching data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./how-to-update.html" class="pagination-link" aria-label="Options for updating the trenching indicator">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./metrics.html" class="pagination-link" aria-label="Possible metrics">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -660,4 +645,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/metrics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/delineation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
