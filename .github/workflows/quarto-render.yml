@@ -37,6 +37,10 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 1
+      - name: Install dependencies
+          run: |
+            install.packages("remotes",dependencies=TRUE)
+            remotes::install_github("NINAnor/eaTools")    
       
       # Step 4: Install Python and its dependencies
       - name: "Install Python"
