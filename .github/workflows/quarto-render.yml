@@ -38,9 +38,10 @@ jobs:
         with:
           cache-version: 1
       - name: Install dependencies
-          run: |
-            install.packages("remotes",dependencies=TRUE)
-            remotes::install_github("NINAnor/eaTools")    
+        run: |
+          install.packages("remotes",dependencies=TRUE)
+          remotes::install_github("NINAnor/eaTools")
+        shell: Rscript {0}
       
       # Step 4: Install Python and its dependencies
       - name: "Install Python"
