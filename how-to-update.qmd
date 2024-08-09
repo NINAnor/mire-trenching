@@ -15,9 +15,8 @@ The second option will need to be part of the updating procedure in any case.
 The effect of this is explained in @sec-delineation.
 
 Option 1 can be informed by an existing dataset on mire restoration in Norway,
-managed by the Norwegian Environment Agency. 
-https://services.arcgis.com/2JlC1JM9VNKvqb4F/arcgis/rest/services/Myrrestaurering_Groft_Torvtak_3_visning/FeatureServer
+managed by the Norwegian Environment Agency.^[https://services.arcgis.com/2JlC1JM9VNKvqb4F/arcgis/rest/services/Myrrestaurering_Groft_Torvtak_3_visning/FeatureServer] 
 There are no restored trenches in our study area, and in general, the area or 
-length  restored is minuscule compared to the areas or length that are trenched.
+length  restored is minuscule compared to the areas or length that is trenched.
 However, this data might still need to go into the updating protocol.
 The data can probably be downloaded via an API from AGOL.

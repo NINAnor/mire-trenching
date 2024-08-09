@@ -18,6 +18,7 @@ book:
     - delineation.qmd
     - metrics.qmd
     - how-to-update.qmd
+    - 7TK.qmd
 
 format:
   html: 

@@ -1,4 +1,4 @@
-# Frequency-based metric
+# Frequency-based metric {#sec-7TK}
 
 Here I will exemplify the frequency based metric using a method similar to the `7TK` variable in NiN.
 
@@ -40,6 +40,7 @@ Then I intersect the trenches data with the grid.
 #| code-summary: "Intersect trenches and grid cells"
 #| fig-cap: |
 #|   "Study area gridded with 100x100 m cells and trenches labled according to grid ID"
+#| warning: false
 
 trench_in_cell <- st_intersection(lev_crop, grid100)
 #trench_in_cell <- st_join(lev_crop, grid100, join=st_within)
@@ -50,7 +51,8 @@ trench_in_cell |>
   geom_sf(aes(color = factor(id),
               fill = factor(id)))+
   guides(fill = "none",
-         color = "none")
+         color = "none") +
+  theme_bw()
 ```
 
 Then I collapse the dataframe into unique grid cell IDs and mark these as 1's (presenses).
@@ -90,6 +92,7 @@ The example in @fig-trencharea is done on 100x100 grid cell just for illustratio
 ```{r fig-trenched}
 #| code-fold: true
 #| code-summary: "Show code"
+#| warning: false
 #| fig-cap: |
 #|   "Map of study area showing the 100x100 grid cells that are colored
 #|   based on the percentage of 10x10m grid cells that have a trench in them."
@@ -152,11 +155,14 @@ grid100_freq |>
 ```{r fig-trenched_mask}
 #| code-fold: true
 #| code-summary: "Show code"
-#| fig-cap: ""
+#| warning: false
+#| fig-cap: |
+#|   "Map of study area (masked against mire extent) 
+#|   showing 100x100m grid cells colored by the proportion of 
+#|   10x10 grid cells inside them which are trenched. "
 
 # make the ecosystem delineation map into polygons
 mire <- st_as_sf(mire10_crop, merge = T)
-plot(mire)
 
 grid100_freq2 <- trench_in_cell10 |>
   st_intersection(mire) |>
@@ -201,7 +207,8 @@ grid100_freq2 |>
 highest <- grid100_freq2 |>
   arrange(desc(freq)) |>
   slice_head(n = 3) |>
-  pull(freq)
+  pull(freq) |>
+  round()
 ```
 
 The three grid cells with the highest proportion of trenched 10x10m grid cells have

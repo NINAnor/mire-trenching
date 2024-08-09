@@ -58,6 +58,7 @@ lev_t <- lev |>
 #|   Note that the colored polygon borders exagerrate the area of the trenches."
 #| cache: true
 #| message: false
+#| warning: false
 
 ggplot() + 
   basemap_gglayer(sf::st_bbox(lev_t)) +
@@ -162,6 +163,7 @@ mire10_crop <- mire10 |>
 #| code-fold: true
 #| code-summary: "Create map"
 #| cache: true
+#| warning: false
 #| fig-cap: |
 #|   "Zoomed in version of the previsous map showing systematic trenching,
 #|   but also more sporadic trenches that might be errors in the model.

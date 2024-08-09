@@ -28,22 +28,22 @@ individual polygons are somewhat arbitrarily separated.
 
 ## Frequency-based metrics {#sec-fbm}
 
-The frequency of trenches can be measured in many ways and at amny
-different scales. One way is to use the NiN variable called `7TK` and
-the measurement scale `A4b` @runehalvorsen2019 . This approach consists
-of gridding the entire study region into 10𝖷10 m cells, and then
-categorizing the cells as having or not having trenches. The frequency
-of grid cells with trenches determines the variable value.
+The frequency of trenches can be measured in many ways and at many
+different scales. One way is to use the method described for NiN
+variable `7TK` [@runehalvorsen2019]. This approach consists of gridding
+the entire study region into 10𝖷10 m cells, and then categorizing the
+cells as having or not having trenches. The frequency of grid cells with
+trenches determines the variable value. There is a worked example of
+this in @sec-7TK.
 
-The upper and lower reference values for the variable is probably best
-defined using the natural value of 0% and 100%, respectively. However,
-the rescaling of the variable into an indicator should probably follow
-some non-linear function, potentially aided by a threshold value
-representing the value of the variable that defines the separation
-distinction good and bad ecosystem condition (ref). Expert opinion,
-possibly aided by real word data or visual aids such as areal photos of
-areas with different variable value, could be used to set this threshold
-value.
+The upper and lower reference values for the variable may be defined
+using the natural value of 0% and 100%, respectively. However, the
+rescaling of the variable into an indicator should probably follow some
+non-linear function, potentially aided by a threshold value representing
+the value of the variable that defines the separation distinction good
+and bad ecosystem condition (ref). Expert opinion, possibly aided by
+real word data or visual aids such as areal photos of areas with
+different variable value, could be used to set this threshold value.
 
 A different option for a frequency-based metric include counting the
 proportion of mire units (e.g. hydrological units) that are affected by
@@ -66,7 +66,7 @@ combination with the depth of the trenches, but this is not something we
 have data on currently).
 
 The upper reference value must be defined as 0 m of trenches. The lower
-reference value is not obvious, nor the threshold value. These cold be
+reference value is not obvious, nor the threshold value. These could be
 defined using expert opinion, as described for @sec-fbm.
 
 ### Area-based metric
