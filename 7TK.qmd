@@ -1,0 +1,137 @@
+# Frequency-based metric
+
+Here I will exemplify the frequency based metric using a method similar to the `7TK` variable in NiN.
+
+```{r loadData}
+#| include: false
+load("data/study-area-files.RData")
+library(sf)
+library(tidyverse)
+```
+
+Making a 100x100m grid over the stydy area (the smaller zoomed in area from @fig-map2).
+
+```{r fig-makeGrid}
+#| code-fold: true
+#| code-summary: "Make grid"
+#| fig-cap: "100x100m grid over the stydu area bbox, with random grid cell IDs."
+
+grid100 <- sf::st_make_grid(lev_crop,
+                 cellsize = 100) |>
+  st_sf()
+  
+id <- sample(1:nrow(grid100))
+grid100 <- grid100 |>
+  add_column(id = id)
+
+plot(grid100)
+
+```
+
+Then I intersect the trenches data with the grid.
+
+<!--# https://vialab.mit.edu/tutorials/module/mapping-in-r-street-trees-in-camberville/ -->
+
+```{r fig-trenchInCel}
+#| code-fold: true
+#| code-summary: "Intersect trenches and grid cells"
+#| fig-cap: |
+#|   "Study area gridded with 100x100 m cells and trenches labled according to grid ID"
+
+trench_in_cell <- st_intersection(lev_crop, grid100)
+#trench_in_cell <- st_join(lev_crop, grid100, join=st_within)
+
+trench_in_cell |>
+  ggplot()+
+  geom_sf(data = grid100)+
+  geom_sf(aes(color = factor(id),
+              fill = factor(id)))+
+  guides(fill = "none",
+         color = "none")
+```
+
+Then I collapse the dataframe into unique grid cell IDs and mark these as 1's (precenses).
+
+I then join this data with `grid100` and plot it.
+
+```{r fig-trencharea}
+#| code-fold: true
+#| code-summary: "Show code"
+#| fig-cap: |
+#|   "Map of study area showing 100x100m grid cells classed as either trenched
+#|   (blue) or not trenched (red)."
+
+grid100_pa <- trench_in_cell |>
+  st_set_geometry(NULL) |>
+  group_by(id) |>
+  summarise(n = n()) |>
+  add_column(trenched = 1) |>
+  select(-n) |>
+  right_join(grid100, by = "id") |>
+  mutate(trenched = case_when(
+    is.na(trenched) ~ 0,
+    .default = trenched
+  )) |>
+  st_as_sf()
+
+grid100_pa |>
+  ggplot() +
+  geom_sf(aes(fill = factor(trenched)),
+          na.rm = TRUE)+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)
+```
+
+The example in @fig-trencharea is done on 100x100 grid cell just for illustration. I will now do the same, but on 10x10m grid cells, and then calculate the proportion of trenched 10x10 grid cells inside each 100x100m grid cell. The proportion of 10x10 grid cells could be aggregated to any geometry, such as a region, a municipality or a project area.
+
+```{r fig-trenched}
+#| code-fold: true
+#| code-summary: |
+#|   "Map of study area showing the 100x100 grid cells that are colored
+#|   based on the percentage of 10x10m grid cells that have a trench in them."
+
+
+st_(grid100)
+
+grid10 <- sf::st_make_grid(grid100,
+                cellsize = 10) |>
+  st_sf()
+
+id10 <- sample(1:nrow(grid10))
+grid10 <- grid10 |>
+  add_column(id10 = id10)
+
+#plot(grid10)
+
+trench_in_cell10 <- st_intersection(lev_crop, grid10)
+
+grid100_freq <- trench_in_cell10 |>
+  st_set_geometry(NULL) |>
+  group_by(id10) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  add_column(trenched = 1) |>
+  select(-n) |>
+  right_join(grid10, by = "id10") |>
+  mutate(trenched = case_when(
+    is.na(trenched) ~ 0,
+    .default = trenched
+  )) |>
+  st_as_sf() |>
+  st_intersection(grid100) |>
+  mutate(area = units::drop_units(
+    st_area(sf..st_make_grid.grid100..cellsize...10.)),
+         exclude = case_when(
+           area < 50 ~ 1,
+           .default = 0
+         )) |>
+  filter(exclude != 1) |>
+  group_by(id) |>
+  summarise(freq = mean(trenched)*100)
+
+grid100_freq |>
+  ggplot() +
+  geom_sf(aes(fill = freq))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)
+```
