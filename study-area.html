@@ -276,20 +276,56 @@ Figure&nbsp;2.1: “Map of study area in Levanger, central Norway, showing trenc
 <span><span class="co"># and exported a section of it as geoTIFF</span></span>
 <span><span class="co"># Raster GBD is not readable in R with GDAL &lt;3.7</span></span>
 <span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"P:/41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"</span></span>
-<span><span class="va">mire</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">mire90</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">st_crop</span><span class="op">(</span><span class="va">lev_bb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"prob"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>prob <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
 <span>    <span class="va">prob</span> <span class="op">&gt;</span> <span class="fl">900</span> <span class="op">~</span> <span class="fl">1</span>,</span>
 <span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/write_stars.html">write_stars</a></span><span class="op">(</span><span class="va">mire</span>, <span class="st">"data/mire_levanger_reclassified.tif"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">mire</span>, <span class="st">"data/mire_levanger_reclassified.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/write_stars.html">write_stars</a></span><span class="op">(</span><span class="va">mire90</span>, <span class="st">"data/mire_levanger_reclassified90.tif"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">mire90</span>, <span class="st">"data/mire_levanger_reclassified90.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mire70</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_crop</span><span class="op">(</span><span class="va">lev_bb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"prob"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prob <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="va">prob</span> <span class="op">&gt;</span> <span class="fl">700</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/write_stars.html">write_stars</a></span><span class="op">(</span><span class="va">mire70</span>, <span class="st">"data/mire_levanger_reclassified70.tif"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">mire70</span>, <span class="st">"data/mire_levanger_reclassified70.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mire50</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_crop</span><span class="op">(</span><span class="va">lev_bb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"prob"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prob <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="va">prob</span> <span class="op">&gt;</span> <span class="fl">500</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/write_stars.html">write_stars</a></span><span class="op">(</span><span class="va">mire50</span>, <span class="st">"data/mire_levanger_reclassified50.tif"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">mire50</span>, <span class="st">"data/mire_levanger_reclassified50.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mire10</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_crop</span><span class="op">(</span><span class="va">lev_bb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"prob"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>prob <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="va">prob</span> <span class="op">&gt;</span> <span class="fl">100</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>    <span class="cn">TRUE</span> <span class="op">~</span> <span class="cn">NA</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/write_stars.html">write_stars</a></span><span class="op">(</span><span class="va">mire10</span>, <span class="st">"data/mire_levanger_reclassified10.tif"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">mire10</span>, <span class="st">"data/mire_levanger_reclassified10.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold"><summary>Read mire data</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">mire</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/mire_levanger_reclassified.rds"</span><span class="op">)</span></span>
-<span><span class="va">mire_crop</span> <span class="op">&lt;-</span> <span class="va">mire</span> <span class="op">|&gt;</span></span>
+<details class="code-fold"><summary>Read mire data</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#90% probability</span></span>
+<span><span class="va">mire90</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/mire_levanger_reclassified90.rds"</span><span class="op">)</span></span>
+<span><span class="va">mire90_crop</span> <span class="op">&lt;-</span> <span class="va">mire90</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_crop</span><span class="op">(</span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">lev_crop</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#10% probability</span></span>
+<span><span class="va">mire10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/mire_levanger_reclassified10.rds"</span><span class="op">)</span></span>
+<span><span class="va">mire10_crop</span> <span class="op">&lt;-</span> <span class="va">mire10</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">st_crop</span><span class="op">(</span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">lev_crop</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
@@ -298,14 +334,21 @@ Figure&nbsp;2.1: “Map of study area in Levanger, central Norway, showing trenc
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lev_crop</span>,</span>
 <span>          fill <span class="op">=</span> <span class="st">"purple"</span>,</span>
 <span>          color <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mire_crop</span>,</span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mire10_crop</span>,</span>
 <span>             downsample <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>             fill <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>             na.action <span class="op">=</span> <span class="va">na.omit</span>,</span>
+<span>             alpha<span class="op">=</span><span class="fl">.7</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_stars</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mire90_crop</span>,</span>
+<span>             downsample <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>             fill <span class="op">=</span> <span class="st">"yellow"</span>,</span>
 <span>             na.action <span class="op">=</span> <span class="va">na.omit</span>,</span>
 <span>             alpha<span class="op">=</span><span class="fl">.7</span><span class="op">)</span><span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stderr">
 <pre><code>Warning: Raster pixels are placed at uneven horizontal intervals and will be shifted
+ℹ Consider using `geom_tile()` instead.
+Raster pixels are placed at uneven horizontal intervals and will be shifted
 ℹ Consider using `geom_tile()` instead.
 Raster pixels are placed at uneven horizontal intervals and will be shifted
 ℹ Consider using `geom_tile()` instead.</code></pre>
@@ -316,7 +359,7 @@ Raster pixels are placed at uneven horizontal intervals and will be shifted
 <img src="study-area_files/figure-html/fig-map2-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: “Zoomed in version of the previsous map showing systematic trenching, but also more sporadic trenches that might be errors in the model. The red areas are open mires. Note that most of the trenches are located in other nature types, mosty forests.”
+Figure&nbsp;2.2: “Zoomed in version of the previsous map showing systematic trenching, but also more sporadic trenches that might be errors in the model. The red areas are open mires with 10% probability. Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best. Note in any case that most of the trenches are located in other nature types, mosty forests.”
 </figcaption></figure>
 </div>
 </div>

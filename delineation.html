@@ -182,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></h1>
+<h1 class="title"><span id="sec-delineation" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></h1>
 </div>
 
 
@@ -201,8 +201,21 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="the-importance-of-the-ecosystem-accounting-area" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="the-importance-of-the-ecosystem-accounting-area"><span class="header-section-number">3.1</span> The importance of the ecosystem accounting area</h2>
-<p>We presented a study area of <code>r round(myx*myy/10^6)</code> km<sup>2</sup>. However, for the purpose of an ecosystem condition account or assessment, this area needs to be partitioned into unique and non-overlapping ecosystems, and our indicator needs to address the ecosystem condition the target ecosystem explicitly. The ecosystem that this indicator is aimed at is wetlands, or <em>våtmark</em> in Norwegian. We therefore need to mask our spatial data at some stage in order to exclude trenches identified in other ecosystems. However, this is problematic for several reasons. First, we do not have an official ecosystem delineation map, and it is not yet clear if the ecosystem should be defined as all types of wetlands, or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use. But in doing so, we automatically exclude wetlands, or previous wetlands, that have become forested due to the lowered water table that comes from trenching. In other words, we exclude the areas that are in the worst condition.</p>
-<p>This is a well known issue in ecosystem accounting (ref Jacobson). In the following we decide to strictly follow the UN standard for ecosystem accounting and only focus on the open mires. However, in the future, if the target ecosystem becomes defined as to include forested mires, then it is not a problem to update this indicator to include such areas as well.</p>
+<p>We presented a study area that is practically square (<a href="study-area.html#fig-map1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>). However, for the purpose of an ecosystem condition account or assessment, this area needs to be partitioned into unique and non-overlapping ecosystems, and our indicator needs to address the ecosystem condition the target ecosystem explicitly. The ecosystem that this indicator is aimed at is wetlands, or <em>våtmark</em> in Norwegian.</p>
+<p>We might therefore need to mask our spatial data at some stage in order to exclude trenches identified in other ecosystems. However, this is problematic for several reasons.</p>
+<p>First, we do not have an official ecosystem delineation map, and it is not yet clear if the ecosystem should be defined as all types of wetlands, or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use (<a href="study-area.html#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>). Alternatively, we can use things like AR5, or a combination of the two.</p>
+<p>Secondly, by excluding everything that is no (open) mire, we automatically exclude wetlands, or previous wetlands, that have become forested due to the lowered water table that comes from trenching. In other words, we exclude the areas that are in the worst condition. From <a href="study-area.html#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> we can see that this is a very common scenario.</p>
+<p>Thirdly, when it comes to updating the indicator in the future (see <a href="how-to-update.html" class="quarto-xref"><span>Chapter 5</span></a>), we will be in the case that more and more trenched wetland becomes classified as other nature types, mainly forests, because that is what happends when you trench a mire. As a consequence, the indicator values will look better and better over time, reflection the land use change and the associated loss of the areas in worst condition.</p>
+<p>This is a well known issue in ecosystem accounting (ref Jacobson).</p>
+<p>We may chose to</p>
+<ol type="1">
+<li><p>strictly follow the UN standard for ecosystem accounting and only focus on the open mires (and/or AR5 mires).</p></li>
+<li><p>mask the data against both mires and forests</p></li>
+<li><p>no masking, calculating the variable for all areas regardless of nature type</p></li>
+</ol>
+<p>The third option is perhaps not ideal due to significant model errors, for example that the trenches map includes road ditches, agricultural drainage ditches, and ditches in mountains or other areas that have never been wetlands.</p>
+<p>The first option is the one that best fit the accounting standards. The suggested way to overcome the <em>false message</em> that wetlands may develop better ecosystem condition just because the worst areas become classified as forests, is to always look at the condition assessment in light of, and at the same time as, an ecosystem extent account. Then the loss of wetland area will still make red flags, even though it is documented in the extent account and not the condition account.</p>
+<p>It can be very tempting to go for option 2, but as you can see, the consequent double-counting of the same process then becomes unavoidable. We will therefore go for option 1 here, using the open mire delineation map as our ecosystem assets. However, in the future, if the target ecosystem becomes defined as to include forested mires, then it is not a problem to update this indicator to include such areas as well.</p>
 
 
 </section>
