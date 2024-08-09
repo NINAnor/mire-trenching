@@ -1,8 +1,7 @@
 project:
   type: book
   output-dir: _book
-  pre-render: global.R
-  
+
 book:
   title: "Mire trenching indicator"
   author: "Anders Kolstad"

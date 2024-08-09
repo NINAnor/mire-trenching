@@ -99,23 +99,60 @@ lev_crop <- lev |>
 # and exported a section of it as geoTIFF
 # Raster GBD is not readable in R with GDAL <3.7
 path <- "P:/41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"
-mire <- stars::read_stars(path) |>
+mire90 <- stars::read_stars(path) |>
   st_crop(lev_bb) |> 
   setNames("prob") |>
   mutate(prob = case_when(
     prob > 900 ~ 1,
     TRUE ~ NA
   ))
-stars::write_stars(mire, "data/mire_levanger_reclassified.tif")
-saveRDS(mire, "data/mire_levanger_reclassified.rds")
+stars::write_stars(mire90, "data/mire_levanger_reclassified90.tif")
+saveRDS(mire90, "data/mire_levanger_reclassified90.rds")
+
+mire70 <- stars::read_stars(path) |>
+  st_crop(lev_bb) |> 
+  setNames("prob") |>
+  mutate(prob = case_when(
+    prob > 700 ~ 1,
+    TRUE ~ NA
+  ))
+stars::write_stars(mire70, "data/mire_levanger_reclassified70.tif")
+saveRDS(mire70, "data/mire_levanger_reclassified70.rds")
+
+mire50 <- stars::read_stars(path) |>
+  st_crop(lev_bb) |> 
+  setNames("prob") |>
+  mutate(prob = case_when(
+    prob > 500 ~ 1,
+    TRUE ~ NA
+  ))
+stars::write_stars(mire50, "data/mire_levanger_reclassified50.tif")
+saveRDS(mire50, "data/mire_levanger_reclassified50.rds")
+
+mire10 <- stars::read_stars(path) |>
+  st_crop(lev_bb) |> 
+  setNames("prob") |>
+  mutate(prob = case_when(
+    prob > 100 ~ 1,
+    TRUE ~ NA
+  ))
+stars::write_stars(mire10, "data/mire_levanger_reclassified10.tif")
+saveRDS(mire10, "data/mire_levanger_reclassified10.rds")
+
 ```
 
 ```{r}
 #| code-fold: true
 #| code-summary: "Read mire data"
 
-mire <- readRDS("data/mire_levanger_reclassified.rds")
-mire_crop <- mire |>
+#90% probability
+mire90 <- readRDS("data/mire_levanger_reclassified90.rds")
+mire90_crop <- mire90 |>
+  st_crop(st_bbox(lev_crop))
+
+#10% probability
+mire10 <- readRDS("data/mire_levanger_reclassified10.rds")
+mire10_crop <- mire10 |>
   st_crop(st_bbox(lev_crop))
 
 
@@ -128,7 +165,9 @@ mire_crop <- mire |>
 #| fig-cap: |
 #|   "Zoomed in version of the previsous map showing systematic trenching,
 #|   but also more sporadic trenches that might be errors in the model.
-#|   The red areas are open mires. Note that most of the trenches are located in 
+#|   The red areas are open mires with 10% probability.
+#|   Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best.
+#|   Note in any case that most of the trenches are located in 
 #|   other nature types, mosty forests."
 
 
@@ -136,9 +175,14 @@ ggplot() +
   geom_sf(data = lev_crop,
           fill = "purple",
           color = "purple") +
-  geom_stars(data = mire_crop,
+  geom_stars(data = mire10_crop,
              downsample = 0,
              fill = "red",
+             na.action = na.omit,
+             alpha=.7)+
+  geom_stars(data = mire90_crop,
+             downsample = 0,
+             fill = "yellow",
              na.action = na.omit,
              alpha=.7)+
   theme_bw()
@@ -146,3 +190,13 @@ ggplot() +
 ```
 
 The trenches model originally results in a raster with a continuous probability value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) is a version of this data where a threshold value of 90% for the probabilities turn it into presence-absence data in the shape of polygons.
+
+```{r savefiles}
+#| include: false
+save(
+  mire10_crop,
+  lev_crop,
+  file = "data/study-area-files.RData"
+)
+
+```

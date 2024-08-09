@@ -1,7 +1,7 @@
 Package: mybook
-Title: Name of Book
+Title: Trenches i mires
 Version: 0.1.0
-Authors@R: c(person("Kari", "Nordman", "kari.nordmann@online.no", c("aut", "cre", "cph")))
+Authors@R: c(person("Anders", "Kolstad", "anders.kolstad@nina.no", c("aut", "cre", "cph")))
 Depends: R (>= 4.0)
 URL: https://github.com/NINAnor/NINA-ebook-template/
 Imports:
@@ -15,4 +15,7 @@ Imports:
   xml2,
   basemaps,
   ggmap,
-  sf
+  sf,
+  units,
+  stars,
+  eaTools

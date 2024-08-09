@@ -1,12 +1,7 @@
 # Delineation {#sec-delineation}
 
-```{r start}
-#| include: false
-load("data/global.Rdata")
-```
-
 ## The importance of the ecosystem accounting area
-We presented a study area of `r round(myx*myy/10^6)` km^2^. 
+We presented a study area that is practically square (@fig-map1). 
 However, for the purpose of an ecosystem condition account or assessment, 
 this area needs to be partitioned into unique and non-overlapping ecosystems,
 and our indicator needs to address the ecosystem condition the target ecosystem explicitly.

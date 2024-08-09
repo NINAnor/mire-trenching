@@ -7,6 +7,9 @@ Here I will exemplify the frequency based metric using a method similar to the `
 load("data/study-area-files.RData")
 library(sf)
 library(tidyverse)
+library(units)
+library(stars)
+library(eaTools)
 ```
 
 Making a 100x100m grid over the stydy area (the smaller zoomed in area from @fig-map2).
@@ -50,7 +53,7 @@ trench_in_cell |>
          color = "none")
 ```
 
-Then I collapse the dataframe into unique grid cell IDs and mark these as 1's (precenses).
+Then I collapse the dataframe into unique grid cell IDs and mark these as 1's (presenses).
 
 I then join this data with `grid100` and plot it.
 
@@ -86,20 +89,33 @@ The example in @fig-trencharea is done on 100x100 grid cell just for illustratio
 
 ```{r fig-trenched}
 #| code-fold: true
-#| code-summary: |
+#| code-summary: "Show code"
+#| fig-cap: |
 #|   "Map of study area showing the 100x100 grid cells that are colored
 #|   based on the percentage of 10x10m grid cells that have a trench in them."
 
-
-st_(grid100)
 
 grid10 <- sf::st_make_grid(grid100,
                 cellsize = 10) |>
   st_sf()
 
+# align perfectly with grid100 and carry the id from grid100 to grid10
+grid10 <- grid10 |> 
+  st_intersection(grid100) |>
+  mutate(
+    area = units::drop_units(
+      st_area(sf..st_make_grid.grid100..cellsize...10.)),
+    exclude = case_when(
+      area < 50 ~ 1,
+      .default = 0
+         )) |>
+  filter(exclude != 1)
+
+
 id10 <- sample(1:nrow(grid10))
 grid10 <- grid10 |>
-  add_column(id10 = id10)
+  add_column(id10 = id10) |>
+  select(id, id10)
 
 #plot(grid10)
 
@@ -117,17 +133,12 @@ grid100_freq <- trench_in_cell10 |>
     is.na(trenched) ~ 0,
     .default = trenched
   )) |>
-  st_as_sf() |>
-  st_intersection(grid100) |>
-  mutate(area = units::drop_units(
-    st_area(sf..st_make_grid.grid100..cellsize...10.)),
-         exclude = case_when(
-           area < 50 ~ 1,
-           .default = 0
-         )) |>
-  filter(exclude != 1) |>
   group_by(id) |>
-  summarise(freq = mean(trenched)*100)
+  summarise(freq = mean(trenched)*100) |>
+  #st_as_sf() |>
+  #st_intersection(grid100) |>
+  right_join(grid100, by = "id") |>
+  st_as_sf()
 
 grid100_freq |>
   ggplot() +
@@ -135,3 +146,122 @@ grid100_freq |>
   theme_bw() +
   geom_sf(data = trench_in_cell)
 ```
+
+@fig-trenched shows the trenching variable in its raw units (%) over the entire study area. The next step is then to exclude areas that are not part of the target ecosystem, i.e. not part of the accounting area. This can be done on the 100x100 grid level, put probably more correct to do it at the 10x10m grid level.
+
+```{r fig-trenched_mask}
+#| code-fold: true
+#| code-summary: "Show code"
+#| fig-cap: ""
+
+# make the ecosystem delineation map into polygons
+mire <- st_as_sf(mire10_crop, merge = T)
+plot(mire)
+
+grid100_freq2 <- trench_in_cell10 |>
+  st_intersection(mire) |>
+  st_drop_geometry() |>
+  group_by(id10) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  add_column(trenched = 1) |>
+  select(-n) |>
+  right_join(grid10, by = "id10") |>
+  mutate(trenched = case_when(
+    is.na(trenched) ~ 0,
+    .default = trenched
+  )) |>
+  st_as_sf() |>
+  st_intersection(mire) |>
+  st_drop_geometry() |>
+  group_by(id) |>
+  summarise(freq = mean(trenched)*100) |>
+  #st_as_sf() |>
+  #st_intersection(grid100) |>
+  right_join(grid100, by = "id") |>
+  st_as_sf() |>
+  st_intersection(mire)
+
+high <- "red"
+low <- "green"
+
+
+grid100_freq2 |>
+  ggplot() +
+  geom_sf(aes(fill = freq))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient("Frequency of trenches", low = low, 
+        high = high)
+  
+```
+
+```{r}
+#| include: false
+highest <- grid100_freq2 |>
+  arrange(desc(freq)) |>
+  slice_head(n = 3) |>
+  pull(freq)
+```
+
+The three grid cells with the highest proportion of trenched 10x10m grid cells have
+`r highest[1]`, `r highest[2]`, and `r highest[3]` percent.
+The three cells visible in @fig-trenched_mask with the darkest red color
+all seem to be relatively densely trenched.
+Probably we need to adjust the threshold value so that at least these three all 
+get quite low indicator values.
+I will set 10% as the threshold value and 50% as the low reference point.
+I will fit the data using a sigmoid function to soften arbitrary break points.
+
+```{r fig-normalise}
+#| code-fold: true
+#| code-summary: "Show code"
+#| fig-cap: |
+#|   "Normalisation of the variable 'Porportion of small grid cells with 
+#|   trenching' based on a sigmoid transformation function and thee numerical 
+#|   reference points."
+
+ea_normalise(
+  data = grid100_freq2,
+  vector = "freq",
+  upper_reference_level = 50,
+  lower_reference_level = 0,
+  break_point = 10,
+  scaling_function = "sigmoid",
+  reverse=T,
+  plot = T)
+```
+
+```{r fig-normalisemap}
+#| code-fold: true
+#| code-summary: "Adding the normalised data"
+#| fig-cap: |
+#|   "Same figure as the previous map, but with the trenching variable 
+#|   normalised into indicator values."
+
+grid100_freq2 <- grid100_freq2 |>
+  mutate(indicator = 
+           ea_normalise(
+  data = grid100_freq2,
+  vector = "freq",
+  upper_reference_level = 50,
+  lower_reference_level = 0,
+  break_point = 10,
+  scaling_function = "sigmoid",
+  reverse=T,
+  plot = F))
+
+grid100_freq2 |>
+  ggplot() +
+  geom_sf(aes(fill = indicator))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = high, 
+    high = low)
+```
+
+I think the indicator values are reasonably well represnetative of what I 
+expect the ecological effect of the different trencing densities to be.
+These reference points are, however, not informed with any data.
