@@ -52,7 +52,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -193,8 +213,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#adding-ar5" id="toc-adding-ar5" class="nav-link active" data-scroll-target="#adding-ar5"><span class="header-section-number">2.1</span> Adding AR5</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/study-area.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -212,10 +237,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p>In this project we will use data from Levanger in central Norway. This area was part of the pilot study to identify mire trenches in Norway based on LiDAR (see <a href="index.html" class="quarto-xref"><span>Chapter 1</span></a>).</p>
+</header><p>In this project we will use data from Levanger in central Norway. This area was part of the pilot study to identify mire trenches in Norway based on LiDAR <span class="citation" data-cites="jansson2024">(<a href="#ref-jansson2024" role="doc-biblioref">Jansson et al. 2024</a>)</span> (see also <a href="index.html" class="quarto-xref"><span>Chapter 1</span></a>).</p>
 <div class="cell">
-<details class="code-fold"><summary>Read shape file and convert to gpkg</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"P:/41201785_okologisk_tilstand_2022_2023/data/grofter/Kolstad"</span></span>
-<span><span class="va">lev</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">path</span>, <span class="st">"/LevangerGroftPolygon.shp"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<details class="code-fold"><summary>Read shape file and convert to gpkg</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"41201785_okologisk_tilstand_2022_2023/data/grofter/Kolstad"</span></span>
+<span><span class="va">lev</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">path1</span>, <span class="va">path</span>, <span class="st">"/LevangerGroftPolygon.shp"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/valid.html">st_make_valid</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">lev</span> <span class="op">|&gt;</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_write.html">st_write</a></span><span class="op">(</span><span class="st">"data/lev.gpkg"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -261,7 +286,7 @@ Figure&nbsp;2.1: “Map of study area in Levanger, central Norway, showing trenc
 </div>
 </div>
 </div>
-<p>Let’s zoom in on an area just north of Tomtvatnet, and overlay the trenches data with the best map that we have on the presence of open mires.</p>
+<p>Let’s zoom in on an area just north of Tomtvatnet, and overlay the trenches data with a map of open mires <span class="citation" data-cites="bakkestuen2023">(<a href="#ref-bakkestuen2023" role="doc-biblioref">Bakkestuen et al. 2023</a>)</span>.</p>
 <div class="cell">
 <details class="code-fold"><summary>Creat new bbox</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bbox_new</span> <span class="op">&lt;-</span> <span class="fu">st_bbox</span><span class="op">(</span><span class="va">lev</span><span class="op">)</span> <span class="co"># current bounding box</span></span>
 <span></span>
@@ -281,8 +306,8 @@ Figure&nbsp;2.1: “Map of study area in Levanger, central Norway, showing trenc
 <details class="code-fold"><summary>Read mire data</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># I took the gdb file in the same folder and opened it in arcgis pro</span></span>
 <span><span class="co"># and exported a section of it as geoTIFF</span></span>
 <span><span class="co"># Raster GBD is not readable in R with GDAL &lt;3.7</span></span>
-<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"P:/41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"</span></span>
-<span><span class="va">mire90</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"</span></span>
+<span><span class="va">mire90</span> <span class="op">&lt;-</span> <span class="fu">stars</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/stars/reference/read_stars.html">read_stars</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="va">path1</span>, <span class="va">path</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">st_crop</span><span class="op">(</span><span class="va">lev_bb</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="st">"prob"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>prob <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
@@ -363,10 +388,40 @@ Figure&nbsp;2.2: “Zoomed in version of the previsous map showing systematic tr
 </div>
 </div>
 <p>The trenches model originally results in a raster with a continuous probability value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (<a href="#fig-map1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>, <a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>) is a version of this data where a threshold value of 90% for the probabilities turn it into presence-absence data in the shape of polygons.</p>
+<section id="adding-ar5" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="adding-ar5">
+<span class="header-section-number">2.1</span> Adding AR5</h2>
+<p>The open wetlands, shown as red areas in <a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way sense trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ar5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/ar5.rds"</span><span class="op">)</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ar5</span>,</span>
+<span>          <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">Arealtype</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lev_crop</span>,</span>
+<span>          fill <span class="op">=</span> <span class="st">"yellow"</span>,</span>
+<span>          color <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ar5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ar5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="study-area_files/figure-html/fig-ar5-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ar5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: AR5 overlayed with the mire trenches data. AR5 classifies the systamtically trenched peatlands as mire.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="references" class="level1 unnumbered"><h1 class="unnumbered">References</h1>
 
 
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bakkestuen2023" class="csl-entry" role="listitem">
+Bakkestuen, V., Venter, Z., Ganerød, A.J., and Framstad, E. 2023. Delineation of Wetland Areas in South Norway from Sentinel-2 Imagery and LiDAR Using TensorFlow, U-Net, and Google Earth Engine. Remote Sensing <strong>15</strong>(5): 1203. doi:<a href="https://doi.org/10.3390/rs15051203">10.3390/rs15051203</a>.
+</div>
+<div id="ref-jansson2024" class="csl-entry" role="listitem">
+Jansson, U., Bakkestuen, V., Lyngstad, A., and Mienna, I.M. 2024. Utvikling av grøftekart i myr og torvmark i norge med hjelp av dyplæring.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -800,4 +855,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/study-area.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/study-area.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

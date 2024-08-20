@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Anders Kolstad">
-<meta name="dcterms.date" content="2024-08-09">
+<meta name="dcterms.date" content="2024-08-20">
 <meta name="description" content="An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.">
 
 <title>Mire trenching indicator</title>
@@ -23,7 +23,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -211,7 +231,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 9, 2024</p>
+      <p class="date">August 20, 2024</p>
     </div>
   </div>
   
@@ -227,11 +247,16 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="1"><span class="header-section-number">1</span> Background and aims</h1>
 <p>In order to describe the ecological condition of wetland, an inclusion of hydrology is essential. Still, there are no operational ecosystem condition indicators that adequately describe the hydrological status of wetlands in Norway.<br>
 In Norway, trenching in order to lower the water table of mires has been widely conducted for centuries, and systematically conducted for about 150 years, most commonly in order to facilitate the cultivation of crops or trees. Today, the creation of new trenches is not allowed, yet the scars of old and also more recently made or maintained trenches are evident in the landscape. Many of the trenched ares have changed from open wetlands into forest or agriculture.</p>
-<p>There are no official maps of mire trenches in Norway. In order to make such a map, Vegar Bakkestuen did a pilot study to see if he could identify trenches from LiDAR. After annotating ground-trouthed data from several regions in Norway, he trained a deep-learning algorithm to estimate the probability of the occurrence of trenches. The model was applied to a number of smaller study areas in Norway. The results were promising, and efforts are underway to scale up this model and predict mire trenches across Norway.</p>
-<p>The trenching map provides a probability for the occurrence of trenches in 1x1 m grid cells. Although the deep learning model is trained on trenches in mires, the map identifies trenches across whole landscapes, including trenches in forests (some thay may have been mires at some stage), agriculture, road ditches, etc.</p>
-<p>This projects goal is to develop a concept for how this national trenching map can be used in the near future to characterize the hydrological status of mires in Norway though the use of a normative indicator. Some of the requirements for such an indicator include having area-representative data (i.e.&nbsp;wall-to-wall data or balanced on key environmental variables), and the ability to regularly update the indicator values based on new information. It is also recommended that indicators are based on open data and source code.</p>
+<p>There are no official maps of mire trenches in Norway. In order to make such a map, Vegar Bakkestuen and colleagues did a pilot study to see if they could identify trenches from LiDAR <span class="citation" data-cites="jansson2024">(<a href="#ref-jansson2024" role="doc-biblioref">Jansson et al. 2024</a>)</span>. After annotating ground-trouthed data from several regions in Norway, they trained a deep-learning algorithm to estimate the probability of the occurrence of trenches. The model was applied to a number of smaller study areas in Norway. The results were promising, and efforts are underway to scale up this model and predict mire trenches across Norway.</p>
+<p>The trenching map provides a probability for the occurrence of trenches in 1x1 m grid cells. Although the deep learning model is trained on trenches in mires, forests and swamp forests, the map identifies trenches across whole landscapes, including trenches in agricultural areas, road ditches, etc.</p>
+<p>This projects goal is to develop a concept for how a forthcomming national trenching map can be used to characterize the hydrological status of mires in Norway though the use of a normative indicator. Some of the requirements for such an indicator include having area-representative data (i.e.&nbsp;wall-to-wall data or balanced on key environmental variables), and the ability to regularly update the indicator values based on new information. It is also recommended that indicators are based on open data and source code.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-jansson2024" class="csl-entry" role="listitem">
+Jansson, U., Bakkestuen, V., Lyngstad, A., and Mienna, I.M. 2024. Utvikling av grøftekart i myr og torvmark i norge med hjelp av dyplæring.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
