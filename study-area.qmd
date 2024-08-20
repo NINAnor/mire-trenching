@@ -1,6 +1,6 @@
 # Study area and trenching data {#sec-area}
 
-In this project we will use data from Levanger in central Norway. This area was part of the pilot study to identify mire trenches in Norway based on LiDAR (see @sec-background).
+In this project we will use data from Levanger in central Norway. This area was part of the pilot study to identify mire trenches in Norway based on LiDAR [@jansson2024] (see also @sec-background).
 
 ```{r setup}
 #| warning: false
@@ -70,7 +70,7 @@ ggplot() +
   theme_bw()
 ```
 
-Let's zoom in on an area just north of Tomtvatnet, and overlay the trenches data with the best map that we have on the presence of open mires.
+Let's zoom in on an area just north of Tomtvatnet, and overlay the trenches data with a map of open mires [@bakkestuen2023].
 
 ```{r zoombbox}
 #| code-fold: true
@@ -202,3 +202,17 @@ save(
 )
 
 ```
+
+## Adding AR5
+
+The open wetlands, shown as red areas in @fig-map2, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way sense trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires.
+
+```{r}
+ar5_path <- "R:/GeoSpatialData/Topography/Norway_FKB/Original/FKB-AR5 FGDB-format/Basisdata_50_Trondelag_25832_FKB-AR5_FGDB.gdb"
+st_layers(ar5_path)
+ar5 <- sf::read_sf(ar5_path,
+                   layer = "fkb_ar5_omrade")
+```
+
+
+# References {.unnumbered}

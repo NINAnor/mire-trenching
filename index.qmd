@@ -20,24 +20,24 @@ evident in the landscape. Many of the trenched ares have changed from
 open wetlands into forest or agriculture.
 
 There are no official maps of mire trenches in Norway. In order to make
-such a map, Vegar Bakkestuen did a pilot study to see if he could
-identify trenches from LiDAR. After annotating ground-trouthed data from
-several regions in Norway, he trained a deep-learning algorithm to
-estimate the probability of the occurrence of trenches. The model was
-applied to a number of smaller study areas in Norway. The results were
-promising, and efforts are underway to scale up this model and predict
-mire trenches across Norway.
+such a map, Vegar Bakkestuen and colleagues did a pilot study to see if
+they could identify trenches from LiDAR [@jansson2024]. After annotating
+ground-trouthed data from several regions in Norway, they trained a
+deep-learning algorithm to estimate the probability of the occurrence of
+trenches. The model was applied to a number of smaller study areas in
+Norway. The results were promising, and efforts are underway to scale up
+this model and predict mire trenches across Norway.
 
 The trenching map provides a probability for the occurrence of trenches
 in 1x1 m grid cells. Although the deep learning model is trained on
-trenches in mires, the map identifies trenches across whole landscapes,
-including trenches in forests (some thay may have been mires at some
-stage), agriculture, road ditches, etc.
+trenches in mires, forests and swamp forests, the map identifies
+trenches across whole landscapes, including trenches in agricultural
+areas, road ditches, etc.
 
-This projects goal is to develop a concept for how this national
-trenching map can be used in the near future to characterize the
-hydrological status of mires in Norway though the use of a normative
-indicator. Some of the requirements for such an indicator include having
+This projects goal is to develop a concept for how a forthcomming
+national trenching map can be used to characterize the hydrological
+status of mires in Norway though the use of a normative indicator. Some
+of the requirements for such an indicator include having
 area-representative data (i.e. wall-to-wall data or balanced on key
 environmental variables), and the ability to regularly update the
 indicator values based on new information. It is also recommended that
