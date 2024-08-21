@@ -390,7 +390,7 @@ Figure&nbsp;2.2: “Zoomed in version of the previsous map showing systematic tr
 <p>The trenches model originally results in a raster with a continuous probability value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (<a href="#fig-map1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>, <a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>) is a version of this data where a threshold value of 90% for the probabilities turn it into presence-absence data in the shape of polygons.</p>
 <section id="adding-ar5" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="adding-ar5">
 <span class="header-section-number">2.1</span> Adding AR5</h2>
-<p>The open wetlands, shown as red areas in <a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way sense trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires.</p>
+<p>The open wetlands, shown as red areas in <a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires. Another alternative would be to use the new Ecosystem Map of Norway <span class="citation" data-cites="strand2023">(<a href="#ref-strand2023" role="doc-biblioref">Strand et al. 2023</a>)</span>, but this uses AR50, i.e.&nbsp;as coarser generalization of AR5.</p>
 <div class="cell">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ar5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/ar5.rds"</span><span class="op">)</span></span>
 <span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -410,6 +410,78 @@ Figure&nbsp;2.3: AR5 overlayed with the mire trenches data. AR5 classifies the s
 </div>
 </div>
 </div>
+<p>Let’s separate out the areas that are mire in AR5, but not in the open mire map.</p>
+<div class="cell">
+<details class="code-fold"><summary>Filter data</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># make the ecosystem delineation map into polygons</span></span>
+<span><span class="va">mire</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">mire10_crop</span>, merge <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">mire_gg</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mire</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Open mire model"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter out the mire part of AR5</span></span>
+<span><span class="va">ar5_myr</span> <span class="op">&lt;-</span> <span class="va">ar5</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Arealtype</span> <span class="op">==</span> <span class="st">"Myr"</span><span class="op">)</span></span>
+<span><span class="co"># this is a multipolygon</span></span>
+<span><span class="va">ar5_myr_gg</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ar5_myr</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"AR5"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Take out the open mire part of AR5 (leaving the forested peatlands)</span></span>
+<span><span class="va">st_erase</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="fu">st_difference</span><span class="op">(</span><span class="va">x</span>, <span class="fu">st_union</span><span class="op">(</span><span class="fu">st_combine</span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ar5_nonOpen</span> <span class="op">&lt;-</span> <span class="va">ar5_myr</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_erase</span><span class="op">(</span><span class="va">mire</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Take out the AR5 part of the open mire model</span></span>
+<span><span class="va">only_open</span> <span class="op">&lt;-</span> <span class="va">mire</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_erase</span><span class="op">(</span><span class="va">ar5_myr</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">only_open_gg</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">only_open</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Open mires not in AR5"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ar5_nonOpen_gg</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ar5_nonOpen</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"AR5 minus open mires"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># check that polygons dont overlap</span></span>
+<span><span class="va">check</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ar5_nonOpen</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>          alpha<span class="op">=</span><span class="fl">.5</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">mire</span>,</span>
+<span>          fill <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>          alpha<span class="op">=</span><span class="fl">.5</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"AR5 (red) and open mires\n (blue) combined"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># combine into new mire map</span></span>
+<span><span class="va">peatlands</span> <span class="op">&lt;-</span> <span class="va">ar5_myr</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_union</span><span class="op">(</span><span class="va">mire</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">peatlands_gg</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">peatlands</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"green"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"AR5 + open mires"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Plot data</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggarrange</span><span class="op">(</span><span class="va">mire_gg</span>, </span>
+<span>          <span class="va">ar5_myr_gg</span>, </span>
+<span>          <span class="va">ar5_nonOpen_gg</span>, </span>
+<span>          <span class="va">only_open_gg</span>,</span>
+<span>          <span class="va">check</span>, </span>
+<span>          <span class="va">peatlands_gg</span>,</span>
+<span>          ncol<span class="op">=</span><span class="fl">2</span>, nrow<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-mireExtents" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-mireExtents-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="study-area_files/figure-html/fig-mireExtents-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mireExtents-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: “Different combinations of the open mire model and the AR5 mire category.”
+</figcaption></figure>
+</div>
+</div>
+</div>
 </section><section id="references" class="level1 unnumbered"><h1 class="unnumbered">References</h1>
 
 
@@ -419,6 +491,9 @@ Bakkestuen, V., Venter, Z., Ganerød, A.J., and Framstad, E. 2023. Delineation o
 </div>
 <div id="ref-jansson2024" class="csl-entry" role="listitem">
 Jansson, U., Bakkestuen, V., Lyngstad, A., and Mienna, I.M. 2024. Utvikling av grøftekart i myr og torvmark i norge med hjelp av dyplæring.
+</div>
+<div id="ref-strand2023" class="csl-entry" role="listitem">
+Strand, G.-H., Framstad, E., and Opsahl, L.A. 2023. Hovedøkosystemkart for norge. NIBIO Rapport.
 </div>
 </div>
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
