@@ -17,4 +17,5 @@ Imports:
   ggmap,
   sf,
   units,
-  stars
+  stars,
+  ggpubr

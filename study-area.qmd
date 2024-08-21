@@ -10,6 +10,8 @@ library(sf)
 library(tidyverse)
 library(basemaps)
 library(stars)
+library(ggpubr)
+
 options(scipen = 999)
 dir <- substr(getwd(), 1,2)
 # conditional path
@@ -256,5 +258,88 @@ ggplot() +
           color = "yellow")
   
 ```
+
+Let's separate out the areas that are mire in AR5, but not in the open mire map.
+
+```{r makeDatasetsAndPlots}
+#| code-fold: true
+#| code-summary: "Filter data"
+#| warning: false
+
+  
+# make the ecosystem delineation map into polygons
+mire <- st_as_sf(mire10_crop, merge = T)
+mire_gg <- ggplot(data = mire)+
+  geom_sf(fill = "blue")+
+  labs(title = "Open mire model")
+
+# Filter out the mire part of AR5
+ar5_myr <- ar5 |>
+  filter(Arealtype == "Myr")
+# this is a multipolygon
+ar5_myr_gg <- ggplot(data = ar5_myr)+
+  geom_sf(fill = "orange")+
+  labs(title = "AR5")
+
+# Take out the open mire part of AR5 (leaving the forested peatlands)
+st_erase = function(x, y) st_difference(x, st_union(st_combine(y)))
+ar5_nonOpen <- ar5_myr |>
+  st_erase(mire)
+
+# Take out the AR5 part of the open mire model
+only_open <- mire |>
+  st_erase(ar5_myr)
+
+only_open_gg <- ggplot(data = only_open)+
+  geom_sf(fill = "purple")+
+  labs(title = "Open mires not in AR5")
+
+ar5_nonOpen_gg <- 
+  ggplot(data = ar5_nonOpen)+
+  geom_sf(fill = "orange")+
+  labs(title = "AR5 minus open mires")
+
+# check that polygons dont overlap
+check <- 
+  ggplot(data = ar5_nonOpen)+
+  geom_sf(fill = "red",
+          alpha=.5)+
+  geom_sf(data = mire,
+          fill = "blue",
+          alpha=.5)+
+  labs(title = "AR5 (red) and open mires\n (blue) combined")
+
+# combine into new mire map
+peatlands <- ar5_myr |>
+  st_union(mire)
+
+peatlands_gg <- ggplot(data = peatlands)+
+  geom_sf(fill = "green")+
+  labs(title = "AR5 + open mires")
+```
+
+
+
+
+```{r fig-mireExtents}
+#| code-fold: true
+#| code-summary: "Plot data"
+#| fig-cap: |
+#|   "Different combinations of the open mire model
+#|   and the AR5 mire category."
+
+ggarrange(mire_gg, 
+          ar5_myr_gg, 
+          ar5_nonOpen_gg, 
+          only_open_gg,
+          check, 
+          peatlands_gg,
+          ncol=2, nrow=3)
+
+```
+
+
+
+
 
 # References {.unnumbered}
