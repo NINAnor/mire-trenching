@@ -11,6 +11,10 @@ library(tidyverse)
 library(basemaps)
 library(stars)
 options(scipen = 999)
+dir <- substr(getwd(), 1,2)
+# conditional path
+path1 <- ifelse(dir == "C:", "R:/", "/data/R/")
+  
 ```
 
 ```{r data}
@@ -18,8 +22,8 @@ options(scipen = 999)
 #| code-summary: "Read shape file and convert to gpkg" 
 #| eval: false
 
-path <- "P:/41201785_okologisk_tilstand_2022_2023/data/grofter/Kolstad"
-lev <- sf::read_sf(paste0(path, "/LevangerGroftPolygon.shp")) |>
+path <- "41201785_okologisk_tilstand_2022_2023/data/grofter/Kolstad"
+lev <- sf::read_sf(paste0(path1, path, "/LevangerGroftPolygon.shp")) |>
   sf::st_make_valid()
 lev |> sf::st_write("data/lev.gpkg")
 ```
@@ -99,8 +103,8 @@ lev_crop <- lev |>
 # I took the gdb file in the same folder and opened it in arcgis pro
 # and exported a section of it as geoTIFF
 # Raster GBD is not readable in R with GDAL <3.7
-path <- "P:/41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"
-mire90 <- stars::read_stars(path) |>
+path <- "41201785_okologisk_tilstand_2022_2023/data/Myrmodell/myrmodell_levanger.tif"
+mire90 <- stars::read_stars(paste0(path1, path)) |>
   st_crop(lev_bb) |> 
   setNames("prob") |>
   mutate(prob = case_when(
@@ -207,11 +211,50 @@ save(
 
 The open wetlands, shown as red areas in @fig-map2, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires. Another alternative would be to use the new Ecosystem Map of Norway [@strand2023], but this uses AR50, i.e. as coarser generalization of AR5.
 
-```{r}
-ar5_path <- "R:/GeoSpatialData/Topography/Norway_FKB/Original/FKB-AR5 FGDB-format/Basisdata_50_Trondelag_25832_FKB-AR5_FGDB.gdb"
-st_layers(ar5_path)
-ar5 <- sf::read_sf(ar5_path,
+```{r ar5}
+#| eval: false
+#| include: false
+
+ar5_path <- "GeoSpatialData/Topography/Norway_FKB/Original/FKB-AR5 FGDB-format/Basisdata_50_Trondelag_25832_FKB-AR5_FGDB.gdb"
+st_layers(paste0(path1, ar5_path))
+# this takes a while and should be done on the server
+ar5 <- sf::read_sf(paste0(path1, ar5_path),
                    layer = "fkb_ar5_omrade")
+ar5_crop <- ar5 |>
+  st_crop(bbox_new)
+
+ar5_crop <- ar5_crop |>
+  mutate(Arealtype = case_match(
+    arealtype,
+    "60" ~ "Myr",
+    "12" ~ "Samferdsel",
+    "21" ~ "Fulldyrka mark",
+    "23" ~ "Innmarksbeite",
+    "30" ~ "Barskog",
+    "50" ~ "Åpen mark",
+    "81" ~ "Ferskvann",
+    .default = arealtype
+    
+  ))
+
+ar5_union <- ar5_crop |>
+  group_by(Arealtype) |>
+  summarise()
+
+saveRDS(ar5_union, "data/ar5.rds")
+```
+
+```{r fig-ar5}
+#| fig-cap: "AR5 overlayed with the mire trenches data. AR5 classifies the systamtically trenched peatlands as mire."
+
+ar5 <- readRDS("data/ar5.rds")
+ggplot() + 
+  geom_sf(data = ar5,
+          aes(fill = Arealtype)) +
+  geom_sf(data = lev_crop,
+          fill = "yellow",
+          color = "yellow")
+  
 ```
 
 # References {.unnumbered}
