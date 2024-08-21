@@ -205,7 +205,7 @@ save(
 
 ## Adding AR5
 
-The open wetlands, shown as red areas in @fig-map2, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way sense trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires.
+The open wetlands, shown as red areas in @fig-map2, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires. Another alternative would be to use the new Ecosystem Map of Norway [@strand2023], but this uses AR50, i.e. as coarser generalization of AR5.
 
 ```{r}
 ar5_path <- "R:/GeoSpatialData/Topography/Norway_FKB/Original/FKB-AR5 FGDB-format/Basisdata_50_Trondelag_25832_FKB-AR5_FGDB.gdb"
@@ -213,6 +213,5 @@ st_layers(ar5_path)
 ar5 <- sf::read_sf(ar5_path,
                    layer = "fkb_ar5_omrade")
 ```
-
 
 # References {.unnumbered}
