@@ -52,7 +52,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -192,8 +212,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#including-forest-peatlands" id="toc-including-forest-peatlands" class="nav-link active" data-scroll-target="#including-forest-peatlands"><span class="header-section-number">6.1</span> Including forest peatlands</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/7TK.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -465,11 +489,237 @@ Figure&nbsp;6.7: “Same figure as the previous map, but with the trenching vari
 </div>
 </div>
 </div>
-<p>I think the indicator values are reasonably well represnetative of what I expect the ecological effect of the different trencing densities to be. These reference points are, however, not informed with any data.</p>
+<p>I think the indicator values are reasonably well representative of what I expect the ecological effect of the different trenching densities to be. These reference points are, however, not informed with any data.</p>
+<div class="cell">
+<details class="code-fold"><summary>Calculate indicator values</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid100_freq2</span> <span class="op">&lt;-</span> <span class="va">grid100_freq2</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>area <span class="op">=</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">sf..st_make_grid.lev_crop..cellsize...100.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind_dist_open</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">ind_dist_open</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">grid100_freq2</span><span class="op">$</span><span class="va">indicator</span>, </span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">grid100_freq2</span><span class="op">)</span>,</span>
+<span>       replace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       prob <span class="op">=</span> <span class="va">grid100_freq2</span><span class="op">$</span><span class="va">area</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#ind_dist_open |&gt;</span></span>
+<span><span class="co">#  as_tibble() |&gt;</span></span>
+<span><span class="co">#  ggplot()+</span></span>
+<span><span class="co">#  geom_density(aes(x = value),</span></span>
+<span><span class="co">#    fill = "burlywood") +</span></span>
+<span><span class="co">#  labs(x = "Indicator value")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="including-forest-peatlands" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="including-forest-peatlands">
+<span class="header-section-number">6.1</span> Including forest peatlands</h2>
+<p>Now let’s calculate the indicator value based on the orange areas (the third map) and the green areas (the last map) in <span class="citation" data-cites="ifg-mireExtents">(<a href="#ref-ifg-mireExtents" role="doc-biblioref"><strong>ifg-mireExtents?</strong></a>)</span>, and see if it looks very different what we had.</p>
+<div class="cell">
+<details class="code-fold"><summary>Calculate indicator values for non-open mires in AR5</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid100_freq3</span> <span class="op">&lt;-</span> <span class="va">trench_in_cell10</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">ar5_nonOpen</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_drop_geometry</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">add_column</span><span class="op">(</span>trenched <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">right_join</span><span class="op">(</span><span class="va">grid10</span>, by <span class="op">=</span> <span class="st">"id10"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>trenched <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">trenched</span><span class="op">)</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>    .default <span class="op">=</span> <span class="va">trenched</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">ar5_nonOpen</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_drop_geometry</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>freq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">trenched</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">right_join</span><span class="op">(</span><span class="va">grid100</span>, by <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">ar5_nonOpen</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid100_freq3</span> <span class="op">&lt;-</span> <span class="va">grid100_freq3</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>indicator <span class="op">=</span> </span>
+<span>           <span class="fu">ea_normalise</span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">grid100_freq3</span>,</span>
+<span>  vector <span class="op">=</span> <span class="st">"freq"</span>,</span>
+<span>  upper_reference_level <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  lower_reference_level <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  break_point <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  scaling_function <span class="op">=</span> <span class="st">"sigmoid"</span>,</span>
+<span>  reverse<span class="op">=</span><span class="cn">T</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid100_freq3</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">indicator</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trench_in_cell</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradient</span><span class="op">(</span></span>
+<span>    <span class="st">"Indicator value"</span>, </span>
+<span>    low <span class="op">=</span> <span class="va">high</span>, </span>
+<span>    high <span class="op">=</span> <span class="va">low</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-indicatorNonOpen" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-indicatorNonOpen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="7TK_files/figure-html/fig-indicatorNonOpen-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-indicatorNonOpen-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.8: “Indicator values over non-open AR5 mires only”
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-indicatorNonOpen" class="quarto-xref">Figure&nbsp;<span>6.8</span></a> is a lot more red than <a href="#fig-normalisemap" class="quarto-xref">Figure&nbsp;<span>6.7</span></a>!</p>
+<div class="cell">
+<details class="code-fold"><summary>Calculate indicator values for non-open mire</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid100_freq3</span> <span class="op">&lt;-</span> <span class="va">grid100_freq3</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>area <span class="op">=</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">sf..st_make_grid.lev_crop..cellsize...100.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind_dist_nonopen</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">ind_dist_nonopen</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">grid100_freq3</span><span class="op">$</span><span class="va">indicator</span>, </span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">grid100_freq3</span><span class="op">)</span>,</span>
+<span>       replace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       prob <span class="op">=</span> <span class="va">grid100_freq3</span><span class="op">$</span><span class="va">area</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co">#ind_dist_nonopen |&gt;</span></span>
+<span><span class="co">#  as_tibble() |&gt;</span></span>
+<span><span class="co">#  ggplot()+</span></span>
+<span><span class="co">#  geom_density(aes(x = value),</span></span>
+<span><span class="co">#    fill = "burlywood") +</span></span>
+<span><span class="co">#  labs(x = "Indicator value")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Let’s do the same, but include all AR5 mires, and the little bit extra areas from the open mire map.</p>
+<div class="cell">
+<details class="code-fold"><summary>Calculate indicator values for open and non-open mires</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid100_freq4</span> <span class="op">&lt;-</span> <span class="va">trench_in_cell10</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">peatlands</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_drop_geometry</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">add_column</span><span class="op">(</span>trenched <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">right_join</span><span class="op">(</span><span class="va">grid10</span>, by <span class="op">=</span> <span class="st">"id10"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>trenched <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">trenched</span><span class="op">)</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>    .default <span class="op">=</span> <span class="va">trenched</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">peatlands</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_drop_geometry</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>freq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">trenched</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">right_join</span><span class="op">(</span><span class="va">grid100</span>, by <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_as_sf</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_intersection</span><span class="op">(</span><span class="va">peatlands</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid100_freq4</span> <span class="op">&lt;-</span> <span class="va">grid100_freq4</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>indicator <span class="op">=</span> </span>
+<span>           <span class="fu">ea_normalise</span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="va">grid100_freq4</span>,</span>
+<span>  vector <span class="op">=</span> <span class="st">"freq"</span>,</span>
+<span>  upper_reference_level <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  lower_reference_level <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  break_point <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  scaling_function <span class="op">=</span> <span class="st">"sigmoid"</span>,</span>
+<span>  reverse<span class="op">=</span><span class="cn">T</span>,</span>
+<span>  plot <span class="op">=</span> <span class="cn">F</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">grid100_freq4</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">indicator</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trench_in_cell</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradient</span><span class="op">(</span></span>
+<span>    <span class="st">"Indicator value"</span>, </span>
+<span>    low <span class="op">=</span> <span class="va">high</span>, </span>
+<span>    high <span class="op">=</span> <span class="va">low</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-indicatorAll" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-indicatorAll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="7TK_files/figure-html/fig-indicatorAll-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-indicatorAll-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.9: “Indicator values over all peatlands (AR5 + the open mire model)”
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Calculate indicator values for all mires</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid100_freq4</span> <span class="op">&lt;-</span> <span class="va">grid100_freq4</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>area <span class="op">=</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">sf..st_make_grid.lev_crop..cellsize...100.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind_dist_all</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">ind_dist_all</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">grid100_freq4</span><span class="op">$</span><span class="va">indicator</span>, </span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">grid100_freq4</span><span class="op">)</span>,</span>
+<span>       replace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       prob <span class="op">=</span> <span class="va">grid100_freq4</span><span class="op">$</span><span class="va">area</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">ind_dist_comb</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span></span>
+<span>  open <span class="op">=</span> <span class="va">ind_dist_open</span>,</span>
+<span>  forested <span class="op">=</span> <span class="va">ind_dist_nonopen</span>,</span>
+<span>  all <span class="op">=</span> <span class="va">ind_dist_all</span></span>
+<span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">pivot_longer</span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu">everything</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    names_to <span class="op">=</span> <span class="st">"extent"</span>,</span>
+<span>    values_to <span class="op">=</span> <span class="st">"indicator_value"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Make ridge plot</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ind_dist_comb</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span></span>
+<span>    <span class="fu">aes</span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">indicator_value</span>, </span>
+<span>      y <span class="op">=</span> <span class="va">extent</span>,</span>
+<span>      fill <span class="op">=</span> <span class="fu">after_stat</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_density_ridges_gradient</span><span class="op">(</span></span>
+<span>    bandwidth<span class="op">=</span><span class="fl">.005</span>,</span>
+<span>    quantile_lines <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>    quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">.5</span>, <span class="fl">0.975</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_distiller</span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"RdYlGn"</span>,</span>
+<span>    direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">guides</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_vline</span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">.6</span>,</span>
+<span>    size<span class="op">=</span><span class="fl">1.2</span>,</span>
+<span>    lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle<span class="op">=</span><span class="fl">45</span>, hjust<span class="op">=</span><span class="fl">1</span>, vjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>y <span class="op">=</span> <span class="st">""</span>, x <span class="op">=</span> <span class="st">"Indicator values"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">xlim</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-ridge" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-ridge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="7TK_files/figure-html/fig-ridge-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ridge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6.10: “Indicator values (distributions from bootstrapping) for the mire trenching indicator cacualted for a small test area and using three different ecosystem delineation maps. Vertical lines are 2.5, 50 and 97.5 percentiles.”
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-ridge" class="quarto-xref">Figure&nbsp;<span>6.10</span></a> shows us that the ecosystem delineation makes a huge difference on the indicator values. Combining AR5 and the open mire model gives a mean indicator value of 0.54, reflection quite predictably the rather binary situation in <a href="#fig-indicatorAll" class="quarto-xref">Figure&nbsp;<span>6.9</span></a> where half the area is dark red and the other half is green.</p>
+<p>I think it makes most sense to combine AR5 and the open mire model for this indicator. But all indicators used in the same assessment must use the same ecosystem delineation. And if this AR5+open mire combination is not agreeable, then using AR5, alternatively the new Ecosystem Map of Norway <span class="citation" data-cites="strand2023">(<a href="#ref-strand2023" role="doc-biblioref">Strand et al. 2023</a>)</span>, would be preferable to using just the open mire model.</p>
 
 
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-strand2023" class="csl-entry" role="listitem">
+Strand, G.-H., Framstad, E., and Opsahl, L.A. 2023. Hovedøkosystemkart for norge. NIBIO Rapport.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -900,4 +1150,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/7TK.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/7TK.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
