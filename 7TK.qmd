@@ -514,4 +514,4 @@ same assessment must use the same ecosystem delineation. And if this
 AR5+open mire combination is not agreeable, then using AR5, alternatively the
 new Ecosystem Map of Norway [@strand2023], would be preferable to using just the 
 open mire model.
-
+ 
