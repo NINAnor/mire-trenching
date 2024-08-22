@@ -214,6 +214,8 @@ save(
 The open wetlands, shown as red areas in @fig-map2, are largely laying outside of the systematically trenched areas. This can be because the trenched areas, which may have been open mire to begin with, now are overgrown with trees. The map of open mires is in way trained to find areas that are not trenched, so no wonder if the ecosystem condition looks good in these areas. Instead I think we should include forested mires in the Ecosystem Type (ET). We can use the mire class in the AR5 maps in addition to the open mires map. AR5 underestimates the total mire area, but it probably includes more forested mires. Another alternative would be to use the new Ecosystem Map of Norway [@strand2023], but this uses AR50, i.e. as coarser generalization of AR5.
 
 ```{r ar5}
+#| code-fold: true
+#| code-summary: "Prepare AR5 data"
 #| eval: false
 #| include: false
 

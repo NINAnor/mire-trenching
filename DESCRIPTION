@@ -18,4 +18,5 @@ Imports:
   sf,
   units,
   stars,
-  ggpubr
+  ggpubr,
+  ggridges

@@ -10,6 +10,7 @@ library(tidyverse)
 library(units)
 library(stars)
 library(eaTools)
+library(ggridges)
 ```
 
 Making a 100x100m grid over the stydy area (the smaller zoomed in area from @fig-map2).
@@ -269,6 +270,248 @@ grid100_freq2 |>
     high = low)
 ```
 
-I think the indicator values are reasonably well represnetative of what I 
-expect the ecological effect of the different trencing densities to be.
+I think the indicator values are reasonably well representative of what I 
+expect the ecological effect of the different trenching densities to be.
 These reference points are, however, not informed with any data.
+
+```{r indicatorValue}
+#| code-fold: true
+#| code-summary: "Calculate indicator values"
+
+grid100_freq2 <- grid100_freq2 |>
+  mutate(area = st_area(sf..st_make_grid.lev_crop..cellsize...100.))
+
+ind_dist_open <- NULL
+for(i in 1:1000){
+  ind_dist_open[i] <- 
+    mean(sample(grid100_freq2$indicator, 
+       nrow(grid100_freq2),
+       replace = TRUE,
+       prob = grid100_freq2$area))
+}
+
+#ind_dist_open |>
+#  as_tibble() |>
+#  ggplot()+
+#  geom_density(aes(x = value),
+#    fill = "burlywood") +
+#  labs(x = "Indicator value")
+```
+
+
+
+## Including forest peatlands
+
+Now let's calculate the indicator value based on the orange areas (the third map)
+and the green areas (the last map) in @ifg-mireExtents,
+and see if it looks very different what we had.
+
+```{r fig-indicatorNonOpen}
+#| code-fold: true
+#| code-summary: "Calculate indicator values for non-open mires in AR5"
+#| warning: false
+#| fig-cap: |
+#|   "Indicator values over non-open AR5 mires only"
+
+grid100_freq3 <- trench_in_cell10 |>
+  st_intersection(ar5_nonOpen) |>
+  st_drop_geometry() |>
+  group_by(id10) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  add_column(trenched = 1) |>
+  select(-n) |>
+  right_join(grid10, by = "id10") |>
+  mutate(trenched = case_when(
+    is.na(trenched) ~ 0,
+    .default = trenched
+  )) |>
+  st_as_sf() |>
+  st_intersection(ar5_nonOpen) |>
+  st_drop_geometry() |>
+  group_by(id) |>
+  summarise(freq = mean(trenched)*100) |>
+  right_join(grid100, by = "id") |>
+  st_as_sf() |>
+  st_intersection(ar5_nonOpen)
+
+grid100_freq3 <- grid100_freq3 |>
+  mutate(indicator = 
+           ea_normalise(
+  data = grid100_freq3,
+  vector = "freq",
+  upper_reference_level = 50,
+  lower_reference_level = 0,
+  break_point = 10,
+  scaling_function = "sigmoid",
+  reverse=T,
+  plot = F))
+
+grid100_freq3 |>
+  ggplot() +
+  geom_sf(aes(fill = indicator))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = high, 
+    high = low)
+```
+
+@fig-indicatorNonOpen is a lot more red than @fig-normalisemap!
+
+```{r indicatorValue_nonopen}
+#| code-fold: true
+#| code-summary: "Calculate indicator values for non-open mire"
+
+grid100_freq3 <- grid100_freq3 |>
+  mutate(area = st_area(sf..st_make_grid.lev_crop..cellsize...100.))
+
+ind_dist_nonopen <- NULL
+for(i in 1:1000){
+  ind_dist_nonopen[i] <- 
+    mean(sample(grid100_freq3$indicator, 
+       nrow(grid100_freq3),
+       replace = TRUE,
+       prob = grid100_freq3$area))
+}
+
+#ind_dist_nonopen |>
+#  as_tibble() |>
+#  ggplot()+
+#  geom_density(aes(x = value),
+#    fill = "burlywood") +
+#  labs(x = "Indicator value")
+```
+
+Let's do the same, but include all AR5 mires, and the little bit extra areas 
+from the open mire map.
+
+```{r fig-indicatorAll}
+#| code-fold: true
+#| code-summary: "Calculate indicator values for open and non-open mires"
+#| warning: false
+#| fig-cap: |
+#|   "Indicator values over all peatlands (AR5 + the open mire model)"
+
+grid100_freq4 <- trench_in_cell10 |>
+  st_intersection(peatlands) |>
+  st_drop_geometry() |>
+  group_by(id10) |>
+  summarise(n = n()) |>
+  ungroup() |>
+  add_column(trenched = 1) |>
+  select(-n) |>
+  right_join(grid10, by = "id10") |>
+  mutate(trenched = case_when(
+    is.na(trenched) ~ 0,
+    .default = trenched
+  )) |>
+  st_as_sf() |>
+  st_intersection(peatlands) |>
+  st_drop_geometry() |>
+  group_by(id) |>
+  summarise(freq = mean(trenched)*100) |>
+  right_join(grid100, by = "id") |>
+  st_as_sf() |>
+  st_intersection(peatlands)
+
+grid100_freq4 <- grid100_freq4 |>
+  mutate(indicator = 
+           ea_normalise(
+  data = grid100_freq4,
+  vector = "freq",
+  upper_reference_level = 50,
+  lower_reference_level = 0,
+  break_point = 10,
+  scaling_function = "sigmoid",
+  reverse=T,
+  plot = F))
+
+grid100_freq4 |>
+  ggplot() +
+  geom_sf(aes(fill = indicator))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = high, 
+    high = low)
+```
+
+```{r indicatorValue_all}
+#| code-fold: true
+#| code-summary: "Calculate indicator values for all mires"
+
+grid100_freq4 <- grid100_freq4 |>
+  mutate(area = st_area(sf..st_make_grid.lev_crop..cellsize...100.))
+
+ind_dist_all <- NULL
+for(i in 1:1000){
+  ind_dist_all[i] <- 
+    mean(sample(grid100_freq4$indicator, 
+       nrow(grid100_freq4),
+       replace = TRUE,
+       prob = grid100_freq4$area))
+}
+
+ind_dist_comb <- tibble(
+  open = ind_dist_open,
+  forested = ind_dist_nonopen,
+  all = ind_dist_all
+) |>
+  pivot_longer(
+    cols = everything(),
+    names_to = "extent",
+    values_to = "indicator_value")
+```
+
+```{r fig-ridge}
+#| code-fold: true
+#| code-summary: "Make ridge plot"
+#| fig-cap: |
+#|   "Indicator values (distributions from bootstrapping)
+#|   for the mire trenching indicator cacualted for a small test area
+#|   and using three different ecosystem delineation maps. 
+#|   Vertical lines are 2.5, 50 and 97.5 percentiles."
+
+ind_dist_comb |>
+  ggplot(
+    aes(
+      x = indicator_value, 
+      y = extent,
+      fill = after_stat(x))
+  ) +
+  geom_density_ridges_gradient(
+    bandwidth=.005,
+    quantile_lines = TRUE, 
+    quantiles = c(0.025, .5, 0.975)
+  ) +
+  scale_fill_distiller(palette = "RdYlGn",
+    direction = 1) +
+  theme_bw(base_size = 15) +
+  guides(fill = "none") +
+  geom_vline(xintercept = .6,
+    size=1.2,
+    lty=2) +
+  theme(axis.text.x = element_text(angle=45, hjust=1, vjust=1))+
+  labs(y = "", x = "Indicator values")+
+  xlim(c(0,1)
+)
+
+
+```
+
+@fig-ridge shows us that the ecosystem delineation makes a huge difference
+on the indicator values. Combining AR5 and the open mire model gives a mean indicator 
+value of `r round(mean(ind_dist_all), 2)`, reflection quite predictably the 
+rather binary situation in @fig-indicatorAll where half the area is dark red
+and the other half is green.
+
+I think it makes most sense to combine AR5 and
+the open mire model for this indicator. But all indicators used in the
+same assessment must use the same ecosystem delineation. And if this 
+AR5+open mire combination is not agreeable, then using AR5, alternatively the
+new Ecosystem Map of Norway [@strand2023], would be preferable to using just the 
+open mire model.
+
