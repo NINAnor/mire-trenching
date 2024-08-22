@@ -277,8 +277,8 @@ mire_gg <- ggplot(data = mire)+
 
 # Filter out the mire part of AR5
 ar5_myr <- ar5 |>
-  filter(Arealtype == "Myr")
-# this is a multipolygon
+  filter(Arealtype == "Myr") |>
+  st_cast("POLYGON")
 ar5_myr_gg <- ggplot(data = ar5_myr)+
   geom_sf(fill = "cyan4")+
   labs(title = "AR5")
@@ -290,7 +290,9 @@ ar5_nonOpen <- ar5_myr |>
 
 # Take out the AR5 part of the open mire model
 only_open <- mire |>
-  st_erase(ar5_myr)
+  st_erase(ar5_myr) |>
+  st_cast("MULTIPOLYGON") |>
+  st_cast("POLYGON")
 
 only_open_gg <- ggplot(data = only_open)+
   geom_sf(fill = "purple")+
@@ -312,8 +314,16 @@ check <-
   labs(title = "AR5 (red) and open mires\n (blue) combined")
 
 # combine into new mire map
+# This first attempt with st_union produces way to many small polygon
+#peatlands <- ar5_myr |>
+#  st_union(mire) |>
+#  st_cast("MULTIPOLYGON") |>
+#  st_cast("POLYGON")
+
+#but this works:
 peatlands <- ar5_myr |>
-  st_union(mire)
+  st_join(mire) |>
+  st_intersection()
 
 peatlands_gg <- ggplot(data = peatlands)+
   geom_sf(fill = "green")+
