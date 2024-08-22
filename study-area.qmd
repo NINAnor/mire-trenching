@@ -199,15 +199,6 @@ ggplot() +
 
 The trenches model originally results in a raster with a continuous probability value for the occurrence of a trench in each 1 𝖷 1 m cell. What I show above (@fig-map1, @fig-map2) is a version of this data where a threshold value of 90% for the probabilities turn it into presence-absence data in the shape of polygons.
 
-```{r savefiles}
-#| include: false
-save(
-  mire10_crop,
-  lev_crop,
-  file = "data/study-area-files.RData"
-)
-
-```
 
 ## Adding AR5
 
@@ -249,7 +240,13 @@ saveRDS(ar5_union, "data/ar5.rds")
 ```
 
 ```{r fig-ar5}
-#| fig-cap: "AR5 overlayed with the mire trenches data. AR5 classifies the systamtically trenched peatlands as mire."
+#| fig-cap: |
+#|   "AR5 overlayed with the mire trenches data. 
+#|   AR5 classifies most of the systamtically trenched peatlands as mire,
+#|   and some as forest.
+#| code-fold: true
+#| code-summary: "Read AR5 and plot"
+
 
 ar5 <- readRDS("data/ar5.rds")
 ggplot() + 
@@ -261,7 +258,10 @@ ggplot() +
   
 ```
 
-Let's separate out the areas that are mire in AR5, but not in the open mire map.
+Let's separate out the areas that are mire in AR5, but not in the open mire map,
+and see if adding these areas make a difference. Of coarse, we are only looking at
+a very small spatial extent here, and it is not representative for all the 
+differences between AR5 and the opne mire map, but still.
 
 ```{r makeDatasetsAndPlots}
 #| code-fold: true
@@ -280,7 +280,7 @@ ar5_myr <- ar5 |>
   filter(Arealtype == "Myr")
 # this is a multipolygon
 ar5_myr_gg <- ggplot(data = ar5_myr)+
-  geom_sf(fill = "orange")+
+  geom_sf(fill = "cyan4")+
   labs(title = "AR5")
 
 # Take out the open mire part of AR5 (leaving the forested peatlands)
@@ -341,6 +341,18 @@ ggarrange(mire_gg,
 ```
 
 
+```{r savefiles}
+#| include: false
+#| eval: false
+save(
+  mire10_crop,
+  lev_crop,
+  ar5_nonOpen,
+  peatlands,
+  file = "data/study-area-files.RData"
+)
+
+```
 
 
 
