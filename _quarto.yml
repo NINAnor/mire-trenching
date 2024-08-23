@@ -19,7 +19,11 @@ book:
     - metrics.qmd
     - how-to-update.qmd
     - 7TK.qmd
+<<<<<<< Updated upstream
     - referenceLevels.qmd
+=======
+    - calibration.qmd
+>>>>>>> Stashed changes
 
 format:
   html: 

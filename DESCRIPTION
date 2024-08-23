@@ -19,4 +19,5 @@ Imports:
   units,
   stars,
   ggpubr,
-  ggridges
+  ggridges,
+  ggmap

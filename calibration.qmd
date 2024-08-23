@@ -1,0 +1,106 @@
+# Setting reference levels {#sec-ref}
+
+Up to this point I used reference levels (RL) drawn from my
+own personal and subjective intuition. There might be more objective ways to 
+do this, or at least more precise and defendable ways. What we have decided on 
+is to create a se of calibrartion maps, with varying amounts of trenching,
+and then several experts will look at these and judge individually how severe
+they believe a given density of trenches will be for the mire ecosystem. 
+We need (minimum) three RLs. 
+
+X0 is the variable value (i.e. the frequence of 
+10x10 grid cells with trenching inside each 100x100 cell) that corresponds to a
+completely destroyed ecosystem. 
+A further deterioration of the variable value should now result in any further
+deterioratio of ecosystem condition.
+
+X100 is the RL at the reference condition (RC; _pristine condition_). 
+This RL is quite intuitive and is set to zero.
+
+X60 represents the variable value at the boundary between good and deteriorated 
+ecosystem condition. We have decided to anchor this RL theoretically to the
+point where trenching is so severe that the mire ecosystem will inevitably turn 
+into terrestrial land, meaning it will not be wtland anymore (but it can be peatland).
+
+```{r setup}
+#| include: false
+#| warning: false
+
+library(tidyverse)
+library(stars)
+library(ggmap)
+
+# Get the geometry for the 100x100 grid cells
+# with a column for the frequency of 10x10m grid cells that have trenches
+grid100_freq4 <- readRDS("data/grid100_freq4.rds")
+
+# Get the trenches
+load("data/study-area-files.RData")
+```
+
+```{r sateliteImages}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Set up Google API, download and save satelite images"
+
+
+# I used this to save the API key to my syst env
+# ggmap::register_google(key = "", write = TRUE)
+
+# get center coordinate
+e <- st_as_sfc(st_bbox(grid100_freq4)) |>
+  st_transform(4326) |>
+  st_centroid() |>
+  st_coordinates() |>
+  as.numeric()
+names(e) <- c("lon", "lat")
+  
+satImg <- ggmap:: get_googlemap(
+  center = e, 
+  zoom = 14,
+  maptype = "satellite"
+  )
+
+saveRDS(satImg, "data/satImg.rds")
+
+```
+
+```{r readSatImg}
+
+satImg <- readRDS("data/satImg.rds")
+#plot(satImg)
+
+one <- grid100_freq4 |>
+  slice_max(freq) |>
+  st_transform(3857)
+
+
+# Hackish function to fix bbox in the ggmap object
+# https://stackoverflow.com/questions/47749078/how-to-put-a-geom-sf-produced-map-on-top-of-a-ggmap-produced-raster
+ggmap_bbox <- function(map) {
+  if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
+  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector, 
+  # and set the names to what sf::st_bbox expects:
+  map_bbox <- setNames(unlist(attr(map, "bb")), 
+                       c("ymin", "xmin", "ymax", "xmax"))
+
+  # Coonvert the bbox to an sf polygon, transform it to 3857, 
+  # and convert back to a bbox (convoluted, but it works)
+  bbox_3857 <- st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
+
+  # Overwrite the bbox of the ggmap object with the transformed coordinates 
+  attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
+  attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
+  attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
+  attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
+  map
+}
+
+# Use the function:
+map <- ggmap_bbox(satImg)
+
+ggmap(ggmap = map)+
+  coord_sf(crs = st_crs(3857))+
+  geom_sf(data = one, inherit.aes = F)
+```
+
