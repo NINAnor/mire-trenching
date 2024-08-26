@@ -183,14 +183,14 @@ satimg <- list(NULL)
 for(i in 1:nrow(cells)){
   satimg[[i]] <- ggmap_bbox(myGgmap(cells[i,]))
 }
-saveRDS(satimg, "data/satimg.rds")
+saveRDS(satimg, "data/satImg.rds")
 ```
 
 ```{r readSatImg}
 #| code-fold: true
 #| code-summary: "Read cache"
 
-satimg <- readRDS("data/satimg.rds")
+satimg <- readRDS("data/satImg.rds")
 ```
 
 ```{r maploop}
