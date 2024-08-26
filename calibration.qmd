@@ -47,6 +47,7 @@ load("data/study-area-files.RData")
 # I used this to save the API key to my syst env
 # ggmap::register_google(key = "", write = TRUE)
 
+# example of getting sat imagae for the entire area
 # get center coordinate
 e <- st_as_sfc(st_bbox(grid100_freq4)) |>
   st_transform(4326) |>
@@ -60,19 +61,43 @@ satImg <- ggmap:: get_googlemap(
   zoom = 14,
   maptype = "satellite"
   )
-
-saveRDS(satImg, "data/satImg.rds")
+#ggmap(satImg)
+#saveRDS(satImg, "data/satImg.rds")
 
 ```
 
-```{r readSatImg}
+```{r getGridCells}
+#| code-fold: true
+#| code-summary: "Get some grid cells with varying amount of trenching"
+#| warning: false
 
-satImg <- readRDS("data/satImg.rds")
-#plot(satImg)
+# Transform to 4326 to match ggmap objects
+cells <- grid100_freq4 |>
+  mutate(tens = round(freq, -1)) |>
+  group_by(tens) |>
+  slice_max(freq, with_ties = F) |>
+  ungroup() |>
+  st_transform(4326)
+  
+cells_c <- cells |>
+  st_centroid() |>
+  st_coordinates() |>
+  as_tibble() |>
+  rename("lon" = "X", "lat" = "Y") 
+cells <- cells |>
+  bind_cols(cells_c)
+```
 
-one <- grid100_freq4 |>
-  slice_max(freq) |>
-  st_transform(3857)
+```{r myfunc}
+#| code-fold: true
+#| code-summary: "Function for downloading static google map"
+myGgmap <- function(x, zoom = 18){
+  ggmap:: get_googlemap(
+  center = c(lon = x$lon, lat = x$lat), 
+  zoom = zoom,
+  maptype = "satellite"
+  )
+}
 
 
 # Hackish function to fix bbox in the ggmap object
@@ -95,12 +120,64 @@ ggmap_bbox <- function(map) {
   attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
   map
 }
+```
 
-# Use the function:
-map <- ggmap_bbox(satImg)
+```{r satloop}
+#| code-fold: true
+#| code-summary: "Loop though and get sat image for each grid cell"
+#| eval: false
+satimg <- list(NULL)
+for(i in 1:nrow(cells)){
+  satimg[[i]] <- ggmap_bbox(myGgmap(cells[i,]))
+}
+saveRDS(satimg, "data/satimg.rds")
+```
 
-ggmap(ggmap = map)+
+
+
+```{r readSatImg}
+satimg <- readRDS("data/satimg.rds")
+```
+
+
+```{r}
+
+
+# convert grid cell df to 3857
+cells2 <- st_transform(cells, 3857)
+lev_crop2 <- st_transform(lev_crop, 3857)
+
+for (i in 1:nrow(cells2)) {
+  dat <- cells2[i, ]
+
+  without <- ggmap(ggmap = satimg[[i]]) +
+    coord_sf(crs = st_crs(3857)) +
+    geom_sf(
+      data = dat,
+      inherit.aes = F,
+      fill = NA,
+      color = "yellow",
+      size = 2
+    )
+  with <- ggmap(ggmap = satimg[[i]])+
   coord_sf(crs = st_crs(3857))+
-  geom_sf(data = one, inherit.aes = F)
+  geom_sf(data = dat, 
+          inherit.aes = F,
+          fill = NA,
+          color = "yellow",
+          size=2) +
+  geom_sf(data = lev_crop,
+          inherit.aes = F,
+          fill = "orange",
+          color = "orange") +
+  ggtitle(paste("Trenching frequency = ", round(dat$freq, 1),"%"))
+
+  assign(
+    x = paste0("ID", dat$id),
+    ggarrange(with, without)
+  )
+}
+
+
 ```
 
