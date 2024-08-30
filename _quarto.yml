@@ -19,6 +19,7 @@ book:
     - metrics.qmd
     - how-to-update.qmd
     - 7TK.qmd
+    - calibration.qmd
 
 format:
   html: 

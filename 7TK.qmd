@@ -303,7 +303,7 @@ for(i in 1:1000){
 ## Including forest peatlands
 
 Now let's calculate the indicator value based on the orange areas (the third map)
-and the green areas (the last map) in @ifg-mireExtents,
+and the green areas (the last map) in @fig-mireExtents,
 and see if it looks very different what we had.
 
 ```{r fig-indicatorNonOpen}
@@ -393,6 +393,7 @@ from the open mire map.
 #| warning: false
 #| fig-cap: |
 #|   "Indicator values over all peatlands (AR5 + the open mire model)"
+#| cache: true
 
 grid100_freq4 <- trench_in_cell10 |>
   st_intersection(peatlands) |>
@@ -427,6 +428,13 @@ grid100_freq4 <- grid100_freq4 |>
   scaling_function = "sigmoid",
   reverse=T,
   plot = F))
+
+# Option to have uniform class:
+grid100_freq4 <- grid100_freq4 |>
+  st_cast("MULTIPOLYGON") |>
+  st_cast("POLYGON")
+
+#saveRDS(grid100_freq4, "data/grid100_freq4.rds")
 
 grid100_freq4 |>
   ggplot() +
@@ -474,6 +482,8 @@ ind_dist_comb <- tibble(
 #|   for the mire trenching indicator cacualted for a small test area
 #|   and using three different ecosystem delineation maps. 
 #|   Vertical lines are 2.5, 50 and 97.5 percentiles."
+#| warning: false
+
 
 ind_dist_comb |>
   ggplot(

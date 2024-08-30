@@ -1,0 +1,258 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+bibliography: references.bib
+---
+
+# Setting reference levels {#sec-ref}
+
+Up to this point I used reference levels (RL) drawn from my own personal
+and subjective intuition. There might be more objective ways to do this,
+or at least more precise and defendable ways. What we have decided on is
+to create a set of calibration maps, with varying amounts of trenching,
+and then several experts will look at these and judge individually how
+severe they believe a given density of trenches will be for the mire
+ecosystem. We need (minimum) three RLs. We define our RL based on the
+`7GR-GI` variable in @halvorsen2019.
+
+There is no way for us to know the ages of the trenches in our data.
+Therefore it is impossible to separate the realised from the future
+effects from trenching. We therefore combine these two aspects, and
+describe the ecosystem effect of trenching based on the future
+equilibrium state that will result as a consequence of the trenching
+that has happened. This approach is not ideal, and the ecosystem
+condition should preferably be describes as a snap shot of the condition
+as it is today. However, we see know other solution to this issue.
+
+X~0~ is the variable value (i.e. the frequency of 10x10 grid cells with
+trenching inside each 100x100 cell) that corresponds to a completely
+destroyed ecosystem. A further deterioration of the variable value
+should now result in any further deterioration of ecosystem condition.
+We have defined this as a 7GR-GI value of 5, meaning that the ecosystem
+is set on a succession towards a non-wetland type, usually forest.
+
+X~100~ is the RL at the reference condition (RC; *pristine condition* in
+our case). This RL is quite intuitive and is set to zero (7GR-GI = 1).
+Note that the trenches data has been filtered to remove very small
+polygons that are more likely to be artefacts than real trenches.
+
+X~60~ represents the variable value at the boundary between good and
+deteriorated ecosystem condition. We have decided to anchor this RL
+theoretically to the point where trenching is so severe that the species
+composition in the mire ecosystem has changes so much as to correspond
+to a one-step change along one of the dominant environmental gradient
+(LKMs; @halvorsen2019). This equates to 7GR-GI = 3.
+
+7GR-GI is meant to be describes for whole hydrological units, but here
+we instead use it for individual grid cells. This means that a grid cell
+can be described as having no trenching, and this a favorable indicator
+value, even though the mire as a whole is severely affected by trenching
+arising from neighboring grid cells. This implies that our indicator
+could en dup to be to conservative. However, we think the size of our
+grid cells (100x100m) is a relevant scale for describing trenching
+effects, that are known to often extend tens of meters from a large
+trench, but rarely hundreds of meters.
+
+To set the RLs for our variable, we could potentially use empirical
+data, such as nature type mapping data where mire polygons are assign
+7GR-GI values in the field. However, this field protocol does not
+include mapping of more common mire types, and although our study areas
+is mapped using this protocol, no mire polygons have been delineated.
+
+Rather than using empirical data, we decided to use a kind of structured
+expert eliciation based on a common consensus. Our expert panel
+consisted of five ecologist with extensive and relevant field
+experience. First we agreed on the theoretical definition of the RLs (se
+above). Then we looked at a set of 100x100m grid cells with varying
+densities of trenches (\@fig-calplots) and together we discussed and
+reached a consensus about which variable values to map to the different
+RLs.
+
+```{r setup}
+#| include: false
+#| warning: false
+
+library(tidyverse)
+library(stars)
+library(ggmap)
+library(ggpubr)
+library(units)
+
+# Get the geometry for the 100x100 grid cells
+# with a column for the frequency of 10x10m grid cells that have trenches
+grid100_freq4 <- readRDS("data/grid100_freq4.rds")
+
+# Get the trenches
+load("data/study-area-files.RData")
+```
+
+```{r sateliteImages}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Set up Google API, download and save satelite images"
+
+
+# I used this to save the API key to my syst env
+# ggmap::register_google(key = "", write = TRUE)
+
+# example of getting sat imagae for the entire area
+# get center coordinate
+e <- st_as_sfc(st_bbox(grid100_freq4)) |>
+  st_transform(4326) |>
+  st_centroid() |>
+  st_coordinates() |>
+  as.numeric()
+names(e) <- c("lon", "lat")
+  
+satImg <- ggmap:: get_googlemap(
+  center = e, 
+  zoom = 14,
+  maptype = "satellite"
+  )
+#ggmap(satImg)
+#saveRDS(satImg, "data/satImg.rds")
+
+```
+
+```{r getGridCells}
+#| code-fold: true
+#| code-summary: "Get some grid cells with varying amount of trenching"
+#| warning: false
+
+# Transform to 4326 to match ggmap objects
+cells <- grid100_freq4 |>
+  # requre at least half a grid cell
+  filter(area > set_units(5000, m2)) |>
+  mutate(tens = round(freq, -1)) |>
+  group_by(tens) |>
+  slice_max(freq, 
+    n = 2,
+    with_ties = F) |>
+  ungroup() |>
+  st_transform(4326)
+  
+cells_c <- cells |>
+  st_centroid() |>
+  st_coordinates() |>
+  as_tibble() |>
+  rename("lon" = "X", "lat" = "Y") 
+cells <- cells |>
+  bind_cols(cells_c)
+```
+
+```{r myfunc}
+#| code-fold: true
+#| code-summary: "Function for downloading static google map"
+myGgmap <- function(x, zoom = 18){
+  ggmap:: get_googlemap(
+  center = c(lon = x$lon, lat = x$lat), 
+  zoom = zoom,
+  maptype = "satellite"
+  )
+}
+
+
+# Hackish function to fix bbox in the ggmap object
+# https://stackoverflow.com/questions/47749078/how-to-put-a-geom-sf-produced-map-on-top-of-a-ggmap-produced-raster
+ggmap_bbox <- function(map) {
+  if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
+  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector, 
+  # and set the names to what sf::st_bbox expects:
+  map_bbox <- setNames(unlist(attr(map, "bb")), 
+                       c("ymin", "xmin", "ymax", "xmax"))
+
+  # Coonvert the bbox to an sf polygon, transform it to 3857, 
+  # and convert back to a bbox (convoluted, but it works)
+  bbox_3857 <- st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
+
+  # Overwrite the bbox of the ggmap object with the transformed coordinates 
+  attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
+  attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
+  attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
+  attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
+  map
+}
+```
+
+```{r satloop}
+#| code-fold: true
+#| code-summary: "Loop though and get sat image for each grid cell"
+#| eval: false
+satimg <- list(NULL)
+for(i in 1:nrow(cells)){
+  satimg[[i]] <- ggmap_bbox(myGgmap(cells[i,]))
+}
+saveRDS(satimg, "data/satImg.rds")
+```
+
+```{r readSatImg}
+#| code-fold: true
+#| code-summary: "Read cache"
+
+satimg <- readRDS("data/satImg.rds")
+```
+
+```{r maploop}
+#| code-fold: true
+#| code-summary: "Loop through and make maps"
+#| warning: false
+
+# convert grid cell df to 3857
+cells2 <- st_transform(cells, 3857)
+lev_crop2 <- st_transform(lev_crop, 3857)
+
+for (i in 1:nrow(cells2)) {
+  dat <- cells2[i, ]
+
+  suppressMessages(
+  without <- ggmap(ggmap = satimg[[i]]) +
+    coord_sf(crs = st_crs(3857)) +
+    geom_sf(
+      data = dat,
+      inherit.aes = F,
+      fill = NA,
+      color = "yellow",
+      size = 2
+    )
+  )
+  
+  suppressMessages(
+  with <- ggmap(ggmap = satimg[[i]])+
+  coord_sf(crs = st_crs(3857))+
+  geom_sf(data = dat, 
+          inherit.aes = F,
+          fill = NA,
+          color = "yellow",
+          size=2) +
+  geom_sf(data = lev_crop,
+          inherit.aes = F,
+          fill = "orange",
+          color = "orange") +
+  ggtitle(paste("Trenching frequency = ", round(dat$freq, 1),"%"))
+  )
+
+  assign(
+    x = paste0("ID", dat$id),
+    ggarrange(with, without)
+  )
+  
+}
+
+```
+
+```{r fig-calplots}
+#| code-fold: true
+#| code-summary: "Show maps"
+#| fig-caption: |
+#|   "The yellow outline is a 100x100m grid cell, masked by ecosystem type.
+#|   The orange lines in the left pane are trenches identified with a deep learning
+#|   algorithm. The plot title indicates the proportion of 10x10 grid cells
+#|   inside the large grid cell that contains trenching. The satelite image
+#|   on the right is identical to the one on the left, but without the orange lines."
+
+for(i in 1:nrow(cells)){
+  p <- get(paste0("ID", cells$id[i]))
+  print(p)
+}
+```
