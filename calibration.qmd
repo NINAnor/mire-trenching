@@ -96,7 +96,7 @@ load("data/study-area-files.RData")
 # I used this to save the API key to my syst env
 # ggmap::register_google(key = "", write = TRUE)
 
-# example of getting sat imagae for the entire area
+# example of getting sat image for the entire area
 # get center coordinate
 e <- st_as_sfc(st_bbox(grid100_freq4)) |>
   st_transform(4326) |>
@@ -253,6 +253,117 @@ for (i in 1:nrow(cells2)) {
 
 for(i in 1:nrow(cells)){
   p <- get(paste0("ID", cells$id[i]))
+  print(p)
+}
+```
+
+## More pictures from the critical range
+
+We scored indicator values for the pictures above, and found that a lot
+of change was happening in the range between 6 and 17%. We therefore made
+these extrfa figures below to get some more data points for this range of 
+trenching frequencies.
+
+```{r getGridCells2}
+#| code-fold: true
+#| code-summary: "Get some grid cells with varying amount of trenching between 6 and 17%"
+#| warning: false
+
+# Transform to 4326 to match ggmap objects
+cells_fine <- grid100_freq4 |>
+  # requre at least half a grid cell
+  filter(area > set_units(5000, m2),
+         between(freq, 6, 17)) |>
+  st_transform(4326)
+  
+cells_c_fine <- cells_fine |>
+  st_centroid() |>
+  st_coordinates() |>
+  as_tibble() |>
+  rename("lon" = "X", "lat" = "Y") 
+cells_fine <- cells_fine |>
+  bind_cols(cells_c_fine) |>
+  filter(!id %in% cells$id)
+```
+
+```{r satloop2}
+#| code-fold: true
+#| code-summary: "Loop though and get sat image for each grid cell"
+#| eval: false
+satimg2 <- list(NULL)
+for(i in 1:nrow(cells_fine)){
+  satimg2[[i]] <- ggmap_bbox(myGgmap(cells_fine[i,]))
+}
+saveRDS(satimg2, "data/satImg2.rds")
+```
+
+```{r readSatImg2}
+#| code-fold: true
+#| code-summary: "Read cache"
+
+satimg2 <- readRDS("data/satImg2.rds")
+```
+
+```{r maploop2}
+#| code-fold: true
+#| code-summary: "Loop through and make maps"
+#| warning: false
+
+# convert grid cell df to 3857
+cells_fine2 <- st_transform(cells_fine, 3857)
+#lev_crop2 <- st_transform(lev_crop, 3857)
+
+for (i in 1:nrow(cells_fine)) {
+  dat <- cells_fine2[i, ]
+
+  suppressMessages(
+  without <- ggmap(ggmap = satimg2[[i]]) +
+    coord_sf(crs = st_crs(3857)) +
+    geom_sf(
+      data = dat,
+      inherit.aes = F,
+      fill = NA,
+      color = "yellow",
+      size = 2
+    )
+  )
+  
+  suppressMessages(
+  with <- ggmap(ggmap = satimg2[[i]])+
+  coord_sf(crs = st_crs(3857))+
+  geom_sf(data = dat, 
+          inherit.aes = F,
+          fill = NA,
+          color = "yellow",
+          size=2) +
+  geom_sf(data = lev_crop,
+          inherit.aes = F,
+          fill = "orange",
+          color = "orange") +
+  ggtitle(paste("Trenching frequency = ", round(dat$freq, 1),"%"))
+  )
+
+  assign(
+    x = paste0("ID", dat$id),
+    ggarrange(with, without)
+  )
+  
+}
+
+```
+
+```{r fig-calplots2}
+#| code-fold: true
+#| code-summary: "Show maps"
+#| fig-caption: |
+#|   "The yellow outline is a 100x100m grid cell, masked by ecosystem type.
+#|   The orange lines in the left pane are trenches identified with a deep learning
+#|   algorithm. The plot title indicates the proportion of 10x10 grid cells
+#|   inside the large grid cell that contains trenching. The satelite image
+#|   on the right is identical to the one on the left, but without the orange lines."
+
+for(i in 1:nrow(cells_fine)){
+  p <- get(paste0("ID", cells_fine$id[i]))
   print(p)
 }
 ```
