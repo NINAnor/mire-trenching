@@ -261,7 +261,7 @@ for(i in 1:nrow(cells)){
 
 We scored indicator values for the pictures above, and found that a lot
 of change was happening in the range between 6 and 17%. We therefore made
-these extrfa figures below to get some more data points for this range of 
+these extra figures below to get some more data points for this range of 
 trenching frequencies.
 
 ```{r getGridCells2}
