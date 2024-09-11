@@ -218,8 +218,12 @@ div.csl-indent {
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#more-pictures-from-the-critical-range" id="toc-more-pictures-from-the-critical-range" class="nav-link active" data-scroll-target="#more-pictures-from-the-critical-range"><span class="header-section-number">7.1</span> More pictures from the critical range</a></li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
@@ -249,7 +253,7 @@ div.csl-indent {
 <details class="code-fold"><summary>Set up Google API, download and save satelite images</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># I used this to save the API key to my syst env</span></span>
 <span><span class="co"># ggmap::register_google(key = "", write = TRUE)</span></span>
 <span></span>
-<span><span class="co"># example of getting sat imagae for the entire area</span></span>
+<span><span class="co"># example of getting sat image for the entire area</span></span>
 <span><span class="co"># get center coordinate</span></span>
 <span><span class="va">e</span> <span class="op">&lt;-</span> <span class="fu">st_as_sfc</span><span class="op">(</span><span class="fu">st_bbox</span><span class="op">(</span><span class="va">grid100_freq4</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -582,6 +586,178 @@ Figure&nbsp;7.20
 </div>
 </div>
 </div>
+<section id="more-pictures-from-the-critical-range" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="more-pictures-from-the-critical-range">
+<span class="header-section-number">7.1</span> More pictures from the critical range</h2>
+<p>We scored indicator values for the pictures above, and found that a lot of change was happening in the range between 6 and 17%. We therefore made these extra figures below to get some more data points for this range of trenching frequencies.</p>
+<div class="cell">
+<details class="code-fold"><summary>Get some grid cells with varying amount of trenching between 6 and 17%</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Transform to 4326 to match ggmap objects</span></span>
+<span><span class="va">cells_fine</span> <span class="op">&lt;-</span> <span class="va">grid100_freq4</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co"># requre at least half a grid cell</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">area</span> <span class="op">&gt;</span> <span class="fu">set_units</span><span class="op">(</span><span class="fl">5000</span>, <span class="va">m2</span><span class="op">)</span>,</span>
+<span>         <span class="fu">between</span><span class="op">(</span><span class="va">freq</span>, <span class="fl">6</span>, <span class="fl">17</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="fl">4326</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="va">cells_c_fine</span> <span class="op">&lt;-</span> <span class="va">cells_fine</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_centroid</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">st_coordinates</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">as_tibble</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">rename</span><span class="op">(</span><span class="st">"lon"</span> <span class="op">=</span> <span class="st">"X"</span>, <span class="st">"lat"</span> <span class="op">=</span> <span class="st">"Y"</span><span class="op">)</span> </span>
+<span><span class="va">cells_fine</span> <span class="op">&lt;-</span> <span class="va">cells_fine</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">bind_cols</span><span class="op">(</span><span class="va">cells_c_fine</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="va">id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">cells</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Loop though and get sat image for each grid cell</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">satimg2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cells_fine</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">satimg2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">ggmap_bbox</span><span class="op">(</span><span class="fu">myGgmap</span><span class="op">(</span><span class="va">cells_fine</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">satimg2</span>, <span class="st">"data/satImg2.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Read cache</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">satimg2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/satImg2.rds"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Loop through and make maps</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># convert grid cell df to 3857</span></span>
+<span><span class="va">cells_fine2</span> <span class="op">&lt;-</span> <span class="fu">st_transform</span><span class="op">(</span><span class="va">cells_fine</span>, <span class="fl">3857</span><span class="op">)</span></span>
+<span><span class="co">#lev_crop2 &lt;- st_transform(lev_crop, 3857)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cells_fine</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">cells_fine2</span><span class="op">[</span><span class="va">i</span>, <span class="op">]</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span></span>
+<span>  <span class="va">without</span> <span class="op">&lt;-</span> <span class="fu">ggmap</span><span class="op">(</span>ggmap <span class="op">=</span> <span class="va">satimg2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">coord_sf</span><span class="op">(</span>crs <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">3857</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_sf</span><span class="op">(</span></span>
+<span>      data <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>      inherit.aes <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>      fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>      color <span class="op">=</span> <span class="st">"yellow"</span>,</span>
+<span>      size <span class="op">=</span> <span class="fl">2</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span></span>
+<span>  <span class="va">with</span> <span class="op">&lt;-</span> <span class="fu">ggmap</span><span class="op">(</span>ggmap <span class="op">=</span> <span class="va">satimg2</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">coord_sf</span><span class="op">(</span>crs <span class="op">=</span> <span class="fu">st_crs</span><span class="op">(</span><span class="fl">3857</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>, </span>
+<span>          inherit.aes <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>          fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>          color <span class="op">=</span> <span class="st">"yellow"</span>,</span>
+<span>          size<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">lev_crop</span>,</span>
+<span>          inherit.aes <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>          fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>          color <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggtitle</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Trenching frequency = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">freq</span>, <span class="fl">1</span><span class="op">)</span>,<span class="st">"%"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/assign.html">assign</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="va">dat</span><span class="op">$</span><span class="va">id</span><span class="op">)</span>,</span>
+<span>    <span class="fu">ggarrange</span><span class="op">(</span><span class="va">with</span>, <span class="va">without</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-fig-caption="&quot;The yellow outline is a 100x100m grid cell, masked by ecosystem type. The orange lines in the left pane are trenches identified with a deep learning algorithm. The plot title indicates the proportion of 10x10 grid cells inside the large grid cell that contains trenching. The satelite image on the right is identical to the one on the left, but without the orange lines.&quot;">
+<details class="code-fold"><summary>Show maps</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">cells_fine</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"ID"</span>, <span class="va">cells_fine</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-calplots2-1" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-1.png" id="fig-calplots2-1" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.21
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-2" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-2.png" id="fig-calplots2-2" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.22
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-3" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-3.png" id="fig-calplots2-3" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.23
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-4" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-4.png" id="fig-calplots2-4" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.24
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-5" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-5.png" id="fig-calplots2-5" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.25
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-6" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-6.png" id="fig-calplots2-6" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.26
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-7" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-7.png" id="fig-calplots2-7" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.27
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-8" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-8.png" id="fig-calplots2-8" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.28
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-calplots2-9" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-calplots2-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="calibration_files/figure-html/fig-calplots2-9.png" id="fig-calplots2-9" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.29
+</figcaption></figure>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -589,8 +765,7 @@ Figure&nbsp;7.20
 Halvorsen, R., and Bratli, H. 2019. Dokumentasjon av NiN versjon 2.2 tilrettelagt for praktisk naturkartlegging: Utvalgte variabler fra beskrivelsessystemet. <span></span> natur i norge, artikkel 11 (versjon 2.2.0).
 </div>
 </div>
-
-</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1021,4 +1196,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
