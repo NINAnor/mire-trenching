@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Anders Kolstad">
-<meta name="dcterms.date" content="2024-09-12">
 <meta name="description" content="An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.">
-
-<title>Mire trenching indicator</title>
+<title>8&nbsp; Results – Mire trenching indicator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
-
+</style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -53,7 +61,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./study-area.html" rel="next">
+<link href="./RL-regression.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -62,8 +70,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -90,33 +97,24 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Background and aims</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Results.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Mire trenching indicator</a> 
         <div class="sidebar-tools-main">
@@ -124,26 +122,26 @@ div.csl-indent {
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
               <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
 </div>
     </div>
       </div>
@@ -154,9 +152,9 @@ div.csl-indent {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Background and aims</span></span></a>
   </div>
 </li>
@@ -198,80 +196,146 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Results.html" class="sidebar-item-text sidebar-link">
+  <a href="./Results.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#sec-background" id="toc-sec-background" class="nav-link active" data-scroll-target="#sec-background"><span class="header-section-number">1</span> Background and aims</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Mire trenching indicator</h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span>
+</h1>
 </div>
 
-<div>
-  <div class="description">
-    <p>An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.</p>
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Anders Kolstad </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 12, 2024</p>
-    </div>
-  </div>
   
     
   </div>
   
 
 
-</header>
-
-
-<section id="sec-background" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Background and aims</h1>
-<p>In order to describe the ecological condition of wetland, a careful consideratin of mire hydrology is essential. Still, there are no operational ecosystem condition indicators that adequately describe the hydrological status of wetlands in Norway. In Norway, trenching in order to lower the water table of mires has been widely conducted for centuries, and systematically conducted for about 150 years, most commonly in order to facilitate the cultivation of crops or trees. Today, the creation of new trenches is not allowed, yet the scars of old and also more recently made or maintained trenches are evident in the landscape. Many of the trenched areas have changed from open wetlands into forest or agriculture.</p>
-<p>There are no official maps of mire trenches in Norway. In order to make such a map, Vegar Bakkestuen and colleagues did a pilot study to see if they could identify trenches from LiDAR <span class="citation" data-cites="jansson2024">(<a href="#ref-jansson2024" role="doc-biblioref">Jansson et al. 2024</a>)</span>. After annotating ground-trouthed data from several regions in Norway, they trained a deep-learning algorithm to estimate the probability of the occurrence of trenches. The model was applied to a number of smaller study areas in Norway. The results were promising, and efforts are underway to scale up this model and predict mire trenches across Norway.</p>
-<p>The trenching map provides a probability for the occurrence of trenches in 1x1 m grid cells. Although the deep learning model is trained on trenches in mires, forests and swamp forests, the map identifies trenches across whole landscapes, including trenches in agricultural areas, road ditches, etc.</p>
-<p>This projects goal is to develop a concept for how a forthcomming national trenching map can be used to characterize the hydrological status of mires in Norway though the use of a normative indicator. Some of the requirements for such an indicator include having area-representative data (i.e.&nbsp;wall-to-wall data or balanced on key environmental variables), and the ability to regularly update the indicator values based on new information. It is also recommended that indicators are based on open data and source code.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-jansson2024" class="csl-entry" role="listitem">
-Jansson, U., Bakkestuen, V., Lyngstad, A., and Mienna, I.M. 2024. Utvikling av grøftekart i myr og torvmark i norge med hjelp av dyplæring.
+</header><p>Based on what is describes in the preceding chapters, we have arrived at a concept for an indicator on the severity of trenching in Norwegian wetlands. We base the indicator on the theoretical content of the NiN variable <code>7GR-GI</code> for trenching and the approach used in the <code>7TK</code> variable, using the proportion of 10x10m grid cells inside 100x100m grid cells that have non-zero trenching as the metric. The reference levels (RL) are decided through expert elicitation, and we have 6 RLs, including 4 class boundaries and two end points. We use a piece-wise linear scaling to convert the variable into an indicator.</p>
+<p>The indicator will be updated using spatial data showing the amount of trenched restored (<a href="how-to-update.html" class="quarto-xref"><span>Chapter 4</span></a>), as well as updates to the ecosystem delineation maps. As the ecosystem delineation we recoment using AR5 in combination with the open wetland map (see <a href="study-area.html" class="quarto-xref"><span>Chapter 2</span></a>).</p>
+<div class="cell">
+<details class="code-fold"><summary>Normalisation function</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">myNorm</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">x0</span>, <span class="va">x20</span>, <span class="va">x40</span>, <span class="va">x60</span>, <span class="va">x80</span>, <span class="va">x100</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">case_when</span><span class="op">(</span></span>
+<span>    <span class="va">x</span> <span class="op">&gt;</span><span class="va">x100</span> <span class="op">~</span> <span class="fl">1</span>,</span>
+<span>    <span class="va">x</span> <span class="op">&gt;</span><span class="va">x80</span> <span class="op">~</span> <span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">x80</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">x100</span><span class="op">-</span><span class="va">x80</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.8</span><span class="op">)</span>   <span class="op">+</span> <span class="fl">0.8</span>,</span>
+<span>    <span class="va">x</span> <span class="op">&gt;</span><span class="va">x60</span> <span class="op">~</span> <span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">x60</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">x80</span><span class="op">-</span><span class="va">x60</span><span class="op">)</span> <span class="op">*</span><span class="op">(</span><span class="fl">0.8</span> <span class="op">-</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.6</span>,</span>
+<span>    <span class="va">x</span> <span class="op">&gt;</span><span class="va">x40</span> <span class="op">~</span> <span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">x40</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">x60</span><span class="op">-</span><span class="va">x40</span><span class="op">)</span> <span class="op">*</span><span class="op">(</span><span class="fl">0.6</span> <span class="op">-</span> <span class="fl">0.4</span><span class="op">)</span> <span class="op">+</span><span class="fl">0.4</span>,</span>
+<span>    <span class="va">x</span> <span class="op">&gt;</span><span class="va">x20</span> <span class="op">~</span> <span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">x20</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">x40</span><span class="op">-</span><span class="va">x20</span><span class="op">)</span> <span class="op">*</span><span class="op">(</span><span class="fl">0.4</span> <span class="op">-</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span><span class="fl">0.2</span>,</span>
+<span>    <span class="va">x</span> <span class="op">&gt;</span><span class="va">x0</span>  <span class="op">~</span> <span class="op">(</span><span class="va">x</span><span class="op">-</span><span class="va">x0</span><span class="op">)</span> <span class="op">/</span><span class="op">(</span><span class="va">x20</span><span class="op">-</span><span class="va">x0</span><span class="op">)</span> <span class="op">*</span><span class="fl">0.2</span>,</span>
+<span>    <span class="va">x</span> <span class="op">&lt;=</span><span class="va">x0</span>  <span class="op">~</span> <span class="fl">0</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">*</span> <span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Testing</span></span>
+<span><span class="co">#var &lt;- seq(0, 1000, by = 5)</span></span>
+<span><span class="co">#ind &lt;- myNorm(var, 100, 200, 250, 600, 700, 800)</span></span>
+<span><span class="co">#tibble(var, ind) |&gt;</span></span>
+<span><span class="co">#  ggplot()+</span></span>
+<span><span class="co">#  geom_point(aes(var, ind))+</span></span>
+<span><span class="co">#  scale_y_continuous(breaks = seq(0,1, by = .1))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Make plot</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/grid100_freq4.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>indicator2 <span class="op">=</span> <span class="fu">myNorm</span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">freq</span>, <span class="fl">0</span>, <span class="fl">7</span>, <span class="fl">16</span>, <span class="fl">31</span>, <span class="fl">52</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">ridge</span> <span class="op">&lt;-</span> <span class="fu">ggridges</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_ridgeline_gradient.html">geom_density_ridges_gradient</a></span><span class="op">(</span>scale <span class="op">=</span> <span class="fl">3</span>, </span>
+<span>      size <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Warning in ggridges::geom_density_ridges_gradient(scale = 3, size = 0.3):
+Ignoring unknown parameters: `size`</code></pre>
+</div>
+<details class="code-fold"><summary>Make plot</summary><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">myColour</span> <span class="op">&lt;-</span> <span class="st">"black"</span></span>
+<span><span class="va">mySize</span> <span class="op">&lt;-</span> <span class="fl">8</span></span>
+<span><span class="va">myAlpha</span> <span class="op">&lt;-</span> <span class="fl">0.7</span></span>
+<span><span class="va">myShape</span> <span class="op">&lt;-</span> <span class="fl">21</span></span>
+<span><span class="va">low</span> <span class="op">&lt;-</span> <span class="st">"red"</span></span>
+<span><span class="va">high</span> <span class="op">&lt;-</span> <span class="st">"green"</span></span>
+<span></span>
+<span><span class="va">dat</span><span class="op">|&gt;</span></span>
+<span>   <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">freq</span>, y <span class="op">=</span> <span class="va">indicator2</span>, </span>
+<span>      fill <span class="op">=</span> <span class="va">indicator2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu">geom_point</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">myColour</span>, </span>
+<span>      size <span class="op">=</span> <span class="va">mySize</span>, alpha <span class="op">=</span> <span class="va">myAlpha</span>, shape <span class="op">=</span> <span class="va">myShape</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu">ylab</span><span class="op">(</span><span class="st">"Indicator values"</span><span class="op">)</span> <span class="op">+</span> <span class="fu">xlab</span><span class="op">(</span><span class="st">"Variable values"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu">scale_fill_gradient</span><span class="op">(</span><span class="st">"Indicator values"</span>, low <span class="op">=</span> <span class="va">low</span>, </span>
+<span>        high <span class="op">=</span> <span class="va">high</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_x_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu">expansion</span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu">scale_y_continuous</span><span class="op">(</span>expand <span class="op">=</span> <span class="fu">expansion</span><span class="op">(</span>mult <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>      <span class="fu">guides</span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-normaliseFinal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-normaliseFinal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Results_files/figure-html/fig-normaliseFinal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normaliseFinal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Normalisation of the variable using piece-wise linear transformation.
+</figcaption></figure>
 </div>
 </div>
-</section>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Make map</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">trench_in_cell</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/trench_in_cell.RDS"</span><span class="op">)</span></span>
+<span><span class="va">low</span> <span class="op">&lt;-</span> <span class="st">"red"</span></span>
+<span><span class="va">high</span> <span class="op">&lt;-</span> <span class="st">"green"</span></span>
+<span><span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">indicator2</span><span class="op">)</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">trench_in_cell</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">scale_fill_gradient</span><span class="op">(</span></span>
+<span>    <span class="st">"Indicator value"</span>, </span>
+<span>    low <span class="op">=</span> <span class="va">low</span>, </span>
+<span>    high <span class="op">=</span> <span class="va">high</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-makeMapFinal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-makeMapFinal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Results_files/figure-html/fig-makeMapFinal-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-makeMapFinal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: Indicator values representing the severity of trenching in wetlands
+</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Calculate indicator value</summary><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>area <span class="op">=</span> <span class="fu">st_area</span><span class="op">(</span><span class="va">sf..st_make_grid.lev_crop..cellsize...100.</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ind_values</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">ind_values</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">indicator</span>, </span>
+<span>       <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>,</span>
+<span>       replace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       prob <span class="op">=</span> <span class="va">dat</span><span class="op">$</span><span class="va">area</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">med</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">ind_values</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.5</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The indicator value for the area in <a href="#fig-makeMapFinal" class="quarto-xref">Figure&nbsp;<span>8.2</span></a> is 0.54 [95% CI: 0.48 - 0.59].</p>
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+
+
+</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -690,19 +754,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./RL-regression.html" class="pagination-link" aria-label="Identifying reference levels">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./study-area.html" class="pagination-link" aria-label="Study area and trenching data">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Study area and trenching data</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
 
 
 
-
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/Results.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

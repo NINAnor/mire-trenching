@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.5.57">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="description" content="An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.">
-<title>7&nbsp; Setting reference levels – Mire trenching indicator</title>
+<title>6&nbsp; Setting reference levels – Mire trenching indicator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,6 +81,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./RL-regression.html" rel="next">
 <link href="./7TK.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -125,7 +126,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./calibration.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Setting reference levels</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./calibration.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -186,32 +187,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./delineation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./how-to-update.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./7TK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./calibration.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RL-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
     </ul>
@@ -222,12 +229,13 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#more-pictures-from-the-critical-range" id="toc-more-pictures-from-the-critical-range" class="nav-link active" data-scroll-target="#more-pictures-from-the-critical-range"><span class="header-section-number">7.1</span> More pictures from the critical range</a></li>
+<li><a href="#structured-expert-elicitation" id="toc-structured-expert-elicitation" class="nav-link active" data-scroll-target="#structured-expert-elicitation"><span class="header-section-number">6.1</span> Structured expert elicitation</a></li>
+  <li><a href="#more-pictures-from-the-critical-range" id="toc-more-pictures-from-the-critical-range" class="nav-link" data-scroll-target="#more-pictures-from-the-critical-range"><span class="header-section-number">6.2</span> More pictures from the critical range</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/calibration.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-ref" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></h1>
+<h1 class="title"><span id="sec-ref" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></h1>
 </div>
 
 
@@ -243,12 +251,15 @@ div.csl-indent {
 
 </header><p>Up to this point I used reference levels (RL) drawn from my own personal and subjective intuition. There might be more objective ways to do this, or at least more precise and defendable ways. What we have decided on is to create a set of calibration maps, with varying amounts of trenching, and then several experts will look at these and judge individually how severe they believe a given density of trenches will be for the mire ecosystem. We need (minimum) three RLs. We define our RL based on the <code>7GR-GI</code> variable in <span class="citation" data-cites="halvorsen2019">Halvorsen and Bratli (<a href="#ref-halvorsen2019" role="doc-biblioref">2019</a>)</span>.</p>
 <p>There is no way for us to know the ages of the trenches in our data. Therefore it is impossible to separate the realised from the future effects from trenching. We therefore combine these two aspects, and describe the ecosystem effect of trenching based on the future equilibrium state that will result as a consequence of the trenching that has happened. This approach is not ideal, and the ecosystem condition should preferably be describes as a snap shot of the condition as it is today. However, we see know other solution to this issue.</p>
-<p>X<sub>0</sub> is the variable value (i.e.&nbsp;the frequency of 10x10 grid cells with trenching inside each 100x100 cell) that corresponds to a completely destroyed ecosystem. A further deterioration of the variable value should now result in any further deterioration of ecosystem condition. We have defined this as a 7GR-GI value of 5, meaning that the ecosystem is set on a succession towards a non-wetland type, usually forest.</p>
-<p>X<sub>100</sub> is the RL at the reference condition (RC; <em>pristine condition</em> in our case). This RL is quite intuitive and is set to zero (7GR-GI = 1). Note that the trenches data has been filtered to remove very small polygons that are more likely to be artefacts than real trenches.</p>
-<p>X<sub>60</sub> represents the variable value at the boundary between good and deteriorated ecosystem condition. We have decided to anchor this RL theoretically to the point where trenching is so severe that the species composition in the mire ecosystem has changes so much as to correspond to a one-step change along one of the dominant environmental gradient (LKMs; <span class="citation" data-cites="halvorsen2019">Halvorsen and Bratli (<a href="#ref-halvorsen2019" role="doc-biblioref">2019</a>)</span>). This equates to 7GR-GI = 3.</p>
-<p>7GR-GI is meant to be describes for whole hydrological units, but here we instead use it for individual grid cells. This means that a grid cell can be described as having no trenching, and this a favorable indicator value, even though the mire as a whole is severely affected by trenching arising from neighboring grid cells. This implies that our indicator could en dup to be to conservative. However, we think the size of our grid cells (100x100m) is a relevant scale for describing trenching effects, that are known to often extend tens of meters from a large trench, but rarely hundreds of meters.</p>
+<p><strong>X<sub>0</sub></strong> is the variable value (i.e.&nbsp;the frequency of 10x10 grid cells with trenching inside each 100x100 cell) that corresponds to a completely destroyed ecosystem. A further deterioration of the variable value should now result in any further deterioration of ecosystem condition. We have defined this as a 7GR-GI value of 5, meaning that the ecosystem is set on a succession towards a non-wetland type, usually forest.</p>
+<p><strong>X<sub>100</sub></strong> is the RL at the reference condition (RC; <em>pristine condition</em> in our case). This RL is quite intuitive and is set to zero (7GR-GI = 1). Note that the trenches data has been filtered to remove very small polygons that are more likely to be artefacts than real trenches.</p>
+<p><strong>X<sub>60</sub></strong> represents the variable value at the boundary between good and deteriorated ecosystem condition. We have decided to anchor this RL theoretically to the point where trenching is so severe that the species composition in the mire ecosystem has changes so much as to correspond to a one-step change along one of the dominant environmental gradient (LKMs; <span class="citation" data-cites="halvorsen2019">Halvorsen and Bratli (<a href="#ref-halvorsen2019" role="doc-biblioref">2019</a>)</span>). This equates to 7GR-GI = 3.</p>
+<p>In practice we map 7GR-GI = 1 to a value between 0.8 and 1 on the indicator scale, 7GR-GI = 2 to values between 0.6 and 0.4, 7GR-GI = 3 to values between 0.4 and 0.6, 7GR-GI = 4 to values between 0.2 and 0.4, and 7GR-GI = 5 to values between 0.0 and 0.2,</p>
+<p>7GR-GI is meant to be describes for whole hydrological units, but here we instead use it for individual grid cells. This means that a grid cell can be described as having no trenching, and this a favorable indicator value, even though the mire as a whole is severely affected by trenching arising from neighboring grid cells. This implies that our indicator could end up to be to conservative. However, we think the size of our grid cells (100x100m) is a relevant scale for describing trenching effects, that are known to often extend tens of meters from a large trench, but rarely hundreds of meters.</p>
 <p>To set the RLs for our variable, we could potentially use empirical data, such as nature type mapping data where mire polygons are assign 7GR-GI values in the field. However, this field protocol does not include mapping of more common mire types, and although our study areas is mapped using this protocol, no mire polygons have been delineated.</p>
-<p>Rather than using empirical data, we decided to use a kind of structured expert eliciation based on a common consensus. Our expert panel consisted of five ecologist with extensive and relevant field experience. First we agreed on the theoretical definition of the RLs (se above). Then we looked at a set of 100x100m grid cells with varying densities of trenches (@fig-calplots) and together we discussed and reached a consensus about which variable values to map to the different RLs.</p>
+<section id="structured-expert-elicitation" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="structured-expert-elicitation">
+<span class="header-section-number">6.1</span> Structured expert elicitation</h2>
+<p>Rather than using empirical data, we decided to use a kind of structured expert elicitation. Our expert panel consisted of four ecologist with extensive and relevant field experience. First we agreed on the theoretical definition of the RLs (se above). Then we looked at a set of 100x100m grid cells with varying densities of trenches (@fig-calplots). We then scored these cases individually, but following a common discussion, giving each case a precise indicator value. Our interpretation of the indicator scale was aided by both the five condition classes in the water framework directive (high, good, moderate, low, and poor), as well as the five steps on the 7GR-GI metric. This approach mean that we had the same understanding of the indicator scale and the general idea behind the exercise, but it also meant that our answers were influenced by the opinions of the other experts.</p>
 <div class="cell">
 <details class="code-fold"><summary>Set up Google API, download and save satelite images</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># I used this to save the API key to my syst env</span></span>
 <span><span class="co"># ggmap::register_google(key = "", write = TRUE)</span></span>
@@ -391,7 +402,7 @@ div.csl-indent {
 <img src="calibration_files/figure-html/fig-calplots-1.png" id="fig-calplots-1" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.1
+Figure&nbsp;6.1
 </figcaption></figure>
 </div>
 </div>
@@ -401,7 +412,7 @@ Figure&nbsp;7.1
 <img src="calibration_files/figure-html/fig-calplots-2.png" id="fig-calplots-2" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.2
+Figure&nbsp;6.2
 </figcaption></figure>
 </div>
 </div>
@@ -411,7 +422,7 @@ Figure&nbsp;7.2
 <img src="calibration_files/figure-html/fig-calplots-3.png" id="fig-calplots-3" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.3
+Figure&nbsp;6.3
 </figcaption></figure>
 </div>
 </div>
@@ -421,7 +432,7 @@ Figure&nbsp;7.3
 <img src="calibration_files/figure-html/fig-calplots-4.png" id="fig-calplots-4" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.4
+Figure&nbsp;6.4
 </figcaption></figure>
 </div>
 </div>
@@ -431,7 +442,7 @@ Figure&nbsp;7.4
 <img src="calibration_files/figure-html/fig-calplots-5.png" id="fig-calplots-5" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.5
+Figure&nbsp;6.5
 </figcaption></figure>
 </div>
 </div>
@@ -441,7 +452,7 @@ Figure&nbsp;7.5
 <img src="calibration_files/figure-html/fig-calplots-6.png" id="fig-calplots-6" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.6
+Figure&nbsp;6.6
 </figcaption></figure>
 </div>
 </div>
@@ -451,7 +462,7 @@ Figure&nbsp;7.6
 <img src="calibration_files/figure-html/fig-calplots-7.png" id="fig-calplots-7" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.7
+Figure&nbsp;6.7
 </figcaption></figure>
 </div>
 </div>
@@ -461,7 +472,7 @@ Figure&nbsp;7.7
 <img src="calibration_files/figure-html/fig-calplots-8.png" id="fig-calplots-8" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.8
+Figure&nbsp;6.8
 </figcaption></figure>
 </div>
 </div>
@@ -471,7 +482,7 @@ Figure&nbsp;7.8
 <img src="calibration_files/figure-html/fig-calplots-9.png" id="fig-calplots-9" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.9
+Figure&nbsp;6.9
 </figcaption></figure>
 </div>
 </div>
@@ -481,7 +492,7 @@ Figure&nbsp;7.9
 <img src="calibration_files/figure-html/fig-calplots-10.png" id="fig-calplots-10" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.10
+Figure&nbsp;6.10
 </figcaption></figure>
 </div>
 </div>
@@ -491,7 +502,7 @@ Figure&nbsp;7.10
 <img src="calibration_files/figure-html/fig-calplots-11.png" id="fig-calplots-11" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.11
+Figure&nbsp;6.11
 </figcaption></figure>
 </div>
 </div>
@@ -501,7 +512,7 @@ Figure&nbsp;7.11
 <img src="calibration_files/figure-html/fig-calplots-12.png" id="fig-calplots-12" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.12
+Figure&nbsp;6.12
 </figcaption></figure>
 </div>
 </div>
@@ -511,7 +522,7 @@ Figure&nbsp;7.12
 <img src="calibration_files/figure-html/fig-calplots-13.png" id="fig-calplots-13" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.13
+Figure&nbsp;6.13
 </figcaption></figure>
 </div>
 </div>
@@ -521,7 +532,7 @@ Figure&nbsp;7.13
 <img src="calibration_files/figure-html/fig-calplots-14.png" id="fig-calplots-14" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.14
+Figure&nbsp;6.14
 </figcaption></figure>
 </div>
 </div>
@@ -531,7 +542,7 @@ Figure&nbsp;7.14
 <img src="calibration_files/figure-html/fig-calplots-15.png" id="fig-calplots-15" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.15
+Figure&nbsp;6.15
 </figcaption></figure>
 </div>
 </div>
@@ -541,7 +552,7 @@ Figure&nbsp;7.15
 <img src="calibration_files/figure-html/fig-calplots-16.png" id="fig-calplots-16" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.16
+Figure&nbsp;6.16
 </figcaption></figure>
 </div>
 </div>
@@ -551,7 +562,7 @@ Figure&nbsp;7.16
 <img src="calibration_files/figure-html/fig-calplots-17.png" id="fig-calplots-17" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.17
+Figure&nbsp;6.17
 </figcaption></figure>
 </div>
 </div>
@@ -561,7 +572,7 @@ Figure&nbsp;7.17
 <img src="calibration_files/figure-html/fig-calplots-18.png" id="fig-calplots-18" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.18
+Figure&nbsp;6.18
 </figcaption></figure>
 </div>
 </div>
@@ -571,7 +582,7 @@ Figure&nbsp;7.18
 <img src="calibration_files/figure-html/fig-calplots-19.png" id="fig-calplots-19" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.19
+Figure&nbsp;6.19
 </figcaption></figure>
 </div>
 </div>
@@ -581,14 +592,14 @@ Figure&nbsp;7.19
 <img src="calibration_files/figure-html/fig-calplots-20.png" id="fig-calplots-20" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots-20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.20
+Figure&nbsp;6.20
 </figcaption></figure>
 </div>
 </div>
 </div>
-<section id="more-pictures-from-the-critical-range" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="more-pictures-from-the-critical-range">
-<span class="header-section-number">7.1</span> More pictures from the critical range</h2>
-<p>We scored indicator values for the pictures above, and found that a lot of change was happening in the range between 6 and 17%. We therefore made these extra figures below to get some more data points for this range of trenching frequencies.</p>
+</section><section id="more-pictures-from-the-critical-range" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="more-pictures-from-the-critical-range">
+<span class="header-section-number">6.2</span> More pictures from the critical range</h2>
+<p>We scored indicator values for the pictures above, and found that a lot of change was happening in the range between 6 and 17%. We therefore made these extra figures below to get some more data points for this range of trenching frequencies. Since we now had a good internal harmonized understanding of the task, we decided to score these cases indivudually, not knowing the answers or reasoning from the other experts.</p>
 <div class="cell">
 <details class="code-fold"><summary>Get some grid cells with varying amount of trenching between 6 and 17%</summary><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Transform to 4326 to match ggmap objects</span></span>
 <span><span class="va">cells_fine</span> <span class="op">&lt;-</span> <span class="va">grid100_freq4</span> <span class="op">|&gt;</span></span>
@@ -673,7 +684,7 @@ Figure&nbsp;7.20
 <img src="calibration_files/figure-html/fig-calplots2-1.png" id="fig-calplots2-1" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.21
+Figure&nbsp;6.21
 </figcaption></figure>
 </div>
 </div>
@@ -683,7 +694,7 @@ Figure&nbsp;7.21
 <img src="calibration_files/figure-html/fig-calplots2-2.png" id="fig-calplots2-2" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.22
+Figure&nbsp;6.22
 </figcaption></figure>
 </div>
 </div>
@@ -693,7 +704,7 @@ Figure&nbsp;7.22
 <img src="calibration_files/figure-html/fig-calplots2-3.png" id="fig-calplots2-3" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.23
+Figure&nbsp;6.23
 </figcaption></figure>
 </div>
 </div>
@@ -703,7 +714,7 @@ Figure&nbsp;7.23
 <img src="calibration_files/figure-html/fig-calplots2-4.png" id="fig-calplots2-4" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.24
+Figure&nbsp;6.24
 </figcaption></figure>
 </div>
 </div>
@@ -713,7 +724,7 @@ Figure&nbsp;7.24
 <img src="calibration_files/figure-html/fig-calplots2-5.png" id="fig-calplots2-5" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.25
+Figure&nbsp;6.25
 </figcaption></figure>
 </div>
 </div>
@@ -723,7 +734,7 @@ Figure&nbsp;7.25
 <img src="calibration_files/figure-html/fig-calplots2-6.png" id="fig-calplots2-6" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.26
+Figure&nbsp;6.26
 </figcaption></figure>
 </div>
 </div>
@@ -733,7 +744,7 @@ Figure&nbsp;7.26
 <img src="calibration_files/figure-html/fig-calplots2-7.png" id="fig-calplots2-7" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.27
+Figure&nbsp;6.27
 </figcaption></figure>
 </div>
 </div>
@@ -743,7 +754,7 @@ Figure&nbsp;7.27
 <img src="calibration_files/figure-html/fig-calplots2-8.png" id="fig-calplots2-8" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.28
+Figure&nbsp;6.28
 </figcaption></figure>
 </div>
 </div>
@@ -753,7 +764,7 @@ Figure&nbsp;7.28
 <img src="calibration_files/figure-html/fig-calplots2-9.png" id="fig-calplots2-9" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-calplots2-9-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.29
+Figure&nbsp;6.29
 </figcaption></figure>
 </div>
 </div>
@@ -1186,10 +1197,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./7TK.html" class="pagination-link" aria-label="Frequency-based metric">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./RL-regression.html" class="pagination-link" aria-label="Identifying reference levels">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.5.57">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="description" content="An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.">
-
-<title>3&nbsp; Delineation – Mire trenching indicator</title>
+<title>7&nbsp; Identifying reference levels – Mire trenching indicator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +18,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
-
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
@@ -31,8 +61,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./metrics.html" rel="next">
-<link href="./study-area.html" rel="prev">
+<link href="./Results.html" rel="next">
+<link href="./calibration.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -41,8 +71,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -69,33 +98,24 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-
-
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./delineation.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./RL-regression.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Mire trenching indicator</a> 
         <div class="sidebar-tools-main">
@@ -103,26 +123,26 @@ ul.task-list li input[type="checkbox"] {
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
               <i class="bi bi-twitter pe-1"></i>
             Twitter
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
               <i class="bi bi-facebook pe-1"></i>
             Facebook
             </a>
           </li>
           <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
               <i class="bi bi-linkedin pe-1"></i>
             LinkedIn
             </a>
           </li>
       </ul>
-    </div>
+</div>
 </div>
     </div>
       </div>
@@ -133,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Background and aims</span></span></a>
@@ -147,54 +167,50 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./delineation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./how-to-update.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./7TK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./calibration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RL-regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#the-importance-of-the-ecosystem-accounting-area" id="toc-the-importance-of-the-ecosystem-accounting-area" class="nav-link active" data-scroll-target="#the-importance-of-the-ecosystem-accounting-area"><span class="header-section-number">3.1</span> The importance of the ecosystem accounting area</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/delineation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"><span id="sec-delineation" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-ref2" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span></h1>
 </div>
 
 
@@ -208,32 +224,77 @@ ul.task-list li input[type="checkbox"] {
   
 
 
-</header>
+</header><p>Here we show the results from the two session of expert elicitation explained in <a href="calibration.html" class="quarto-xref"><span>Chapter 6</span></a>.</p>
+<p>The black circles in <a href="#fig-scatterPlot" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> shows a remarkable consistency in the experts answers from the first communal session, and a strong relationship between trenching frequency and (perceived) indicator values. The exception is for one point around 25% trenching frequency where everybody scored an indicator value of 1, due to a common agreement that the trenches in the image did not represent real trenches, but was rather an artifact of the model. There are artefacts in the trenching map, and probably also will be in the final national trenching map. We therefore argue that images with such artefacts should be allowed to influence the choice of reference levels. However, this data point had relatively little influence on the loess smoothers in <a href="#fig-scatterPlot" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> but there were more possible artifact assessed during the second elicitation session.</p>
+<p>Based on the first session and the expert scoring of 16 images of varying trenching frequency, we found that X<sub>60</sub> should be anchored to just around 10% trenching frequency (black line in <a href="#fig-scatterPlot" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>), and the x<sub>100</sub> can be anchored at around 85-90%. However, there is still a few non-zero values at the far right of the figure, indicator that perhaps X<sub>100</sub> should conservatively be set higher, for example to 100%.</p>
+<p>In the first session we experienced that there was a steep decline in indicator values in the beginning, with trenching frequencies &lt;20%. We therefore scored yet another 9 cases from this critical range, but this time the experts did not get to discuss the images with the others. This led to much higher variation in responses, and generally higher indicator values (colored circles and orange regression line in <a href="#fig-scatterPlot" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>).</p>
+<div class="cell">
+<details class="code-fold"><summary>Import data</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"data/expertElicitation.RDS"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold"><summary>Make figure</summary><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">append</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>percentTrenching <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>         indicatorValue <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>         Figure <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dat</span> <span class="op">|&gt;</span></span>
+<span>  <span class="co">#filter(Figure &lt; 21) |&gt;</span></span>
+<span>  <span class="co"># add zeros</span></span>
+<span>  <span class="fu">bind_rows</span><span class="op">(</span><span class="va">append</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">percentTrenching</span>, </span>
+<span>                 y <span class="op">=</span> <span class="va">indicatorValue</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">Figure</span> <span class="op">&lt;</span><span class="fl">21</span><span class="op">)</span>,</span>
+<span>             size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>             alpha<span class="op">=</span><span class="fl">.5</span>,</span>
+<span>             fill <span class="op">=</span> <span class="st">"grey20"</span>,</span>
+<span>             position <span class="op">=</span> <span class="fu">position_dodge2</span><span class="op">(</span>width<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme_bw</span><span class="op">(</span> base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>, by<span class="op">=</span><span class="fl">.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">100</span>, by<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">theme</span><span class="op">(</span>panel.grid.major.y <span class="op">=</span> <span class="fu">element_line</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>                                          linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">Figure</span> <span class="op">&gt;</span><span class="fl">20</span><span class="op">)</span>,</span>
+<span>             <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">Person</span><span class="op">)</span>,</span>
+<span>             size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>             alpha<span class="op">=</span><span class="fl">.7</span>,</span>
+<span>             <span class="co">#color = "orange3",</span></span>
+<span>             position <span class="op">=</span> <span class="fu">position_dodge2</span><span class="op">(</span>width<span class="op">=</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">Figure</span> <span class="op">&lt;</span><span class="fl">21</span><span class="op">)</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">"grey20"</span>,</span>
+<span>              se<span class="op">=</span><span class="cn">F</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>data <span class="op">=</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">.x</span>, <span class="va">Figure</span> <span class="op">&gt;</span><span class="fl">20</span>, <span class="va">indicatorValue</span><span class="op">!=</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>              method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span>              se<span class="op">=</span> <span class="cn">F</span>,</span>
+<span>              colour <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>              linewidth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu">geom_smooth</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">guides</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div id="fig-scatterPlot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-scatterPlot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="RL-regression_files/figure-html/fig-scatterPlot-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatterPlot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: “Indicator values assigned by four experts to each of 25 images showing aerial photos of 100x100m grid cells (with about 100 m buffer area around the grid cells) overlaid with polygons showing the presence of trenches. 16 images were discussed together and the indicator values were assigned individually (black circles and line), in random order, but where the subsequent expert had knowledge of the answers from the foregoing experts. 9 addition images were score immediately afterwards, but where the experts did not get a chance to discuss with eacher, and scored the images separately (colored circles (referring to different experts) and orange line). Horizontal red lines are visual aids to identify the trenching frequency associated with each of the five indicator values. The regression lines (grey for first 16 images, orange for subsequent 9 images, and blue for all data points combined) are loess smoothers (linear for the orange circles), and are added for for visual aid. For the loess smoothers, we added 100 false data points to force the intercept through 1. Note a small amount of horizontal jitter added to the data points to illuminate overlapping points.”
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>One reason for the generally much higher values in the second session, using individual expert elicitation, could be that there were by chance more images showing trenches that the experts interpreted as artifacts of the model, and not as real trenches. This implies that is a future trenching map is able to reduce these artifact, then the RLs should be recalculated.</p>
+<p>Combining data from the two expert elicitation sessions we end up with the blue line in <a href="#fig-scatterPlot" class="quarto-xref">Figure&nbsp;<span>7.1</span></a>, and the following reference levels:</p>
+<ul>
+<li>X<sub>0</sub> = 100%</li>
+<li>X<sub>20</sub> = 52%</li>
+<li>X<sub>40</sub> = 31%</li>
+<li>X<sub>60</sub> = 16%</li>
+<li>X<sub>80</sub> = 7%</li>
+<li>X<sub>100</sub> = 0%</li>
+</ul>
 
 
-<section id="the-importance-of-the-ecosystem-accounting-area" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="the-importance-of-the-ecosystem-accounting-area"><span class="header-section-number">3.1</span> The importance of the ecosystem accounting area</h2>
-<p>We presented a study area that is practically square (<a href="study-area.html#fig-map1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>). However, for the purpose of an ecosystem condition account or assessment, this area needs to be partitioned into unique and non-overlapping ecosystems, and our indicator needs to address the ecosystem condition the target ecosystem explicitly. The ecosystem that this indicator is aimed at is wetlands, or <em>våtmark</em> in Norwegian.</p>
-<p>We might therefore need to mask our spatial data at some stage in order to exclude trenches identified in other ecosystems. However, this is problematic for several reasons.</p>
-<p>First, we do not have an official ecosystem delineation map, and it is not yet clear if the ecosystem should be defined as all types of wetlands, or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use (<a href="study-area.html#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>). Alternatively, we can use things like AR5, or a combination of the two.</p>
-<p>Secondly, by excluding everything that is no (open) mire, we automatically exclude wetlands, or previous wetlands, that have become forested due to the lowered water table that comes from trenching. In other words, we exclude the areas that are in the worst condition. From <a href="study-area.html#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> we can see that this is a very common scenario.</p>
-<p>Thirdly, when it comes to updating the indicator in the future (see <a href="how-to-update.html" class="quarto-xref"><span>Chapter 5</span></a>), we will be in the case that more and more trenched wetland becomes classified as other nature types, mainly forests, because that is what happends when you trench a mire. As a consequence, the indicator values will look better and better over time, reflection the land use change and the associated loss of the areas in worst condition.</p>
-<p>This is a well known issue in ecosystem accounting (ref Jacobson).</p>
-<p>We may chose to</p>
-<ol type="1">
-<li><p>strictly follow the UN standard for ecosystem accounting and only focus on the open mires (and/or AR5 mires).</p></li>
-<li><p>mask the data against both mires and forests</p></li>
-<li><p>no masking, calculating the variable for all areas regardless of nature type</p></li>
-</ol>
-<p>The third option is perhaps not ideal due to significant model errors, for example that the trenches map includes road ditches, agricultural drainage ditches, and ditches in mountains or other areas that have never been wetlands.</p>
-<p>The first option is the one that best fit the accounting standards. The suggested way to overcome the <em>false message</em> that wetlands may develop better ecosystem condition just because the worst areas become classified as forests, is to always look at the condition assessment in light of, and at the same time as, an ecosystem extent account. Then the loss of wetland area will still make red flags, even though it is documented in the extent account and not the condition account.</p>
-<p>It can be very tempting to go for option 2, but as you can see, the consequent double-counting of the same process then becomes unavoidable. We will therefore go for option 1 here, using the open mire delineation map as our ecosystem assets. However, in the future, if the target ecosystem becomes defined as to include forested mires, then it is not a problem to update this indicator to include such areas as well.</p>
 
-
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -652,16 +713,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="./study-area.html" class="pagination-link" aria-label="Study area and trenching data">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Study area and trenching data</span></span>
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./calibration.html" class="pagination-link" aria-label="Setting reference levels">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./metrics.html" class="pagination-link" aria-label="Possible metrics">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Results.html" class="pagination-link" aria-label="Results">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -669,5 +728,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/delineation.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/RL-regression.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div></div></footer></body></html>

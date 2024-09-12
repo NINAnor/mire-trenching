@@ -8,7 +8,7 @@
 
 <meta name="description" content="An investigating into different consepts for an ecosystem condition indicator based on a map of mire trenches i Norway.">
 
-<title>4&nbsp; Possible metrics – Mire trenching indicator</title>
+<title>3&nbsp; Possible metrics – Mire trenching indicator</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -52,7 +52,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./how-to-update.html" rel="next">
-<link href="./delineation.html" rel="prev">
+<link href="./study-area.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,7 +102,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metrics.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metrics.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -167,32 +167,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./delineation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./metrics.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./how-to-update.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./7TK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./calibration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RL-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
     </ul>
@@ -205,12 +211,12 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-fbm" id="toc-sec-fbm" class="nav-link active" data-scroll-target="#sec-fbm"><span class="header-section-number">4.1</span> Frequency-based metrics</a></li>
-  <li><a href="#length-based-metrics" id="toc-length-based-metrics" class="nav-link" data-scroll-target="#length-based-metrics"><span class="header-section-number">4.2</span> Length based metrics</a>
+  <li><a href="#sec-fbm" id="toc-sec-fbm" class="nav-link active" data-scroll-target="#sec-fbm"><span class="header-section-number">3.1</span> Frequency-based metrics</a></li>
+  <li><a href="#length-based-metrics" id="toc-length-based-metrics" class="nav-link" data-scroll-target="#length-based-metrics"><span class="header-section-number">3.2</span> Length based metrics</a>
   <ul class="collapse">
-  <li><a href="#area-based-metric" id="toc-area-based-metric" class="nav-link" data-scroll-target="#area-based-metric"><span class="header-section-number">4.2.1</span> Area-based metric</a></li>
+  <li><a href="#area-based-metric" id="toc-area-based-metric" class="nav-link" data-scroll-target="#area-based-metric"><span class="header-section-number">3.2.1</span> Area-based metric</a></li>
   </ul></li>
-  <li><a href="#scalability" id="toc-scalability" class="nav-link" data-scroll-target="#scalability"><span class="header-section-number">4.3</span> Scalability</a></li>
+  <li><a href="#scalability" id="toc-scalability" class="nav-link" data-scroll-target="#scalability"><span class="header-section-number">3.3</span> Scalability</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/metrics.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -219,7 +225,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-metrics" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></h1>
+<h1 class="title"><span id="sec-metrics" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></h1>
 </div>
 
 
@@ -245,28 +251,31 @@ div.csl-indent {
 <li>scalable (optional)</li>
 </ul>
 <p>It can be based on for example on some variation using the the length or frequency of trenches. The area of trenches is less suitable, as trenches are in reality linear elements even though we represent them here as polygons. The polygons could be turned into line elements, for example by finding the central lines using ET Geowizards. However, this is computationally heavy, and we think that the length of the trenches can be reasonably approximated using half the circumference, minus a small penalty. The density of trenches is also less suitable as the individual polygons are somewhat arbitrarily separated.</p>
-<section id="sec-fbm" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="sec-fbm"><span class="header-section-number">4.1</span> Frequency-based metrics</h2>
-<p>The frequency of trenches can be measured in many ways and at many different scales. One way is to use the method described for NiN variable <code>7TK</code> <span class="citation" data-cites="runehalvorsen2019">(<a href="#ref-runehalvorsen2019" role="doc-biblioref">Rune Halvorsen and Harald Bratli 2019</a>)</span>. This approach consists of gridding the entire study region into 10𝖷10 m cells, and then categorizing the cells as having or not having trenches. The frequency of grid cells with trenches determines the variable value. There is a worked example of this in <a href="7TK.html" class="quarto-xref"><span>Chapter 6</span></a>.</p>
-<p>The upper and lower reference values for the variable may be defined using the natural value of 0% and 100%, respectively. However, the rescaling of the variable into an indicator should probably follow some non-linear function, potentially aided by a threshold value representing the value of the variable that defines the separation distinction good and bad ecosystem condition (ref). Expert opinion, possibly aided by real word data or visual aids such as areal photos of areas with different variable value, could be used to set this threshold value.</p>
+<section id="sec-fbm" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-fbm"><span class="header-section-number">3.1</span> Frequency-based metrics</h2>
+<p>The frequency of trenches can be measured in many ways and at many different scales. One way is to use the method described for NiN variable <code>7TK</code> <span class="citation" data-cites="runehalvorsen2019">(<a href="#ref-runehalvorsen2019" role="doc-biblioref">Rune Halvorsen and Harald Bratli 2019</a>)</span>. This approach consists of gridding the entire study region into 10𝖷10 m cells, and then categorizing the cells as having or not having trenches. The frequency of grid cells with trenches determines the variable value. There is a worked example of this in <a href="7TK.html" class="quarto-xref"><span>Chapter 5</span></a>.</p>
+<p>The upper and lower reference values for the variable may be defined using the natural value of 0% and 100%, respectively. However, the rescaling of the variable into an indicator should probably follow some non-linear function, potentially aided by one or more class boundaries, such as a threshold value representing the value of the variable that defines the separation distinction good and bad ecosystem condition <span class="citation" data-cites="jakobsson2020">(<a href="#ref-jakobsson2020" role="doc-biblioref">Jakobsson et al. 2020</a>)</span> . Expert opinion, possibly aided by real word data or visual aids such as areal photos of areas with different variable value, could be used to set this threshold value (as we later did; see <a href="calibration.html" class="quarto-xref"><span>Chapter 6</span></a>).</p>
 <p>A different option for a frequency-based metric include counting the proportion of mire units (e.g.&nbsp;hydrological units) that are affected by trenching. This approach require that we know the population of mire units, or that we have a good, balanced sample of such units, to base our metric on. We do not have this currently. Secondly, the metric, as is it described here, becomes quite sensible to errors in the trenching model, and would probably require setting some (arbitrary) threshold value for the <em>severity</em> of trenching on each mire unit.</p>
 </section>
-<section id="length-based-metrics" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="length-based-metrics"><span class="header-section-number">4.2</span> Length based metrics</h2>
+<section id="length-based-metrics" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="length-based-metrics"><span class="header-section-number">3.2</span> Length based metrics</h2>
 <p>As describes earlier, the length of trenches, and therefore also the accumulated length for any given area, may be approximated by using half the circumference of the trenching polygons (minus some small penalty). This metric is very simple and easily interpretable. The metric is also ecologically relevant, as the length of trenches is probably among the metrices that best explain the impact of trenching on the landscape (in combination with the depth of the trenches, but this is not something we have data on currently).</p>
-<p>The upper reference value must be defined as 0 m of trenches. The lower reference value is not obvious, nor the threshold value. These could be defined using expert opinion, as described for <a href="#sec-fbm" class="quarto-xref"><span>Section 4.1</span></a>.</p>
-<section id="area-based-metric" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="area-based-metric"><span class="header-section-number">4.2.1</span> Area-based metric</h3>
-<p>The area affected by trenching can perhaps be estimated by adding a buffer on the trenching polygons. The area affected by trenching as a proportion of the total mire area is a nice and simple concept for an indicator. The challenge is how to define the buffer. 10 m buffers have been used in the past. However, the size of the effect from a trench decreases non-linearly from the center of the ditch, and the length of the effect zone will depend a lot on the local typography. Ditches at the bottom of sloping mires will be more effective at draining water from the mire than a trench located near the top. Perhaps information about sloe could be included in the calculation of buffer widths?</p>
+<p>The upper reference value must be defined as 0 m of trenches. The lower reference value is not obvious, nor the threshold value. These could be defined using expert opinion, as described for <a href="#sec-fbm" class="quarto-xref"><span>Section 3.1</span></a>.</p>
+<section id="area-based-metric" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="area-based-metric"><span class="header-section-number">3.2.1</span> Area-based metric</h3>
+<p>The area affected by trenching can perhaps be estimated by adding a buffer on the trenching polygons. The area affected by trenching as a proportion of the total mire area is a nice and simple concept for an indicator. The challenge is how to define the buffer. 10 m buffers have been used in the past. However, the size of the effect from a trench decreases non-linearly from the center of the ditch, and the length of the effect zone will depend a lot on the local typography.</p>
 </section>
 </section>
-<section id="scalability" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="scalability"><span class="header-section-number">4.3</span> Scalability</h2>
+<section id="scalability" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="scalability"><span class="header-section-number">3.3</span> Scalability</h2>
 <p>The metric chosen to inform the indicator on trenching should idealy be scalable, meaning it can be calculated or interpreted at different scale. The indicator might be useful for regional assessment of wetland condition, as well as in local or project scale assessment, for example in association with environmental impact assessments for new building projects.</p>
-<p>I believe the three methods describe above all all scalable and could be used at local scales as well as regional scale (which is the main focus here).</p>
+<p>I believe the three methods describe above are all scalable and could be used at local scales as well as regional scale (which is the main focus here).</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-jakobsson2020" class="csl-entry" role="listitem">
+Jakobsson, S., Töpper, J.P., Evju, M., Framstad, E., Lyngstad, A., Pedersen, B., Sickel, H., Sverdrup-Thygeson, A., Vandvik, V., Velle, L.G., Aarrestad, P.A., and Nybø, S. 2020. Setting reference levels and limits for good ecological condition in terrestrial ecosystems <span></span> insights from a case study based on the IBECA approach. Ecological Indicators <strong>116</strong>. doi:<a href="https://doi.org/10.1016/j.ecolind.2020.106492">10.1016/j.ecolind.2020.106492</a>.
+</div>
 <div id="ref-runehalvorsen2019" class="csl-entry" role="listitem">
 Rune Halvorsen, and Harald Bratli. 2019. Dokumentasjon av NiN versjon 2.2 tilrettelagt for praktisk naturkartlegging: Utvalgte variabler fra beskrivelsessystemet. <span></span> natur i norge, artikkel 11 (versjon 2.2.0).
 </div>
@@ -696,13 +705,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./delineation.html" class="pagination-link" aria-label="Delineation">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span>
+      <a href="./study-area.html" class="pagination-link" aria-label="Study area and trenching data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Study area and trenching data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./how-to-update.html" class="pagination-link" aria-label="Options for updating the trenching indicator">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

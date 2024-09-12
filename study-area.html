@@ -81,7 +81,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./delineation.html" rel="next">
+<link href="./metrics.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -187,32 +187,38 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./delineation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./metrics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./how-to-update.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Options for updating the trenching indicator</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./7TK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Frequency-based metric</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./calibration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Setting reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./RL-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Identifying reference levels</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Results</span></span></a>
   </div>
 </li>
     </ul>
@@ -224,6 +230,7 @@ div.csl-indent {
    
   <ul>
 <li><a href="#adding-ar5" id="toc-adding-ar5" class="nav-link active" data-scroll-target="#adding-ar5"><span class="header-section-number">2.1</span> Adding AR5</a></li>
+  <li><a href="#sec-delineation" id="toc-sec-delineation" class="nav-link" data-scroll-target="#sec-delineation"><span class="header-section-number">2.2</span> Ecosystem delineation</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/NINAnor/mire-trenching/edit/main/study-area.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
     </div>
@@ -388,7 +395,7 @@ Figure&nbsp;2.1: “Map of study area in Levanger, central Norway, showing trenc
 <img src="study-area_files/figure-html/fig-map2-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: “Zoomed in version of the previsous map showing systematic trenching, but also more sporadic trenches that might be errors in the model. The red areas are open mires with 10% probability. Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best. Note in any case that most of the trenches are located in other nature types, mosty forests.”
+Figure&nbsp;2.2: “Zoomed in version of the previous map showing systematic trenching, but also more sporadic trenches that might be errors in the model. The red areas are open mires with 10% probability. Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best. Note in any case that most of the trenches are located in other nature types, mosty forests.”
 </figcaption></figure>
 </div>
 </div>
@@ -498,6 +505,13 @@ Figure&nbsp;2.4: “Different combinations of the open mire model and the AR5 mi
 </div>
 </div>
 </div>
+</section><section id="sec-delineation" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="sec-delineation">
+<span class="header-section-number">2.2</span> Ecosystem delineation</h2>
+<p>We presented a study area that is practically square (<a href="#fig-map1" class="quarto-xref">Figure&nbsp;<span>2.1</span></a>). However, for the purpose of an ecosystem condition account or assessment, this area needs to be partitioned into unique and non-overlapping ecosystems, and our indicator needs to address the ecosystem condition the target ecosystem explicitly. The ecosystem that this indicator is aimed at is wetlands, or <em>våtmark</em> in Norwegian.</p>
+<p>We might therefore need to mask our spatial data at some stage in order to exclude trenches identified in other ecosystems. However, this is problematic for several reasons.</p>
+<p>We do not have a very precise ecosystem delineation map for wetlands, and it is not yet clear if the ecosystem should be defined as all types of wetlands, or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use (<a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a>). But by excluding everything that is not open mire, we automatically exclude wetlands, or previous wetlands, that have become forested due to the lowered water table that comes from trenching. In other words, we exclude the areas that are in the worst condition. From <a href="#fig-map2" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> we can see that this is a very common scenario. Alternatively, we can use things like AR5, or a combination of the two (<a href="#fig-mireExtents" class="quarto-xref">Figure&nbsp;<span>2.4</span></a>).</p>
+<p>When it comes to updating the indicator in the future (see <a href="how-to-update.html" class="quarto-xref"><span>Chapter 4</span></a>), we will be in the case that more and more trenched wetland becomes classified as other nature types, mainly forests, because that is what happens when you trench a mire. As a consequence, the indicator values will look better and better over time, reflection the land use change and the associated loss of the areas in worst condition. This is a well known issue in ecosystem accounting (ref Jacobson).</p>
+<p>We recommend for this indicator to delineate the nature type as open mires in the open mire model <span class="citation" data-cites="bakkestuen2023">(<a href="#ref-bakkestuen2023" role="doc-biblioref">Bakkestuen et al. 2023</a>)</span>, in combination with mires in AR5 (<a href="#fig-mireExtents" class="quarto-xref">Figure&nbsp;<span>2.4</span></a>; last pane).</p>
 </section><section id="references" class="level1 unnumbered"><h1 class="unnumbered">References</h1>
 
 
@@ -937,8 +951,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./delineation.html" class="pagination-link" aria-label="Delineation">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Delineation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./metrics.html" class="pagination-link" aria-label="Possible metrics">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Possible metrics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
