@@ -1,4 +1,4 @@
-# Delineation {#sec-delineation}
+# Ecosystem delineation {#sec-delineation}
 
 ## The importance of the ecosystem accounting area
 We presented a study area that is practically square (@fig-map1). 
@@ -15,9 +15,9 @@ However, this is problematic for several reasons.
 First, we do not have an official ecosystem delineation map,
 and it is not yet clear if the ecosystem should be defined as all types of wetlands,
 or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use (@fig-map2). 
-Alternatively, we can use things like AR5, or a combination of the two.
+Alternatively, we can use things like AR5, or a combination of the two (@fig-mireExtents).
 
-Secondly, by excluding everything that is no (open) mire,
+Secondly, by excluding everything that is not open mire,
 we automatically exclude wetlands, or previous wetlands, that 
 have become forested due to the lowered water table that comes from trenching.
 In other words, we exclude the areas that are in the worst condition.
@@ -27,15 +27,15 @@ Thirdly, when it comes to updating the indicator in the future (see @sec-update)
 we will be in the case that more and more trenched wetland becomes classified as other
 nature types, mainly forests, because that is what happends when you trench a mire. 
 As a consequence, the indicator values will look better and better over time,
-reflection the land use change and the associated loss of the areas in worst condition. 
-
-This is a well known issue in ecosystem accounting (ref Jacobson).
+reflection the land use change and the associated loss of the areas in worst condition. This is a well known issue in ecosystem accounting (ref Jacobson).
 
 
 We may chose to 
 
 1. strictly follow the UN standard for ecosystem accounting
-and only focus on the open mires (and/or AR5 mires).
+and only focus on the open mires and/or AR5 mires.
+
+1. same as above, but using the open mire model in combination with AR5 mires
 
 1. mask the data against both mires and forests
 
@@ -45,8 +45,9 @@ The third option is perhaps not ideal due to significant model errors, for examp
 that the trenches map includes road ditches, agricultural drainage ditches, and 
 ditches in mountains or other areas that have never been wetlands.
 
-The first option is the one that best fit the accounting standards.
-The suggested way to overcome the _false message_ that wetlands may develop better
+The first two options are the ones that best fit the accounting standards.
+
+Option 1 is The suggested way to overcome the _false message_ that wetlands may develop better
 ecosystem condition just because the worst areas become classified as forests, 
 is to always look at the condition assessment in light of, and at the same time as, 
 an ecosystem extent account. 
@@ -55,6 +56,7 @@ in the extent account and not the condition account.
 
 It can be very tempting to go for option 2, but as you can see, the consequent 
 double-counting of the same process then becomes unavoidable. 
+
 We will therefore go for option 1 here, using the open mire delineation map as
 our ecosystem assets.
 However, in the future, if the target ecosystem becomes defined as to include 

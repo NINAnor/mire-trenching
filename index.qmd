@@ -7,17 +7,17 @@ editor:
 
 # Background and aims {#sec-background}
 
-In order to describe the ecological condition of wetland, an inclusion
-of hydrology is essential. Still, there are no operational ecosystem
-condition indicators that adequately describe the hydrological status of
-wetlands in Norway.\
-In Norway, trenching in order to lower the water table of mires has been
-widely conducted for centuries, and systematically conducted for about
-150 years, most commonly in order to facilitate the cultivation of crops
-or trees. Today, the creation of new trenches is not allowed, yet the
-scars of old and also more recently made or maintained trenches are
-evident in the landscape. Many of the trenched ares have changed from
-open wetlands into forest or agriculture.
+In order to describe the ecological condition of wetland, a careful
+consideratin of mire hydrology is essential. Still, there are no
+operational ecosystem condition indicators that adequately describe the
+hydrological status of wetlands in Norway. In Norway, trenching in order
+to lower the water table of mires has been widely conducted for
+centuries, and systematically conducted for about 150 years, most
+commonly in order to facilitate the cultivation of crops or trees.
+Today, the creation of new trenches is not allowed, yet the scars of old
+and also more recently made or maintained trenches are evident in the
+landscape. Many of the trenched areas have changed from open wetlands
+into forest or agriculture.
 
 There are no official maps of mire trenches in Norway. In order to make
 such a map, Vegar Bakkestuen and colleagues did a pilot study to see if

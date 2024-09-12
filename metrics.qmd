@@ -39,11 +39,13 @@ this in @sec-7TK.
 The upper and lower reference values for the variable may be defined
 using the natural value of 0% and 100%, respectively. However, the
 rescaling of the variable into an indicator should probably follow some
-non-linear function, potentially aided by a threshold value representing
-the value of the variable that defines the separation distinction good
-and bad ecosystem condition (ref). Expert opinion, possibly aided by
-real word data or visual aids such as areal photos of areas with
-different variable value, could be used to set this threshold value.
+non-linear function, potentially aided by one or more class boundaries,
+such as a threshold value representing the value of the variable that
+defines the separation distinction good and bad ecosystem condition
+[@jakobsson2020] . Expert opinion, possibly aided by real word data or
+visual aids such as areal photos of areas with different variable value,
+could be used to set this threshold value (as we later did; see
+@sec-ref).
 
 A different option for a frequency-based metric include counting the
 proportion of mire units (e.g. hydrological units) that are affected by
@@ -77,10 +79,7 @@ proportion of the total mire area is a nice and simple concept for an
 indicator. The challenge is how to define the buffer. 10 m buffers have
 been used in the past. However, the size of the effect from a trench
 decreases non-linearly from the center of the ditch, and the length of
-the effect zone will depend a lot on the local typography. Ditches at
-the bottom of sloping mires will be more effective at draining water
-from the mire than a trench located near the top. Perhaps information
-about sloe could be included in the calculation of buffer widths?
+the effect zone will depend a lot on the local typography.
 
 ## Scalability
 
@@ -91,6 +90,6 @@ condition, as well as in local or project scale assessment, for example
 in association with environmental impact assessments for new building
 projects.
 
-I believe the three methods describe above all all scalable and could be
+I believe the three methods describe above are all scalable and could be
 used at local scales as well as regional scale (which is the main focus
 here).
