@@ -171,7 +171,7 @@ mire10_crop <- mire10 |>
 #| cache: true
 #| warning: false
 #| fig-cap: |
-#|   "Zoomed in version of the previsous map showing systematic trenching,
+#|   "Zoomed in version of the previous map showing systematic trenching,
 #|   but also more sporadic trenches that might be errors in the model.
 #|   The red areas are open mires with 10% probability.
 #|   Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best.
@@ -363,6 +363,37 @@ save(
 )
 
 ```
+
+## Ecosystem delineation {#sec-delineation}
+
+We presented a study area that is practically square (@fig-map1). 
+However, for the purpose of an ecosystem condition account or assessment, 
+this area needs to be partitioned into unique and non-overlapping ecosystems,
+and our indicator needs to address the ecosystem condition the target ecosystem explicitly.
+The ecosystem that this indicator is aimed at is wetlands, or _våtmark_ in Norwegian.
+
+
+We might therefore need to mask our spatial data at some stage in order to exclude 
+trenches identified in other ecosystems. 
+However, this is problematic for several reasons.
+
+We do not have a very precise ecosystem delineation map for wetlands,
+and it is not yet clear if the ecosystem should be defined as all types of wetlands,
+or just open wetlands. In the case of the latter, we have a quite good ecosystem map that we can use (@fig-map2). But by excluding everything that is not open mire,
+we automatically exclude wetlands, or previous wetlands, that 
+have become forested due to the lowered water table that comes from trenching.
+In other words, we exclude the areas that are in the worst condition.
+From @fig-map2 we can see that this is a very common scenario.
+Alternatively, we can use things like AR5, or a combination of the two (@fig-mireExtents).
+
+
+When it comes to updating the indicator in the future (see @sec-update),
+we will be in the case that more and more trenched wetland becomes classified as other
+nature types, mainly forests, because that is what happens when you trench a mire. 
+As a consequence, the indicator values will look better and better over time,
+reflection the land use change and the associated loss of the areas in worst condition. This is a well known issue in ecosystem accounting (ref Jacobson).
+
+We recommend for this indicator to delineate the nature type as open mires in the open mire model [@bakkestuen2023], in combination with mires in AR5 (@fig-mireExtents; last pane). 
 
 
 

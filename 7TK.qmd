@@ -45,7 +45,7 @@ Then I intersect the trenches data with the grid.
 
 trench_in_cell <- st_intersection(lev_crop, grid100)
 #trench_in_cell <- st_join(lev_crop, grid100, join=st_within)
-
+#saveRDS(trench_in_cell, "data/trench_in_cell.RDS")
 trench_in_cell |>
   ggplot()+
   geom_sf(data = grid100)+
@@ -151,7 +151,7 @@ grid100_freq |>
   geom_sf(data = trench_in_cell)
 ```
 
-@fig-trenched shows the trenching variable in its raw units (%) over the entire study area. The next step is then to exclude areas that are not part of the target ecosystem, i.e. not part of the accounting area. This can be done on the 100x100 grid level, put probably more correct to do it at the 10x10m grid level.
+@fig-trenched shows the trenching variable in its raw units (%) over the entire study area. The next step is then to exclude areas that are not part of the target ecosystem, i.e. not part of the accounting area. This can be done on the 100x100 grid level, put probably more correct to do it at the 10x10m grid level. To start I mask againt open mires only. Later I add AR5 mires.
 
 ```{r fig-trenched_mask}
 #| code-fold: true
@@ -218,11 +218,12 @@ The three cells visible in @fig-trenched_mask with the darkest red color
 all seem to be relatively densely trenched.
 Probably we need to adjust the threshold value so that at least these three all 
 get quite low indicator values.
-I will set 10% as the threshold value and 50% as the low reference point.
+I will for now set 10% as the threshold value (X~60~) and 50% as the low reference point (X~0~). These values are updated later (see @sec-ref and @sec-ref2).
 I will fit the data using a sigmoid function to soften arbitrary break points.
 
 ```{r fig-normalise}
 #| code-fold: true
+#| warning: false
 #| code-summary: "Show code"
 #| fig-cap: |
 #|   "Normalisation of the variable 'Porportion of small grid cells with 
@@ -519,9 +520,8 @@ rather binary situation in @fig-indicatorAll where half the area is dark red
 and the other half is green.
 
 I think it makes most sense to combine AR5 and
-the open mire model for this indicator. But all indicators used in the
-same assessment must use the same ecosystem delineation. And if this 
-AR5+open mire combination is not agreeable, then using AR5, alternatively the
-new Ecosystem Map of Norway [@strand2023], would be preferable to using just the 
+the open mire model for this indicator. All indicators used in the
+same assessment must use the same overall ecosystem delineation, but it is still possible that one indicator related only to a smaller part of that delineation. 
+If using the AR5+open mire combination is not agreeable, then using AR5, alternatively the new Ecosystem Map of Norway [@strand2023], would be preferable to using just the 
 open mire model.
  

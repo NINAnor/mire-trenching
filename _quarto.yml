@@ -15,11 +15,12 @@ book:
   chapters:
     - index.qmd
     - study-area.qmd
-    - delineation.qmd
     - metrics.qmd
     - how-to-update.qmd
     - 7TK.qmd
     - calibration.qmd
+    - RL-regression.qmd
+    - Results.qmd
 
 format:
   html: 

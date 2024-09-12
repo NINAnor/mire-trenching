@@ -1,0 +1,126 @@
+# Results
+
+Based on what is describes in the preceding chapters, we have arrived at a
+concept for an indicator on the severity of trenching in Norwegian wetlands.
+We base the indicator on the theoretical content of the NiN variable `7GR-GI` for trenching 
+and the approach used in the `7TK` variable, using the proportion of 10x10m grid cells
+inside 100x100m grid cells that have non-zero trenching as the metric. The 
+reference levels (RL) are decided through expert elicitation, and we have 6 RLs,
+including 4 class boundaries and two end points. We use a piece-wise linear scaling
+to convert the variable into an indicator.
+
+The indicator will be updated using spatial data showing the amount of trenched 
+restored (@sec-update), as well as updates to the ecosystem delineation maps. As the ecosystem delineation we recoment using AR5 in combination with the open wetland map (see @sec-area).
+
+```{r setup}
+#| include: false
+#| warning: false
+
+library(ggridges)
+library(tidyverse)
+library(sf)
+```
+
+
+```{r scalingFunction}
+#| code-fold: true
+#| code-summary: "Normalisation function"
+
+myNorm <- function(x, x0, x20, x40, x60, x80, x100) {
+  y <- case_when(
+    x >x100 ~ 1,
+    x >x80 ~ (x-x80)/(x100-x80)*(1 - 0.8)   + 0.8,
+    x >x60 ~ (x-x60)/(x80-x60) *(0.8 - 0.6) + 0.6,
+    x >x40 ~ (x-x40)/(x60-x40) *(0.6 - 0.4) +0.4,
+    x >x20 ~ (x-x20)/(x40-x20) *(0.4 - 0.2) +0.2,
+    x >x0  ~ (x-x0) /(x20-x0) *0.2,
+    x <=x0  ~ 0
+  )
+  y <- y * (-1) + 1  
+  return(y)
+}
+
+# Testing
+#var <- seq(0, 1000, by = 5)
+#ind <- myNorm(var, 100, 200, 250, 600, 700, 800)
+#tibble(var, ind) |>
+#  ggplot()+
+#  geom_point(aes(var, ind))+
+#  scale_y_continuous(breaks = seq(0,1, by = .1))
+
+```
+
+```{r fig-normaliseFinal}
+#| code-fold: true
+#| code-summary: "Make plot"
+#| fig-cap: "Normalisation of the variable using piece-wise linear transformation."
+
+dat <- readRDS("data/grid100_freq4.rds")
+
+dat <- dat |>
+  mutate(indicator2 = myNorm(dat$freq, 0, 7, 16, 31, 52, 100))
+
+
+ridge <- ggridges::geom_density_ridges_gradient(scale = 3, 
+      size = 0.3)
+myColour <- "black"
+mySize <- 8
+myAlpha <- 0.7
+myShape <- 21
+low <- "red"
+high <- "green"
+
+dat|>
+   ggplot(aes(x = freq, y = indicator2, 
+      fill = indicator2)) + geom_point(colour = myColour, 
+      size = mySize, alpha = myAlpha, shape = myShape) + 
+      ylab("Indicator values") + xlab("Variable values") + 
+      scale_fill_gradient("Indicator values", low = low, 
+        high = high) + scale_x_continuous(expand = expansion(mult = 0.2)) + 
+      scale_y_continuous(expand = expansion(mult = 0.2)) + 
+      guides(fill = "none")
+
+
+```
+
+```{r fig-makeMapFinal}
+#| code-fold: true
+#| code-summary: "Make map"
+#| fig-cap: "Indicator values representing the severity of trenching in wetlands"
+
+trench_in_cell <- readRDS("data/trench_in_cell.RDS")
+low <- "red"
+high <- "green"
+dat |>
+  ggplot() +
+  geom_sf(aes(fill = indicator2))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = low, 
+    high = high)
+```
+
+
+```{r indicatorValue_final}
+#| code-fold: true
+#| code-summary: "Calculate indicator value"
+
+dat <- dat |>
+  mutate(area = st_area(sf..st_make_grid.lev_crop..cellsize...100.))
+
+ind_values <- NULL
+for(i in 1:1000){
+  ind_values[i] <- 
+    mean(sample(dat$indicator, 
+       nrow(dat),
+       replace = TRUE,
+       prob = dat$area))
+}
+
+med <- round(quantile(ind_values, c(0.025, 0.5, 0.975)),2)
+
+```
+
+The indicator value for the area in @fig-makeMapFinal is `r med[2]` [95% CI: `r med[1]` - `r med[3]`].

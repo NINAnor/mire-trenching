@@ -25,31 +25,37 @@ that has happened. This approach is not ideal, and the ecosystem
 condition should preferably be describes as a snap shot of the condition
 as it is today. However, we see know other solution to this issue.
 
-X~0~ is the variable value (i.e. the frequency of 10x10 grid cells with
+**X~0~** is the variable value (i.e. the frequency of 10x10 grid cells with
 trenching inside each 100x100 cell) that corresponds to a completely
 destroyed ecosystem. A further deterioration of the variable value
 should now result in any further deterioration of ecosystem condition.
 We have defined this as a 7GR-GI value of 5, meaning that the ecosystem
 is set on a succession towards a non-wetland type, usually forest.
 
-X~100~ is the RL at the reference condition (RC; *pristine condition* in
+**X~100~** is the RL at the reference condition (RC; *pristine condition* in
 our case). This RL is quite intuitive and is set to zero (7GR-GI = 1).
 Note that the trenches data has been filtered to remove very small
 polygons that are more likely to be artefacts than real trenches.
 
-X~60~ represents the variable value at the boundary between good and
+**X~60~** represents the variable value at the boundary between good and
 deteriorated ecosystem condition. We have decided to anchor this RL
 theoretically to the point where trenching is so severe that the species
 composition in the mire ecosystem has changes so much as to correspond
 to a one-step change along one of the dominant environmental gradient
-(LKMs; @halvorsen2019). This equates to 7GR-GI = 3.
+(LKMs; @halvorsen2019). This equates to 7GR-GI = 3. 
+
+In practice we map 7GR-GI = 1 to a value between 0.8 and 1 on the indicator scale,
+7GR-GI = 2 to values between 0.6 and 0.4,
+7GR-GI = 3 to values between 0.4 and 0.6,
+7GR-GI = 4 to values between 0.2 and 0.4, and
+7GR-GI = 5 to values between 0.0 and 0.2,
 
 7GR-GI is meant to be describes for whole hydrological units, but here
 we instead use it for individual grid cells. This means that a grid cell
 can be described as having no trenching, and this a favorable indicator
 value, even though the mire as a whole is severely affected by trenching
 arising from neighboring grid cells. This implies that our indicator
-could en dup to be to conservative. However, we think the size of our
+could end up to be to conservative. However, we think the size of our
 grid cells (100x100m) is a relevant scale for describing trenching
 effects, that are known to often extend tens of meters from a large
 trench, but rarely hundreds of meters.
@@ -60,14 +66,17 @@ data, such as nature type mapping data where mire polygons are assign
 include mapping of more common mire types, and although our study areas
 is mapped using this protocol, no mire polygons have been delineated.
 
+## Structured expert elicitation
 Rather than using empirical data, we decided to use a kind of structured
-expert eliciation based on a common consensus. Our expert panel
-consisted of five ecologist with extensive and relevant field
+expert elicitation. Our expert panel
+consisted of four ecologist with extensive and relevant field
 experience. First we agreed on the theoretical definition of the RLs (se
 above). Then we looked at a set of 100x100m grid cells with varying
-densities of trenches (\@fig-calplots) and together we discussed and
-reached a consensus about which variable values to map to the different
-RLs.
+densities of trenches (\@fig-calplots). We then scored these cases individually,
+but following a common discussion, giving each case a precise indicator value.
+Our interpretation of the indicator scale was aided by both the five condition classes in the water framework directive (high, good, moderate, low, and poor), as well as
+the five steps on the 7GR-GI metric. This approach mean that we had the same understanding of the indicator scale and the general idea behind the exercise, but
+it also meant that our answers were influenced by the opinions of the other experts.
 
 ```{r setup}
 #| include: false
@@ -262,7 +271,7 @@ for(i in 1:nrow(cells)){
 We scored indicator values for the pictures above, and found that a lot
 of change was happening in the range between 6 and 17%. We therefore made
 these extra figures below to get some more data points for this range of 
-trenching frequencies.
+trenching frequencies. Since we now had a good internal harmonized understanding of the task, we decided to score these cases indivudually, not knowing the answers or reasoning from the other experts.
 
 ```{r getGridCells2}
 #| code-fold: true
