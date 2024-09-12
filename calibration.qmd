@@ -5,7 +5,7 @@ editor:
 bibliography: references.bib
 ---
 
-# Setting reference levels {#sec-ref}
+# Structured Expert Elicitation {#sec-ref}
 
 Up to this point I used reference levels (RL) drawn from my own personal
 and subjective intuition. There might be more objective ways to do this,
