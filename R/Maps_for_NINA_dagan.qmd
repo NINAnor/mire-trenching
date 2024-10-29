@@ -1,0 +1,126 @@
+---
+title: "Untitled"
+editor: visual
+---
+
+```{r loadData}
+#| include: false
+library(sf)
+library(tidyverse)
+library(units)
+library(stars)
+library(eaTools)
+library(ggridges)
+library(ggmap)
+grid100_freq4 <- readRDS("../data/grid100_freq4.rds")
+load("../data/study-area-files.RData")
+satImg <- readRDS("../data/satImg.rds")
+mire <- st_as_sf(mire10_crop, merge = T)
+#combine ar5 and open myr
+peatlands <- ar5_nonOpen |>
+  st_join(mire) |>
+  st_intersection()
+```
+
+## Map 1 - aerial photo
+
+```{r getImage}
+#| eval: false
+#| code-fold: true
+#| code-summary: "Set up Google API, download and save satelite images"
+
+
+# I used this to save the API key to my syst env
+# ggmap::register_google(key = "", write = TRUE)
+ggmap::has_google_key()
+# example of getting sat image for the entire area
+# get center coordinate
+e <- st_as_sfc(st_bbox(grid100_freq4)) |>
+  st_transform(4326) |>
+  st_centroid() |>
+  st_coordinates() |>
+  as.numeric()
+names(e) <- c("lon", "lat")
+  
+satImg <- ggmap:: get_googlemap(
+  center = e, 
+  zoom = 14,
+  maptype = "satellite"
+  )
+#ggmap(satImg)
+#saveRDS(satImg, "data/satImg.rds")
+
+```
+
+
+```{r plot}
+
+ggmap(ggmap = satImg[[1]])+
+  coord_sf(crs = st_crs(3857))+
+  geom_sf(data = dat, 
+          inherit.aes = F,
+          fill = NA,
+          color = "yellow",
+          size=2) +
+  geom_sf(data = lev_crop,
+          inherit.aes = F,
+          fill = "orange",
+          color = "orange")
+```
+
+```{r}
+myGgmap <- function(x, zoom = 18){
+  ggmap:: get_googlemap(
+  center = c(lon = x$lon, lat = x$lat), 
+  zoom = zoom,
+  maptype = "satellite"
+  )
+}
+
+
+# Hackish function to fix bbox in the ggmap object
+# https://stackoverflow.com/questions/47749078/how-to-put-a-geom-sf-produced-map-on-top-of-a-ggmap-produced-raster
+ggmap_bbox <- function(map) {
+  if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
+  # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector, 
+  # and set the names to what sf::st_bbox expects:
+  map_bbox <- setNames(unlist(attr(map, "bb")), 
+                       c("ymin", "xmin", "ymax", "xmax"))
+
+  # Coonvert the bbox to an sf polygon, transform it to 3857, 
+  # and convert back to a bbox (convoluted, but it works)
+  bbox_3857 <- st_bbox(st_transform(st_as_sfc(st_bbox(map_bbox, crs = 4326)), 3857))
+
+  # Overwrite the bbox of the ggmap object with the transformed coordinates 
+  attr(map, "bb")$ll.lat <- bbox_3857["ymin"]
+  attr(map, "bb")$ll.lon <- bbox_3857["xmin"]
+  attr(map, "bb")$ur.lat <- bbox_3857["ymax"]
+  attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
+  map
+}
+```
+
+
+```{r fig-map2}
+#| code-fold: true
+#| code-summary: "Create map"
+#| cache: true
+#| warning: false
+#| fig-cap: |
+#|   "Zoomed in version of the previous map showing systematic trenching,
+#|   but also more sporadic trenches that might be errors in the model.
+#|   The red areas are open mires with 10% probability.
+#|   Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best.
+#|   Note in any case that most of the trenches are located in 
+#|   other nature types, mosty forests."
+
+
+ggplot() + 
+  geom_sf(data = lev_crop,
+          fill = "purple",
+          color = "purple") +
+  geom_sf(data = peatlands,
+          fill = "orange")
+  theme_bw()
+
+```
