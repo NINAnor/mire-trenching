@@ -14,7 +14,7 @@ library(ggridges)
 library(ggmap)
 grid100_freq4 <- readRDS("../data/grid100_freq4.rds")
 load("../data/study-area-files.RData")
-satImg <- readRDS("../data/satImg.rds")
+#satImg <- readRDS("../data/satImg.rds")
 mire <- st_as_sf(mire10_crop, merge = T)
 #combine ar5 and open myr
 peatlands <- ar5_nonOpen |>
@@ -24,17 +24,17 @@ peatlands <- ar5_nonOpen |>
 
 ## Map 1 - aerial photo
 
-```{r getImage}
-#| eval: false
-#| code-fold: true
-#| code-summary: "Set up Google API, download and save satelite images"
+Get an aerial photo from google, with the correct extent
 
-
+```{r}
 # I used this to save the API key to my syst env
 # ggmap::register_google(key = "", write = TRUE)
-ggmap::has_google_key()
+
 # example of getting sat image for the entire area
 # get center coordinate
+ggplot()+
+  geom_sf(data = grid100_freq4)
+
 e <- st_as_sfc(st_bbox(grid100_freq4)) |>
   st_transform(4326) |>
   st_centroid() |>
@@ -47,39 +47,11 @@ satImg <- ggmap:: get_googlemap(
   zoom = 14,
   maptype = "satellite"
   )
-#ggmap(satImg)
-#saveRDS(satImg, "data/satImg.rds")
 
-```
+ggmap(satImg)
+# quadratic for some reason
 
-
-```{r plot}
-
-ggmap(ggmap = satImg[[1]])+
-  coord_sf(crs = st_crs(3857))+
-  geom_sf(data = dat, 
-          inherit.aes = F,
-          fill = NA,
-          color = "yellow",
-          size=2) +
-  geom_sf(data = lev_crop,
-          inherit.aes = F,
-          fill = "orange",
-          color = "orange")
-```
-
-```{r}
-myGgmap <- function(x, zoom = 18){
-  ggmap:: get_googlemap(
-  center = c(lon = x$lon, lat = x$lat), 
-  zoom = zoom,
-  maptype = "satellite"
-  )
-}
-
-
-# Hackish function to fix bbox in the ggmap object
-# https://stackoverflow.com/questions/47749078/how-to-put-a-geom-sf-produced-map-on-top-of-a-ggmap-produced-raster
+# fix bbox
 ggmap_bbox <- function(map) {
   if (!inherits(map, "ggmap")) stop("map must be a ggmap object")
   # Extract the bounding box (in lat/lon) from the ggmap to a numeric vector, 
@@ -98,29 +70,190 @@ ggmap_bbox <- function(map) {
   attr(map, "bb")$ur.lon <- bbox_3857["xmax"]
   map
 }
+
+satImg2 <- ggmap_bbox(satImg)
+
+
+ggmap(satImg2)+
+  coord_sf(crs = st_crs(3857)) 
+#ggsave("maps/one.tiff")
 ```
 
+```{r}
 
-```{r fig-map2}
-#| code-fold: true
-#| code-summary: "Create map"
-#| cache: true
-#| warning: false
-#| fig-cap: |
-#|   "Zoomed in version of the previous map showing systematic trenching,
-#|   but also more sporadic trenches that might be errors in the model.
-#|   The red areas are open mires with 10% probability.
-#|   Yellow areas are mires with 90% probability. From areal photos, the 10% probability seem to match best.
-#|   Note in any case that most of the trenches are located in 
-#|   other nature types, mosty forests."
+# adding trenches
+lev_crop2 <- st_transform(lev_crop, 3857)
+ggmap(satImg2)+
+  coord_sf(crs = st_crs(3857)) +
+  geom_sf(data = lev_crop2,
+          inherit.aes = F,
+          color = "yellow")
+#ggsave("maps/two.tiff")
+
+```
+
+```{r}
+
+# adding peatland
+peat <- st_transform(peatlands, 3857)
+
+ggmap(satImg2)+
+  coord_sf(crs = st_crs(3857)) +
+  geom_sf(data = lev_crop2,
+          inherit.aes = F,
+          color = "yellow")+
+  geom_sf(data = peat,
+          inherit.aes = F,
+          alpha = .5)
+#ggsave("maps/tree.tiff")
 
 
-ggplot() + 
-  geom_sf(data = lev_crop,
-          fill = "purple",
-          color = "purple") +
-  geom_sf(data = peatlands,
-          fill = "orange")
-  theme_bw()
+```
+
+```{r}
+
+# adding grid
+
+ggmap(satImg2)+
+  coord_sf(crs = st_crs(3857)) +
+  geom_sf(data = lev_crop2,
+          inherit.aes = F,
+          color = "yellow")+
+  geom_sf(data = peat,
+          inherit.aes = F,
+          alpha = .5)+
+  geom_sf(data = grid100_freq4,
+          inherit.aes = F,
+          alpha = .5)
+#ggsave("maps/four.tiff")
+
+
+```
+
+```{r}
+
+# normalise
+myNorm <- function(x, x0, x20, x40, x60, x80, x100) {
+  y <- case_when(
+    x >x100 ~ 1,
+    x >x80 ~ (x-x80)/(x100-x80)*(1 - 0.8)   + 0.8,
+    x >x60 ~ (x-x60)/(x80-x60) *(0.8 - 0.6) + 0.6,
+    x >x40 ~ (x-x40)/(x60-x40) *(0.6 - 0.4) +0.4,
+    x >x20 ~ (x-x20)/(x40-x20) *(0.4 - 0.2) +0.2,
+    x >x0  ~ (x-x0) /(x20-x0) *0.2,
+    x <=x0  ~ 0
+  )
+  y <- y * (-1) + 1  
+  return(y)
+}
+
+dat <- grid100_freq4 |>
+  mutate(indicator2 = myNorm(grid100_freq4$freq, 0, 7, 16, 31, 52, 100))
+
+# aes
+ridge <- ggridges::geom_density_ridges_gradient(scale = 3, 
+      size = 0.3)
+myColour <- "black"
+mySize <- 8
+myAlpha <- 0.7
+myShape <- 21
+low <- "red"
+high <- "green"
+
+trench_in_cell <- readRDS("../data/trench_in_cell.RDS")
+dat |>
+  ggplot() +
+  geom_sf(aes(fill = indicator2))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = low, 
+    high = high)
+
+# add indicator values
+ggmap(satImg2)+
+  coord_sf(crs = st_crs(3857)) +
+  geom_sf(data = lev_crop2,
+          inherit.aes = F,
+          color = "yellow")+
+  geom_sf(data = peat,
+          inherit.aes = F,
+          alpha = .5)+
+  geom_sf(data = grid100_freq4,
+          inherit.aes = F,
+          alpha = .5)+
+  geom_sf(data = dat,
+          inherit.aes = F,
+          aes(fill = indicator2))+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = low, 
+    high = high)+
+  guides(fill = "none")
+  
+#ggsave("maps/five.tiff")
+
+```
+Map for NINA repport
+
+```{r}
+
+# normalise
+myNorm <- function(x, x0, x20, x40, x60, x80, x100) {
+  y <- case_when(
+    x >x100 ~ 1,
+    x >x80 ~ (x-x80)/(x100-x80)*(1 - 0.8)   + 0.8,
+    x >x60 ~ (x-x60)/(x80-x60) *(0.8 - 0.6) + 0.6,
+    x >x40 ~ (x-x40)/(x60-x40) *(0.6 - 0.4) +0.4,
+    x >x20 ~ (x-x20)/(x40-x20) *(0.4 - 0.2) +0.2,
+    x >x0  ~ (x-x0) /(x20-x0) *0.2,
+    x <=x0  ~ 0
+  )
+  y <- y * (-1) + 1  
+  return(y)
+}
+
+dat <- grid100_freq4 |>
+  mutate(indicator2 = myNorm(grid100_freq4$freq, 0, 7, 16, 31, 52, 100))
+
+# aes
+ridge <- ggridges::geom_density_ridges_gradient(scale = 3, 
+      size = 0.3)
+myColour <- "black"
+mySize <- 8
+myAlpha <- 0.7
+myShape <- 21
+low <- "red"
+high <- "green"
+
+trench_in_cell <- readRDS("../data/trench_in_cell.RDS")
+dat |>
+  ggplot() +
+  geom_sf(aes(fill = indicator2))+
+  theme_bw() +
+  geom_sf(data = trench_in_cell)+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = low, 
+    high = high)
+
+# add indicator values
+ggmap(satImg2)+
+  geom_sf(data = dat,
+          inherit.aes = F,
+          alpha = .8,
+          aes(fill = indicator2))+
+  scale_fill_gradient(
+    "Indicator value", 
+    low = low, 
+    high = high)+
+  geom_sf(data = lev_crop2,
+          inherit.aes = F,
+          color = "grey20")+
+  coord_sf(crs = st_crs(3857)) +
+  guides(fill = "none")
+  
+#ggsave("maps/frontpage.tiff")
 
 ```
