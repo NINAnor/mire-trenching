@@ -19,6 +19,8 @@ jobs:
       # Step 1: Check out the repository, obtain a copy of the repository on the runner
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       # Step 2: Set up Quarto with LaTeX for PDF builds
       - name: Set up Quarto
